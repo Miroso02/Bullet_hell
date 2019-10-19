@@ -1,36 +1,48 @@
 class Cannon {
-  private Bullet[] bullets;
-  private float x, y;
-  private int numberOfCurrentBullet, hp;
-  private int delta, toDelta;
-  private int nInTime, nOfRandom,rand;
-  private boolean dead, advanced;
   public boolean isUnderFire;
+  
+  public float x;
+  public float y;
+  
+  private Bullet[] bullets;
+  private int numberOfCurrentBullet;
+  private int hp;
+  private int delta;
+  private int toDelta;
+  private int nInTime;
+  private int nOfRandom;
+  private int rand;
+  private boolean dead;
+  private boolean advanced;
   private FireAlgoritm fireAlgoritm;
   
-  Cannon(int nOfAr, float xx, float yy, int td, int nit, int rando, int hpp, boolean adv, Moving m) {
+  Cannon(int nOfAr, float x, float y,
+         int toDelta, int nInTime, int rand,
+         int hp, boolean advanced, 
+         FireAlgoritm fireAlgoritm) {
     bullets = new Bullet[nOfAr];
     dead = false;
-    hp = hpp;
-    x = xx;
-    y = yy;
-    rand = rando;
-    toDelta = td;
+    this.hp = hp;
+    this.x = x;
+    this.y = y;
+    this.rand = rand;
+    this.toDelta = toDelta;
     delta = 0;
-    advanced = adv;
-    nInTime = nit;
-    for(int a = 0; a < bullets.length; a++) {
-      bullets[a] = new Bullet(xx, yy, 10, m);
+    this.advanced = advanced;
+    this.nInTime = nInTime;
+    this.fireAlgoritm = fireAlgoritm;
+    
+    for (int i = 0; i < nOfAr; i++) {
+      bullets[i] = new Bullet(x, y, 10);
     }
   }
   
   public void dos() {
-    death();
+    //death();
     fire();
-    for (int i = 0; i < bullets.length; i++) {
-      Bullet ar = bullets[i];
-      ar.doAll();
-       if(ar.isOnScreen()) ar.death();
+    for (Bullet bullet: bullets) {
+      bullet.doAll();
+      if(bullet.isOnScreen()) bullet.death();
     }
     display();
   }
@@ -46,13 +58,13 @@ class Cannon {
       nOfRandom++;
       if(nOfRandom >= rand) nOfRandom = 0;
       for(int a=0; a < nInTime; a++) {
-        Bullet ar = bullets[numberOfCurrentBullet];
-        Bullet arLast = null;
+        Bullet thisBullet = bullets[numberOfCurrentBullet];
+        Bullet prevBullet = null;
         if(advanced && numberOfCurrentBullet > nInTime - 1) {
-          arLast = bullets[numberOfCurrentBullet - nInTime];
+          prevBullet = bullets[numberOfCurrentBullet - nInTime];
         }
-        ar.fire(numberOfCurrentBullet, x, y, arLast);
-        ar.changeColor(numberOfCurrentBullet, bullets.length);
+        fireAlgoritm.customFire(numberOfCurrentBullet, thisBullet, prevBullet);
+        thisBullet.changeColor(numberOfCurrentBullet, bullets.length);
         numberOfCurrentBullet = (numberOfCurrentBullet < bullets.length - 1) ? ++numberOfCurrentBullet : 0;
         delta = 0;
       }

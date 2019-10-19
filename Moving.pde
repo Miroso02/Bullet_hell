@@ -3,7 +3,13 @@ interface Moving {
 }
 interface ForLaser {
   public float[] fire(float koef, float xL, float yL,float from, float to, float start);
+  public int a();
 }
 abstract class FireAlgoritm {
-  abstract public void customFire(int numberOfCurrentBullet, Bullet[] currentBullet, float...other);
+  abstract public void customFire(
+  int numberOfCurrentBullet,
+  Bullet thisBullet, 
+  Bullet prevBullet, 
+  float...other
+  );
 }

@@ -1,17 +1,23 @@
 class Bullet {
-  private float x, y, speed, x0, y0;
-  private float a;
-  private float bulletSpeedX = 0, bulletSpeedY = 0;
-  private int rn = 0;
-  private int w, opp;
-  private color col;
-  private Moving m;
-  Bullet(float xx, float yy, int ww, Moving mm) {
+  float x;
+  float y;
+  int w;
+  
+  float speed;
+  float speedX = 0;
+  float speedY = 0;
+  float acceleration = 0;
+  
+  int numberOfRicoshets = 0;
+  int opp;
+  color col;
+  
+  Bullet(float xx, float yy, int ww) {
     x = xx;
     y = yy;
     w = ww;
-    m = mm;
     col = color(255);
+    speed = 4;
     //opp = 255;
   }
   
@@ -19,21 +25,16 @@ class Bullet {
     noStroke();
     fill(col, opp);
     ellipse(x, y, w, w);
-    
-   // stroke(col, opp);
-   // strokeWeight(6);
-   // fill(255, opp);
-   // ellipse(x, y, w, w);
   }
   
   private void move() {
-    x+= speed * bulletSpeedX;
-    y+= speed * bulletSpeedY;
-    bulletSpeedY += a;
-    if(rn > 0) rikoshet(true, false);// rikoshet(x, y)
+    x += speed * speedX;
+    y += speed * speedY;
+    speedY += acceleration;
+    if(numberOfRicoshets > 0) rikoshet(true, false);// rikoshet(x, y)
   } 
-  public void fire(int numberOfCurrentBullet, float xx, float yy, Bullet arLast) {
-    rn = 0;
+  /*public void fire(int numberOfCurrentBullet, float xx, float yy, Bullet arLast) {
+    numberOfRicoshets = 0;
     float[] uselessData = null;
     if(arLast != null) uselessData = arLast.getData();
     float[] res = m.fire(numberOfCurrentBullet, xx, yy, uselessData);
@@ -42,15 +43,15 @@ class Bullet {
     y = res[1];
     y0 = y;
     speed = res[4];
-    bulletSpeedX = res[2];
-    bulletSpeedY = res[3];
+    speedX = res[2];
+    speedY = res[3];
     try {
-      rn = int(res[5]);
+      numberOfRicoshets = int(res[5]);
       w = int(res[6]);
-      a = res[7];
+      acceleration = res[7];
     } catch(Exception e) {}
     opp = 255;
-  }
+  }*/
   
   public void death() {
     if(sqrt(sq(player.x - x) + sq(player.y - y)) < (w + player.w) / 2) {
@@ -67,7 +68,7 @@ class Bullet {
     }*/
   }
   
-  private void changeColor(float numberOfCurrentBullet, float length) {
+  public void changeColor(float numberOfCurrentBullet, float length) {
     float k = length / 562;
     float colK;
     colorMode(HSB);
@@ -78,15 +79,15 @@ class Bullet {
   
   private void rikoshet(boolean rx, boolean ry) {
       if(rx) {
-        if(x + bulletSpeedX > width || x - bulletSpeedX < 0) {
-          bulletSpeedX=- bulletSpeedX;
-          rn--;
+        if(x + speedX > width || x - speedX < 0) {
+          speedX=- speedX;
+          numberOfRicoshets--;
         }
       }
       if(ry) {
-        if(y + bulletSpeedY > height || y - bulletSpeedY < 0) {
-          bulletSpeedY = -bulletSpeedY;
-          rn--;
+        if(y + speedY > height || y - speedY < 0) {
+          speedY = -speedY;
+          numberOfRicoshets--;
         }
       }
   }
@@ -105,8 +106,8 @@ class Bullet {
          && y - w < height);
   }
   
-  public float[] getData() {
-    float[] res = {x0, y0, bulletSpeedX, bulletSpeedY, x, y};
+  /*public float[] getData() {
+    float[] res = {x0, y0, speedX, speedY, x, y};
     return res;
-  }
+  }*/
 }
