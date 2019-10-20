@@ -1,5 +1,5 @@
 /*
-s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
+s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float...other)
     {
       float x, y, bulletSpeedX, bulletSpeedY=0;
@@ -18,7 +18,7 @@ s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
     }
   }
   );
-  s[4]=new Cannon(500, width/2+300, height/2, 40, 20, 3, 300,false, new Moving() {
+  s[4]=new Cannon(500, width/2+300, height/2, 40, 20, 3, 300, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float... other)
     {
       float x, y, bulletSpeedX, bulletSpeedY;
@@ -33,7 +33,7 @@ s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
     }
   }
   );
-  s[5]=new Cannon(500, width/2, 40, 5, 1, 0, 300,false, new Moving() {
+  s[5]=new Cannon(500, width/2, 40, 5, 1, 0, 300, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float... other)
     {
       float x, y, bulletSpeedX, bulletSpeedY;

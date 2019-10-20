@@ -36,7 +36,7 @@ class Laser
     if(b>0){k=yt;t=y;}else{k=y;t=yt;}
     if(3+player.size>=abs(b*player.x-a*player.y-xt*y+yt*x)/sqrt(sq(b)+sq(a)) &&
        player.x>m && player.x<n && player.y>k && player.y<t)
-      death=true;
+      player.isDead = true;
       display();
     
     if(koef>627)

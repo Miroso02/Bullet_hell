@@ -4,48 +4,54 @@ class Cannon {
   
   float x;
   float y;
-  int hp;
+  int health;
   
-  int delta;
-  int toDelta;
+  private int shotDelayCounter;
+  int shotDelay;
   
-  int nInTime;
-  int nOfRandom;
-  int rand;
+  int bulletShotsAtOnce;
   
-  boolean dead;
-  boolean advanced;
+  private int teleportCounter;
+  int teleportDelay;
+  
+  boolean isDead;
   boolean isUnderFire;
   
   FireAlgoritm fireAlgoritm;
   
-  public Cannon(int bulletsCount, float x, float y, int toDelta, int nInTime, int rand, int hp, boolean advanced, Moving m) {
+  public Cannon(int bulletsCount, float x, float y, int shotDelay, int bulletShotsAtOnce, int teleportDelay, int health, Moving m) {
     bullets = new Bullet[bulletsCount];
-    dead = false;
-    this.hp = hp;
+    
     this.x = x;
     this.y = y;
-    this.rand = rand;
-    this.toDelta = toDelta;
-    delta = 0;
-    this.advanced = advanced;
-    this.nInTime = nInTime;
-    for(int i = 0; i < bullets.length; i++) {
+    
+    this.health = health;
+    this.bulletShotsAtOnce = bulletShotsAtOnce;
+    
+    this.shotDelay = shotDelay;
+    this.teleportDelay = teleportDelay;
+    
+    shotDelayCounter = 0;
+    teleportCounter = 0;
+    isDead = false;
+    
+    for (int i = 0; i < bullets.length; i++) {
       bullets[i] = new Bullet(x, y, 10, m);
     }
   }
   
+  //---------------------------------------------
+  
   public void doAll() {
-    death();
-    fire();
+    if (!isDead) {
+      takeDamage();
+      fire();
+      display();
+    }
     controlBullets();
-    display();
   }
   
-  private void xyRandom() {
-    x = random(width);
-    y = random(400);
-  }
+  //---------------------------------------------
   
   private void controlBullets() {
     for (Bullet bullet: bullets) {
@@ -54,54 +60,57 @@ class Cannon {
     }
   }
   
-  private void fire() {
-    if(toDelta + 1 <= delta && !dead) {
-      if(nOfRandom == 0 && rand != 0) xyRandom();
-      nOfRandom++;
-      if(nOfRandom >= rand) nOfRandom = 0;
-      for(int a=0; a < nInTime; a++) {
-        Bullet ar = bullets[numOfCurBullet];
-        Bullet arLast = null;
-        if(advanced && numOfCurBullet > nInTime - 1) {
-          arLast = bullets[numOfCurBullet - nInTime];
-        }
-        ar.fire(numOfCurBullet, x, y, arLast);
-        ar.changeColor(numOfCurBullet, bullets.length);
+  void fire() {
+    if (shotDelayCounter > shotDelay) {
+      if (teleportDelay != 0) teleport();
+      
+      for (int i = 0; i < bulletShotsAtOnce; i++) {
+        Bullet bullet = bullets[numOfCurBullet];
+        bullet.fire(numOfCurBullet, x, y, null);
+        bullet.changeColor(numOfCurBullet, bullets.length);
+        
         numOfCurBullet = (numOfCurBullet < bullets.length - 1) ? ++numOfCurBullet : 0;
-        delta = 0;
+        shotDelayCounter = 0;
       }
     }
-    delta++;
+    shotDelayCounter++;
   }
   
-  public void display() {
-    if(!dead) {
-      noFill();
-      strokeWeight(1);
-      stroke(200, 0, 255);
-      rect(x, y, 40, 40);
-      fill(200, 0, 255);
-      textSize(20);
-      textAlign(CENTER);
-      text(hp, x, y);
-    }
+  void display() {
+    noFill();
+    strokeWeight(1);
+    stroke(200, 0, 255);
+    rect(x, y, 40, 40);
+    
+    fill(200, 0, 255);
+    textSize(20);
+    textAlign(CENTER);
+    text(health, x, y);
   }
   
-  private void death()
+  void takeDamage()
   {
-    Bullet[] ar = player.bullets;
-    for(int i = 0; i < ar.length; i++) {
-      Bullet bullet = ar[i];
+    for (Bullet bullet: player.bullets) {
       if (hit(bullet)) {
-        hp--;
-        player.bullets[i].x = 2000;
+        health--;
+        bullet.x = 2000;
         isUnderFire = true;
       }
     }
-    if(hp <= 0) {
-      dead = true;
-      x = 2000;
+    
+    if (health <= 0) {
+      isDead = true;
     }
+  }
+  
+  //---------------------------------------------
+  
+  private void teleport() {
+    if (teleportCounter % teleportDelay == 0) {
+      x = random(width);
+      y = random(400);
+    } 
+    teleportCounter++;
   }
   
   private boolean hit(Bullet bullet) {

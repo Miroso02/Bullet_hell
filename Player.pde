@@ -2,6 +2,9 @@ class Player {
   float x;
   float y;
   int size;
+  
+  boolean isDead;
+  
   int numOfCurBullet;
   Bullet[] bullets = new Bullet[150];
   
@@ -9,6 +12,8 @@ class Player {
     this.x = x;
     this.y = y;
     this.size = size;
+    
+    isDead = false;
     
     for(int a = 0; a < bullets.length; a++) {
       bullets[a] = new Bullet(x, y, 6, 

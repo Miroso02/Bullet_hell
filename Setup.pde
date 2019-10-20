@@ -11,7 +11,7 @@ void setup() {
   //                6: HP пушки,
   //                7: случайное перемещение: после скольких выстрелов перемещение; 0,если нет; 
   //                8: функция движения каждой пули(номер текущей пули, координаты точки из пунктов 2-3):
-  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ������������������������������������������������������������������������олжен определить в этом методе
+  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ������������������������������������������������������������������������������олжен определить в этом методе
   //  2) x=... ; y=... ; – координаты точки запуска пули 
   //  P.S. Используй xL, yL и numOfCurBullet
   //  3) bulletSpeedX=... ; bulletSpeedY=... ; – скорость по x/y пули(скорость не меняется!!)
@@ -20,12 +20,12 @@ void setup() {
   //  1-4: x,y,bulletSpeedX, bulletSpeedY – см. выше
   //  5: Множитель скорости пули (не знаешь – ставь 4)
   //  Необязательные аргументы:
-  //  6: Количество рикошетов п��ли
+  //  6: Количес��во рикошетов п��ли
   //  7: Д��ам��тр (ра��ме��) с��ре��ы (��е знаешь - ст��вь 10)
   //  8: Ус��ор��ни�� ↓ пули
   //************************************************************
   //
-  s[0]=new Cannon(1000, width/2, height/2-200, 80, 100, 0, 100,true, new Moving() {
+  s[0]=new Cannon(1000, width/2, height/2-200, 80, 100, 0, 100, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float...other)
     {
       float x=2000, y=0, bulletSpeedX=0, bulletSpeedY=0;
@@ -42,7 +42,7 @@ void setup() {
     }
   }
   );
-  s[1]=new Cannon(1000, width/2, height/2-200, 80, 100, 0, 100,true, new Moving() {
+  s[1]=new Cannon(1000, width/2, height/2-200, 80, 100, 0, 100, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float...other)
     {
       float x=2000, y=0, bulletSpeedX=0, bulletSpeedY=0;
@@ -57,7 +57,7 @@ void setup() {
     }
   }
   );
-  s[2]=new Cannon(600, width/2, 100, 3, 4, 0, 100,true, new Moving() {
+  s[2]=new Cannon(600, width/2, 100, 3, 4, 0, 100, new Moving() {
     public float[] fire(int numOfCurBullet, float xL, float yL, float...other)
     {
       float x=2000, y = 2000, bulletSpeedX, bulletSpeedY;
@@ -80,11 +80,6 @@ void setup() {
   }
   );
   
-  
-  time=0;
-  death=false;
-  restartButton=new Button(width/2-150, height/2+50, 400, 100);
-  player.x=width/2;
-  player.y=height-300;
-  //  smooth();
+  restartButton = new Button(width / 2 - 150, height / 2 + 50, 400, 100);
+  player = new Player(width / 2, height - 100, 8);
 }
