@@ -8,7 +8,6 @@ class Cannon {
   
   private int shotDelayCounter;
   int shotDelay;
-  
   int bulletShotsAtOnce;
   
   private int teleportCounter;
@@ -16,11 +15,20 @@ class Cannon {
   
   boolean isDead;
   boolean isUnderFire;
+  boolean isKillingPlayer;
   
-  FireAlgoritm fireAlgoritm;
+  FirePattern firePattern;
   
-  public Cannon(int bulletsCount, float x, float y, int shotDelay, int bulletShotsAtOnce, int teleportDelay, int health, Moving m) {
+  public Cannon(float x, float y, int health,
+                int bulletsCount, int shotDelay,
+                int bulletShotsAtOnce, 
+                int teleportDelay, 
+                boolean isKillingPlayer,
+                FirePattern firePattern) {
     bullets = new Bullet[bulletsCount];
+    this.firePattern = firePattern;
+    
+    this.isKillingPlayer = isKillingPlayer;
     
     this.x = x;
     this.y = y;
@@ -36,7 +44,7 @@ class Cannon {
     isDead = false;
     
     for (int i = 0; i < bullets.length; i++) {
-      bullets[i] = new Bullet(x, y, 10, m);
+      bullets[i] = new Bullet(x, y);
     }
   }
   
@@ -55,8 +63,7 @@ class Cannon {
   
   private void controlBullets() {
     for (Bullet bullet: bullets) {
-      boolean IS_KILLING_PLAYER = true;
-      bullet.doAll(IS_KILLING_PLAYER);
+      bullet.doAll(isKillingPlayer);
     }
   }
   
@@ -66,7 +73,7 @@ class Cannon {
       
       for (int i = 0; i < bulletShotsAtOnce; i++) {
         Bullet bullet = bullets[numOfCurBullet];
-        bullet.fire(numOfCurBullet, x, y, null);
+        firePattern.fire(bullet, numOfCurBullet, x, y);
         bullet.changeColor(numOfCurBullet, bullets.length);
         
         numOfCurBullet = (numOfCurBullet < bullets.length - 1) ? ++numOfCurBullet : 0;
@@ -90,7 +97,7 @@ class Cannon {
   
   void takeDamage()
   {
-    for (Bullet bullet: player.bullets) {
+    for (Bullet bullet: player.playerGun.bullets) {
       if (hit(bullet)) {
         health--;
         bullet.x = 2000;
@@ -118,5 +125,12 @@ class Cannon {
          && bullet.x + bullet.w > x - 20 
          && bullet.x - bullet.w < x + 20 
          && bullet.y + bullet.w > y - 20 + 2);
+  }
+  
+  //---------------------------------------------
+  
+  void translate(float x, float y) {
+    this.x = x;
+    this.y = y;
   }
 }

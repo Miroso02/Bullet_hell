@@ -8,17 +8,21 @@ class Bullet {
   color col;
   
   float accelerationY;
-  float bulletSpeedX = 0;
-  float bulletSpeedY = 0;
+  float speedX = 0;
+  float speedY = 0;
   int numOfRicochets = 0;
-  Moving m;
   
-  public Bullet(float x, float y, int w, Moving m) {
+  public Bullet(float x, float y) {
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.m = m;
+    w = 10;
+    
     col = color(255);
+    opp = 0;
+    
+    speed = 4;
+    accelerationY = 0;
+    numOfRicochets = 0;
   }
   
   //-------------------------------------------
@@ -40,9 +44,9 @@ class Bullet {
   }
   
   void move() {
-    x += speed * bulletSpeedX;
-    y += speed * bulletSpeedY;
-    bulletSpeedY += accelerationY;
+    x += speed * speedX;
+    y += speed * speedY;
+    speedY += accelerationY;
     if (numOfRicochets > 0) ricochet(true, false); // ricochet(x, y)
   } 
   
@@ -53,24 +57,6 @@ class Bullet {
   }
   
   //-------------------------------------------
-  
-  public void fire(int numOfCurBullet, float xx, float yy, Bullet arLast) {
-    numOfRicochets = 0;
-    float[] res = m.fire(numOfCurBullet, xx, yy);
-    x = res[0];
-    y = res[1];
-    speed = res[4];
-    bulletSpeedX = res[2];
-    bulletSpeedY = res[3];
-    try {
-      numOfRicochets = int(res[5]);
-      w = int(res[6]);
-      accelerationY = res[7];
-    } catch(Exception e) {}
-    opp = 255;
-  }
-  
-  //---------------------------------------
   
   private boolean touchingPlayer() {
     float distToPlayerX = player.x - x;
@@ -89,18 +75,19 @@ class Bullet {
     colK = (numOfCurBullet < length / 2) ? (numOfCurBullet / k) : (numOfCurBullet - length / 2) / k;
     col = color(colK, 255, 255);
     colorMode(RGB);
+    opp = 255;
   }
   
   private void ricochet(boolean rx, boolean ry) {
     if (rx) {
-      if (x + bulletSpeedX > width || x - bulletSpeedX < 0) {
-        bulletSpeedX = -bulletSpeedX;
+      if (x + speedX > width || x - speedX < 0) {
+        speedX = -speedX;
         numOfRicochets--;
       }
     }
     if (ry) {
-      if (y + bulletSpeedY > height || y - bulletSpeedY < 0) {
-        bulletSpeedY = -bulletSpeedY;
+      if (y + speedY > height || y - speedY < 0) {
+        speedY = -speedY;
         numOfRicochets--;
       }
     }

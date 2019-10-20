@@ -66,14 +66,14 @@ class Laser
   
   void death()
   {
-    Bullet[] ar=player.bullets;
+    Bullet[] ar=player.playerGun.bullets;
     for(int i=0;i<ar.length;i++)
     {
       Bullet ar0=ar[i];
       if(ar0.y-ar0.w<y+20-2 && ar0.x+ar0.w>x-20 && ar0.x-ar0.w<x+20 && ar0.y+ar0.w>y-20+2)
       {
         hp--;
-        player.bullets[i].x=2000;
+        player.playerGun.bullets[i].x=2000;
         isUnderFire=true;
       }
     }

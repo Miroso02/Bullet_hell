@@ -5,8 +5,7 @@ class Player {
   
   boolean isDead;
   
-  int numOfCurBullet;
-  Bullet[] bullets = new Bullet[150];
+  Cannon playerGun;
   
   public Player(float x, float y, int size) {
     this.x = x;
@@ -15,31 +14,18 @@ class Player {
     
     isDead = false;
     
-    for(int a = 0; a < bullets.length; a++) {
-      bullets[a] = new Bullet(x, y, 6, 
-      new Moving() {
-        public float[] fire(int a, float xL, float yL, float... other) {
-          float bulletSpeedX = 0;
-          float bulletSpeedY = 0;
-          int shootDirection = numOfCurBullet % 3;
-          switch(shootDirection) {
-            case 0: 
-              bulletSpeedX = 0;
-            break;
-            case 1:
-              bulletSpeedX = 2;
-            break;
-            case 2:
-              bulletSpeedX = -2;
-            break;
-          }
-          bulletSpeedY = -30;
-          
-          float[] res = {xL, yL, bulletSpeedX, bulletSpeedY, 1};
-          return res;
-        }
-      } );
-    }
+    playerGun = new Cannon(x, y, 1, 150, 2, 3, 0, false, new FirePattern() {
+      public void fire(Bullet bullet, int bulletNum, float playerX, float playerY) {
+        float bulletSpeedX = (bulletNum % 3 - 1) * 2;
+        
+        bullet.x = playerX;
+        bullet.y = playerY;
+        bullet.speedX = bulletSpeedX;
+        bullet.speedY = -30;
+        bullet.speed = 1;
+        bullet.w = 8;
+      }
+    });
   }
   
   //------------------------------------------
@@ -63,16 +49,9 @@ class Player {
   }
   
   void shoot() {
-    for(int a = 0; a < 2; a++) {
-      bullets[numOfCurBullet].fire(numOfCurBullet, x, y, null);
-      numOfCurBullet++;
-      if(numOfCurBullet >= 149) numOfCurBullet = 0;
-    }
-    
-    for(int a = 0; a < bullets.length; a++) {
-      boolean IS_KILLING_PLAYER = false;
-      bullets[a].doAll(IS_KILLING_PLAYER);
-    }
+    playerGun.fire();
+    playerGun.controlBullets();
+    playerGun.translate(x, y);
   }
   
   void display() {
