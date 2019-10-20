@@ -7,7 +7,7 @@ class Button
   int h;
   boolean press;
   
-  Button(float xx, float yy, int ww, int hh)
+  public Button(float xx, float yy, int ww, int hh)
   {
     x = xx;
     y = yy;

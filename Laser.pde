@@ -17,7 +17,7 @@ class Laser
     method = fl;
   }
   
-  void dos()
+  void doAll()
   {
     float[] data=method.fire(koef,x,y,from, to, start);
     x=data[0];
@@ -34,7 +34,7 @@ class Laser
     float m,n,k,t;
     if(a>0){m=xt;n=x;}else{m=x;n=xt;}
     if(b>0){k=yt;t=y;}else{k=y;t=yt;}
-    if(3+player.w>=abs(b*player.x-a*player.y-xt*y+yt*x)/sqrt(sq(b)+sq(a)) &&
+    if(3+player.size>=abs(b*player.x-a*player.y-xt*y+yt*x)/sqrt(sq(b)+sq(a)) &&
        player.x>m && player.x<n && player.y>k && player.y<t)
       death=true;
       display();

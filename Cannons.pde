@@ -1,14 +1,14 @@
 /*
 s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
-    public float[] fire(int numberOfCurrentBullet, float xL, float yL, float...other)
+    public float[] fire(int numOfCurBullet, float xL, float yL, float...other)
     {
       float x, y, bulletSpeedX, bulletSpeedY=0;
       x=xL;
       y=yL;
-      if(numberOfCurrentBullet%30<15 && numberOfCurrentBullet%30>10 || numberOfCurrentBullet%30<5 && numberOfCurrentBullet%30>0)
+      if(numOfCurBullet%30<15 && numOfCurBullet%30>10 || numOfCurBullet%30<5 && numOfCurBullet%30>0)
       {
-        bulletSpeedY=sin(PI*2/30*numberOfCurrentBullet);
-        bulletSpeedX=cos(PI*2/30*numberOfCurrentBullet);
+        bulletSpeedY=sin(PI*2/30*numOfCurBullet);
+        bulletSpeedX=cos(PI*2/30*numOfCurBullet);
       }
       else bulletSpeedX=1000;
       float[] res= {
@@ -19,13 +19,13 @@ s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
   }
   );
   s[4]=new Cannon(500, width/2+300, height/2, 40, 20, 3, 300,false, new Moving() {
-    public float[] fire(int numberOfCurrentBullet, float xL, float yL, float... other)
+    public float[] fire(int numOfCurBullet, float xL, float yL, float... other)
     {
       float x, y, bulletSpeedX, bulletSpeedY;
       x=xL;
       y=yL;
-      bulletSpeedY=sin(PI*2/20*numberOfCurrentBullet);
-      bulletSpeedX=cos(PI*2/20*numberOfCurrentBullet);
+      bulletSpeedY=sin(PI*2/20*numOfCurBullet);
+      bulletSpeedX=cos(PI*2/20*numOfCurBullet);
       float[] res= {
         x, y, bulletSpeedX, bulletSpeedY, 8, 1, 15
       };
@@ -34,13 +34,13 @@ s[3]=new Cannon(500, width/2, 300, 30, 30, 0, 300,false, new Moving() {
   }
   );
   s[5]=new Cannon(500, width/2, 40, 5, 1, 0, 300,false, new Moving() {
-    public float[] fire(int numberOfCurrentBullet, float xL, float yL, float... other)
+    public float[] fire(int numOfCurBullet, float xL, float yL, float... other)
     {
       float x, y, bulletSpeedX, bulletSpeedY;
       x=xL;
       y=yL;
-      bulletSpeedY=sin(-0.4*numberOfCurrentBullet);
-      bulletSpeedX=cos(0.4*numberOfCurrentBullet);
+      bulletSpeedY=sin(-0.4*numOfCurBullet);
+      bulletSpeedX=cos(0.4*numOfCurBullet);
       float[] res= {
         x, y, bulletSpeedX, bulletSpeedY, 3, 1
       };

@@ -1,37 +1,44 @@
 class Cannon {
-  private Bullet[] bullets;
-  private float x, y;
-  private int numberOfCurrentBullet, hp;
-  private int delta, toDelta;
-  private int nInTime, nOfRandom,rand;
-  private boolean dead, advanced;
-  public boolean isUnderFire;
-  private FireAlgoritm fireAlgoritm;
+  Bullet[] bullets;
+  int numOfCurBullet;
   
-  Cannon(int nOfAr, float xx, float yy, int td, int nit, int rando, int hpp, boolean adv, Moving m) {
-    bullets = new Bullet[nOfAr];
+  float x;
+  float y;
+  int hp;
+  
+  int delta;
+  int toDelta;
+  
+  int nInTime;
+  int nOfRandom;
+  int rand;
+  
+  boolean dead;
+  boolean advanced;
+  boolean isUnderFire;
+  
+  FireAlgoritm fireAlgoritm;
+  
+  public Cannon(int bulletsCount, float x, float y, int toDelta, int nInTime, int rand, int hp, boolean advanced, Moving m) {
+    bullets = new Bullet[bulletsCount];
     dead = false;
-    hp = hpp;
-    x = xx;
-    y = yy;
-    rand = rando;
-    toDelta = td;
+    this.hp = hp;
+    this.x = x;
+    this.y = y;
+    this.rand = rand;
+    this.toDelta = toDelta;
     delta = 0;
-    advanced = adv;
-    nInTime = nit;
-    for(int a = 0; a < bullets.length; a++) {
-      bullets[a] = new Bullet(xx, yy, 10, m);
+    this.advanced = advanced;
+    this.nInTime = nInTime;
+    for(int i = 0; i < bullets.length; i++) {
+      bullets[i] = new Bullet(x, y, 10, m);
     }
   }
   
-  public void dos() {
+  public void doAll() {
     death();
     fire();
-    for (int i = 0; i < bullets.length; i++) {
-      Bullet ar = bullets[i];
-      ar.doAll();
-       if(ar.isOnScreen()) ar.death();
-    }
+    controlBullets();
     display();
   }
   
@@ -40,20 +47,27 @@ class Cannon {
     y = random(400);
   }
   
+  private void controlBullets() {
+    for (Bullet bullet: bullets) {
+      boolean IS_KILLING_PLAYER = true;
+      bullet.doAll(IS_KILLING_PLAYER);
+    }
+  }
+  
   private void fire() {
     if(toDelta + 1 <= delta && !dead) {
       if(nOfRandom == 0 && rand != 0) xyRandom();
       nOfRandom++;
       if(nOfRandom >= rand) nOfRandom = 0;
       for(int a=0; a < nInTime; a++) {
-        Bullet ar = bullets[numberOfCurrentBullet];
+        Bullet ar = bullets[numOfCurBullet];
         Bullet arLast = null;
-        if(advanced && numberOfCurrentBullet > nInTime - 1) {
-          arLast = bullets[numberOfCurrentBullet - nInTime];
+        if(advanced && numOfCurBullet > nInTime - 1) {
+          arLast = bullets[numOfCurBullet - nInTime];
         }
-        ar.fire(numberOfCurrentBullet, x, y, arLast);
-        ar.changeColor(numberOfCurrentBullet, bullets.length);
-        numberOfCurrentBullet = (numberOfCurrentBullet < bullets.length - 1) ? ++numberOfCurrentBullet : 0;
+        ar.fire(numOfCurBullet, x, y, arLast);
+        ar.changeColor(numOfCurBullet, bullets.length);
+        numOfCurBullet = (numOfCurBullet < bullets.length - 1) ? ++numOfCurBullet : 0;
         delta = 0;
       }
     }
@@ -76,13 +90,9 @@ class Cannon {
   private void death()
   {
     Bullet[] ar = player.bullets;
-   // isUnderFire=false;
     for(int i = 0; i < ar.length; i++) {
-      Bullet ar0 = ar[i];
-      if(ar0.y - ar0.w < y + 20 - 2 
-      && ar0.x + ar0.w > x - 20 
-      && ar0.x - ar0.w < x + 20 
-      && ar0.y + ar0.w > y - 20 + 2) {
+      Bullet bullet = ar[i];
+      if (hit(bullet)) {
         hp--;
         player.bullets[i].x = 2000;
         isUnderFire = true;
@@ -92,5 +102,12 @@ class Cannon {
       dead = true;
       x = 2000;
     }
+  }
+  
+  private boolean hit(Bullet bullet) {
+    return (bullet.y - bullet.w < y + 20 - 2 
+         && bullet.x + bullet.w > x - 20 
+         && bullet.x - bullet.w < x + 20 
+         && bullet.y + bullet.w > y - 20 + 2);
   }
 }

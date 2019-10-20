@@ -1,19 +1,22 @@
 class Player {
-  float x, y;
-  int w;
-  int numberOfCurrentBullet;
+  float x;
+  float y;
+  int size;
+  int numOfCurBullet;
   Bullet[] bullets = new Bullet[150];
-  public Player(float xx, float yy, int ww) {
-    x = xx;
-    y = yy;
-    w = ww;
+  
+  public Player(float x, float y, int size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    
     for(int a = 0; a < bullets.length; a++) {
       bullets[a] = new Bullet(x, y, 6, 
       new Moving() {
         public float[] fire(int a, float xL, float yL, float... other) {
           float bulletSpeedX = 0;
           float bulletSpeedY = 0;
-          int shootDirection = numberOfCurrentBullet % 3;
+          int shootDirection = numOfCurBullet % 3;
           switch(shootDirection) {
             case 0: 
               bulletSpeedX = 0;
@@ -33,32 +36,57 @@ class Player {
       } );
     }
   }
-  private void display() {
+  
+  //------------------------------------------
+  
+  public void doAll() {
+    move();
+    shoot();
+    display();
+  }
+  
+  //------------------------------------------
+  
+  void move() {
+    if (!isOnTheScreen()) stayOnTheScreen();
+  
+    if (mousePressed) {
+      float sensitivity = 1;
+      x += sensitivity * (mouseX - pmouseX);
+      y += sensitivity * (mouseY - pmouseY);
+    }
+  }
+  
+  void shoot() {
+    for(int a = 0; a < 2; a++) {
+      bullets[numOfCurBullet].fire(numOfCurBullet, x, y, null);
+      numOfCurBullet++;
+      if(numOfCurBullet >= 149) numOfCurBullet = 0;
+    }
+    
+    for(int a = 0; a < bullets.length; a++) {
+      boolean IS_KILLING_PLAYER = false;
+      bullets[a].doAll(IS_KILLING_PLAYER);
+    }
+  }
+  
+  void display() {
     noStroke();
     fill(255);
-    ellipse(x, y, w, w);
+    ellipse(x, y, size, size);
   }
-  public void move() {
-    for(int a = 0; a < 2; a++) {
-      bullets[numberOfCurrentBullet].fire(numberOfCurrentBullet, x, y, null);
-      numberOfCurrentBullet++;
-      if(numberOfCurrentBullet >= 149) numberOfCurrentBullet = 0;
-    }
-    if(mousePressed) {
-      if(x > 0 && x < width && y > 0 && y < height) {
-        float k = 1;
-        x += k * (mouseX - pmouseX);
-        y += k * (mouseY - pmouseY);
-      } else {
-        if(x <= 0) x = 1;
-        else if(x >= width) x = width - 1;
-        if( y <= 0)y = 1;
-        else if(y >= height) y = height - 1;
-      }
-    }
-    for(int a = 0; a < bullets.length; a++) {
-      bullets[a].doAll();
-    }
-    display();
+  
+  //--------------------------------------------
+  
+  private void stayOnTheScreen() {
+    if (x <= 0) x = 1;
+    else if (x >= width) x = width - 1;
+    if (y <= 0) y = 1;
+    else if (y >= height) y = height - 1;
+  }
+  
+  private boolean isOnTheScreen() {
+    return (x > 0 && x < width &&
+            y > 0 && y < height);
   }
 }
