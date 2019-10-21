@@ -4,7 +4,6 @@ class Bullet {
   
   float speed;
   int w;
-  int opp;
   color col;
   
   float accelerationY;
@@ -12,13 +11,12 @@ class Bullet {
   float speedY = 0;
   int numOfRicochets = 0;
   
-  public Bullet(float x, float y) {
-    this.x = x;
-    this.y = y;
+  public Bullet() {
+    x = 2000;
+    y = 0;
     w = 10;
     
     col = color(255);
-    opp = 0;
     
     speed = 4;
     accelerationY = 0;
@@ -39,7 +37,7 @@ class Bullet {
   
   void display() {
     noStroke();
-    fill(col, opp);
+    fill(col);
     ellipse(x, y, w, w);
   }
   
@@ -66,16 +64,6 @@ class Bullet {
     float sumOfRadiuses = (w + player.size) / 2;
     
     return (distToPlayerSq < sq(sumOfRadiuses));
-  }
-  
-  void changeColor(float numOfCurBullet, float length) {
-    float k = length / 562;
-    float colK;
-    colorMode(HSB);
-    colK = (numOfCurBullet < length / 2) ? (numOfCurBullet / k) : (numOfCurBullet - length / 2) / k;
-    col = color(colK, 255, 255);
-    colorMode(RGB);
-    opp = 255;
   }
   
   private void ricochet(boolean rx, boolean ry) {

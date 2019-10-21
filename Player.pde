@@ -15,15 +15,20 @@ class Player {
     isDead = false;
     
     playerGun = new Cannon(x, y, 1, 150, 2, 3, 0, false, new FirePattern() {
-      public void fire(Bullet bullet, int bulletNum, float playerX, float playerY) {
+      public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
         float bulletSpeedX = (bulletNum % 3 - 1) * 2;
         
-        bullet.x = playerX;
-        bullet.y = playerY;
+        bullet.x = player.x;
+        bullet.y = player.y;
         bullet.speedX = bulletSpeedX;
         bullet.speedY = -30;
         bullet.speed = 1;
         bullet.w = 8;
+      }
+      
+      public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
+        color col = color(255);
+        super.staticBulletColor(bullet, col);
       }
     });
   }
@@ -51,7 +56,6 @@ class Player {
   void shoot() {
     playerGun.fire();
     playerGun.controlBullets();
-    playerGun.translate(x, y);
   }
   
   void display() {

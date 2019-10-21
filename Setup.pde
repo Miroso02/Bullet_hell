@@ -11,7 +11,7 @@ void setup() {
   //                6: HP пушки,
   //                7: случайное перемещение: после скольких выстрелов перемещение; 0,если нет; 
   //                8: функция движения каждой пули(номер текущей пули, координаты точки из пунктов 2-3):
-  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ��олжен определить в этом методе
+  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ��������������������олжен определить в этом методе
   //  2) x=... ; y=... ; – координаты точки запуска пули 
   //  P.S. Используй xL, yL и bulletNum
   //  3) bulletSpeedX=... ; bulletSpeedY=... ; – скорость по x/y пули(скорость не меняется!!)
@@ -45,6 +45,11 @@ void setup() {
       bullet.speed = 14;
       bullet.numOfRicochets = 1;
     }
+    
+    public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
+      color col = color(255, 0, 0);
+      super.staticBulletColor(bullet, col);
+    }
   }
   );
   s[1]=new Cannon(width/2, height/2-200, 100, 1000, 80, 100, 0, true, new FirePattern() {
@@ -66,6 +71,11 @@ void setup() {
       bullet.speedY = bulletSpeedY;
       bullet.speed = 14;
       bullet.numOfRicochets = 1;
+    }
+    
+    public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
+      color col = color(0, 255, 0);
+      super.staticBulletColor(bullet, col);
     }
   }
   );
@@ -97,6 +107,10 @@ void setup() {
       bullet.speed = 5;
       bullet.numOfRicochets = 1;
       bullet.w = 15;
+    }
+    
+    public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
+      super.changeBulletColorHSB(bullet, bulletNum, bulletCount);
     }
   }
   );

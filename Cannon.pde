@@ -44,7 +44,7 @@ class Cannon {
     isDead = false;
     
     for (int i = 0; i < bullets.length; i++) {
-      bullets[i] = new Bullet(x, y);
+      bullets[i] = new Bullet();
     }
   }
   
@@ -74,7 +74,7 @@ class Cannon {
       for (int i = 0; i < bulletShotsAtOnce; i++) {
         Bullet bullet = bullets[numOfCurBullet];
         firePattern.fire(bullet, numOfCurBullet, x, y);
-        bullet.changeColor(numOfCurBullet, bullets.length);
+        firePattern.setBulletColor(bullet, numOfCurBullet, bullets.length);
         
         numOfCurBullet = (numOfCurBullet < bullets.length - 1) ? ++numOfCurBullet : 0;
         shotDelayCounter = 0;
