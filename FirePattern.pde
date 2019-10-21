@@ -12,14 +12,24 @@ class PreparedPatterns {
     bullet.col = col;
   }
   
-  public void changeBulletColorHSB(Bullet bullet, int numOfCurBullet, int allBulletsCount) {
-    float k = allBulletsCount / 562;
+  public void changeBulletColorHSB(Bullet bullet, int numOfCurBullet, int allBulletsCount, int cyclesPerEnd) {
+    float k = 255 / (float)allBulletsCount;
     float colK;
     colorMode(HSB);
-    colK = (numOfCurBullet < allBulletsCount / 2) ? 
-           (numOfCurBullet / k) : 
-           (numOfCurBullet - allBulletsCount / 2) / k;
+    colK = numOfCurBullet * k * cyclesPerEnd;
+    
+    for (int i = cyclesPerEnd; i > 0; i--) {
+      if (colK > 255 * i) {
+        colK -= 255 * i;
+        break;
+      }
+    }
+    
     bullet.col = color(colK, 255, 255);
     colorMode(RGB);
+  }
+  
+  public void randomBulletColor(Bullet bullet) {
+    bullet.col = color(random(255), random(255), random(255));
   }
 }

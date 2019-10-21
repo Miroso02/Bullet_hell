@@ -9,7 +9,11 @@ class Bullet {
   float accelerationY;
   float speedX = 0;
   float speedY = 0;
+  
   int numOfRicochets = 0;
+  boolean ricochetUP;
+  boolean ricochetDOWN;
+  boolean ricochetSIDES;
   
   public Bullet() {
     x = 2000;
@@ -21,6 +25,9 @@ class Bullet {
     speed = 4;
     accelerationY = 0;
     numOfRicochets = 0;
+    ricochetUP = false;
+    ricochetDOWN = false;
+    ricochetSIDES = true;
   }
   
   //-------------------------------------------
@@ -45,7 +52,9 @@ class Bullet {
     x += speed * speedX;
     y += speed * speedY;
     speedY += accelerationY;
-    if (numOfRicochets > 0) ricochet(true, false); // ricochet(x, y)
+    if (numOfRicochets > 0) {
+      ricochet(ricochetSIDES, ricochetUP, ricochetDOWN);
+    }
   } 
   
   void killPlayer() {
@@ -66,15 +75,21 @@ class Bullet {
     return (distToPlayerSq < sq(sumOfRadiuses));
   }
   
-  private void ricochet(boolean rx, boolean ry) {
-    if (rx) {
+  private void ricochet(boolean rs, boolean ru, boolean rd) {
+    if (rs) {
       if (x + speedX > width || x - speedX < 0) {
         speedX = -speedX;
         numOfRicochets--;
       }
     }
-    if (ry) {
-      if (y + speedY > height || y - speedY < 0) {
+    if (ru) {
+      if (y - speedY < 0) {
+        speedY = -speedY;
+        numOfRicochets--;
+      }
+    }
+    if (rd) {
+      if (y + speedY > height) {
         speedY = -speedY;
         numOfRicochets--;
       }

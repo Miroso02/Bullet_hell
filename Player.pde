@@ -14,12 +14,12 @@ class Player {
     
     isDead = false;
     
-    playerGun = new Cannon(x, y, 1, 150, 2, 3, 0, false, new FirePattern() {
+    playerGun = new Cannon(x, y, 1, 100, 3, 3, 0, false, new FirePattern() {
       public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
-        float bulletSpeedX = (bulletNum % 3 - 1) * 2;
+        float bulletSpeedX = (bulletNum % 3 - 1) * 1.5;
         
         bullet.x = player.x;
-        bullet.y = player.y;
+        bullet.y = player.y - 5;
         bullet.speedX = bulletSpeedX;
         bullet.speedY = -30;
         bullet.speed = 1;
@@ -27,8 +27,7 @@ class Player {
       }
       
       public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
-        color col = color(255);
-        super.staticBulletColor(bullet, col);
+        bullet.col = color(255);
       }
     });
   }

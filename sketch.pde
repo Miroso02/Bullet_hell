@@ -7,9 +7,9 @@ Laser l;
 void draw() {
   background(0); // Black background
   
-  s[0].doAll();
-  s[1].doAll();
-  s[2].doAll();
+  //s[0].doAll();
+  //s[1].doAll();
+  s[3].doAll();
 
   if (!player.isDead) {
     player.doAll();

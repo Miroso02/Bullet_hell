@@ -126,11 +126,4 @@ class Cannon {
          && bullet.x - bullet.w < x + 20 
          && bullet.y + bullet.w > y - 20 + 2);
   }
-  
-  //---------------------------------------------
-  
-  void translate(float x, float y) {
-    this.x = x;
-    this.y = y;
-  }
 }

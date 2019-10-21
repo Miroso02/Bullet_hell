@@ -11,7 +11,7 @@ void setup() {
   //                6: HP пушки,
   //                7: случайное перемещение: после скольких выстрелов перемещение; 0,если нет; 
   //                8: функция движения каждой пули(номер текущей пули, координаты точки из пунктов 2-3):
-  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ��������������������олжен определить в этом методе
+  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ��������������������������олжен определить в этом методе
   //  2) x=... ; y=... ; – координаты точки запуска пули 
   //  P.S. Используй xL, yL и bulletNum
   //  3) bulletSpeedX=... ; bulletSpeedY=... ; – скорость по x/y пули(скорость не меняется!!)
@@ -47,8 +47,7 @@ void setup() {
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
-      color col = color(255, 0, 0);
-      super.staticBulletColor(bullet, col);
+      super.changeBulletColorHSB(bullet, bulletNum, bulletCount, 2);
     }
   }
   );
@@ -74,8 +73,7 @@ void setup() {
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
-      color col = color(0, 255, 0);
-      super.staticBulletColor(bullet, col);
+      super.changeBulletColorHSB(bullet, bulletNum, bulletCount, 2);
     }
   }
   );
@@ -110,10 +108,34 @@ void setup() {
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
-      super.changeBulletColorHSB(bullet, bulletNum, bulletCount);
+      bullet.col = color(255, 255, 0);
     }
   }
   );
+  
+  s[3] = new Cannon(width / 2, 100, 200, 300, 3, 2, 0, true, new FirePattern() {
+    public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY) {
+      float direct = (bulletNum % 2 - 0.5) * 2;
+      float x = cannonX + direct * 50;
+      float y = cannonY + 5;
+      float speedX = direct * cos(PI * bulletNum / 30);
+      float speedY = 0.5 + abs(0.5 * sin(PI * bulletNum / 30));
+      
+      bullet.x = x;
+      bullet.y = y;
+      bullet.speedX = speedX;
+      bullet.speedY = speedY;
+      bullet.speed = 10;
+      bullet.w = 15;
+      bullet.numOfRicochets = 2;
+      bullet.ricochetSIDES = true;
+      bullet.ricochetDOWN = true;
+    }
+    
+    public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
+      super.changeBulletColorHSB(bullet, bulletNum, bulletCount, 4);
+    }
+  });
   
   restartButton = new Button(width / 2 - 150, height / 2 + 50, 400, 100);
   player = new Player(width / 2, height - 100, 8);
