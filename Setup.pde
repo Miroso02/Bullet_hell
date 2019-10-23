@@ -22,7 +22,7 @@ void setup() {
       bullet.speedY = bulletSpeedY;
       bullet.speed = 14;
       
-      bullet.ricochetModule.numOfRicochets = 1;
+    //  bullet.ricochetModule.numOfRicochets = 1;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
@@ -48,7 +48,7 @@ void setup() {
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
       bullet.speed = 14;
-      bullet.ricochetModule.numOfRicochets = 1;
+     // bullet.ricochetModule.numOfRicochets = 1;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {

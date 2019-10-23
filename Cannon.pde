@@ -67,19 +67,16 @@ class Cannon {
   }
   
   void fire() {
-    if (shotDelayCounter > shotDelay) {
-      if (teleportDelay != 0) teleport();
+    if (shotCooldown()) {
+      teleport();
       
       for (int i = 0; i < bulletShotsAtOnce; i++) {
-        Bullet bullet = bullets[numOfCurBullet];
-        firePattern.fire(bullet, numOfCurBullet, x, y);
-        firePattern.setBulletColor(bullet, numOfCurBullet, bullets.length);
-        
-        numOfCurBullet = (numOfCurBullet < bullets.length - 1) ? ++numOfCurBullet : 0;
-        shotDelayCounter = 0;
+        int bNum = nextBulNum();
+        Bullet bullet = bullets[bNum];
+        firePattern.fire(bullet, bNum, x, y);
+        firePattern.setBulletColor(bullet, bNum, bullets.length);
       }
     }
-    shotDelayCounter++;
   }
   
   void display() {
@@ -110,12 +107,31 @@ class Cannon {
   
   //---------------------------------------------
   
+  private int nextBulNum() {
+    if (numOfCurBullet < bullets.length - 1) {
+      return numOfCurBullet++;
+    } else {
+      return numOfCurBullet = 0;
+    }
+  }
+  
+  private boolean shotCooldown() {
+    if (shotDelayCounter > shotDelay) {
+      shotDelayCounter = 0;
+      return true;
+    }
+    shotDelayCounter++;
+    return false;
+  }
+  
   private void teleport() {
-    if (teleportCounter % teleportDelay == 0) {
-      x = random(width);
-      y = random(400);
-    } 
-    teleportCounter++;
+    if (teleportDelay != 0) {
+      if (teleportCounter % teleportDelay == 0) {
+        x = random(width);
+        y = random(400);
+      } 
+      teleportCounter++;
+    }
   }
   
   private boolean hit(Bullet bullet) {
