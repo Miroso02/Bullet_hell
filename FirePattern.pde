@@ -2,10 +2,14 @@ interface ForLaser {
   public float[] fire(float koef, float xL, float yL,float from, float to, float start);
 }
 
+//---------------------------------------------------
+
 abstract class FirePattern extends PreparedPatterns {
   abstract public void fire(Bullet currentBullet, int numOfCurBullet, float cannonX, float cannonY);
   abstract public void setBulletColor(Bullet currentBullet, int numOfCurBullet, int allBulletsCount);
 }
+
+//---------------------------------------------------
 
 class PreparedPatterns {
   public void staticBulletColor(Bullet bullet, color col) {

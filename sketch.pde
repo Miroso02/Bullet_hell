@@ -7,12 +7,12 @@ Laser l;
 void draw() {
   background(0); // Black background
   
-  //s[0].doAll();
-  //s[1].doAll();
-  s[3].doAll();
+  s[0].doAll();  // Fire, control bullets,
+  s[1].doAll();  // take damage, display
+  //s[3].doAll();
 
   if (!player.isDead) {
-    player.doAll();
+    player.doAll(); // Move, fire, display
   } else {
     restartButton.display("Restart");
     if (restartButton.pressed()) setup();

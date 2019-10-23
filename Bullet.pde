@@ -2,18 +2,16 @@ class Bullet {
   float x;
   float y;
   
-  float speed;
   int w;
   color col;
   
-  float accelerationY;
+  float speed;
   float speedX = 0;
   float speedY = 0;
+  float accelerationY;
   
-  int numOfRicochets = 0;
-  boolean ricochetUP;
-  boolean ricochetDOWN;
-  boolean ricochetSIDES;
+  RicochetModule ricochetModule;
+  // Inner class
   
   public Bullet() {
     x = 2000;
@@ -24,10 +22,8 @@ class Bullet {
     
     speed = 4;
     accelerationY = 0;
-    numOfRicochets = 0;
-    ricochetUP = false;
-    ricochetDOWN = false;
-    ricochetSIDES = true;
+    
+    ricochetModule = new RicochetModule();
   }
   
   //-------------------------------------------
@@ -52,9 +48,7 @@ class Bullet {
     x += speed * speedX;
     y += speed * speedY;
     speedY += accelerationY;
-    if (numOfRicochets > 0) {
-      ricochet(ricochetSIDES, ricochetUP, ricochetDOWN);
-    }
+    ricochetModule.ricochet();
   } 
   
   void killPlayer() {
@@ -75,29 +69,51 @@ class Bullet {
     return (distToPlayerSq < sq(sumOfRadiuses));
   }
   
-  private void ricochet(boolean rs, boolean ru, boolean rd) {
-    if (rs) {
+  private boolean isOnScreen() {
+    return (x + w > 0 && x - w < width && 
+            y + w > 0 && y - w < height);
+  }
+  
+  //-------------------------------------------------
+  
+  private class RicochetModule {
+    int numOfRicochets;
+    boolean ricochetUP;
+    boolean ricochetDOWN;
+    boolean ricochetWALLS;
+    
+    RicochetModule() {
+      numOfRicochets = 0;
+      ricochetUP = false;
+      ricochetDOWN = false;
+      ricochetWALLS = true;
+    }
+    
+    private void ricochet() {
+      if (numOfRicochets > 0) {
+        if (ricochetWALLS) ricochetFromWalls();
+        if (ricochetUP)    ricochetFromTop();
+        if (ricochetDOWN)  ricochetFromBottom();
+      }
+    }
+  
+    private void ricochetFromWalls() {
       if (x + speedX > width || x - speedX < 0) {
         speedX = -speedX;
         numOfRicochets--;
       }
     }
-    if (ru) {
+    private void ricochetFromTop() {
       if (y - speedY < 0) {
         speedY = -speedY;
         numOfRicochets--;
       }
     }
-    if (rd) {
+    private void ricochetFromBottom() {
       if (y + speedY > height) {
         speedY = -speedY;
         numOfRicochets--;
       }
     }
-  }
-  
-  private boolean isOnScreen() {
-    return (x + w > 0 && x - w < width && 
-            y + w > 0 && y - w < height);
   }
 }

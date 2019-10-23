@@ -7,12 +7,12 @@ class Button
   int h;
   boolean press;
   
-  public Button(float xx, float yy, int ww, int hh)
+  public Button(float x, float y, int w, int h)
   {
-    x = xx;
-    y = yy;
-    w = ww;
-    h = hh;
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
   void display(String text) {
     color col = color(180, 255, 0);

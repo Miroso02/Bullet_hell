@@ -36,7 +36,7 @@ class Player {
   
   public void doAll() {
     move();
-    shoot();
+    fire();
     display();
   }
   
@@ -52,7 +52,7 @@ class Player {
     }
   }
   
-  void shoot() {
+  void fire() {
     playerGun.fire();
     playerGun.controlBullets();
   }

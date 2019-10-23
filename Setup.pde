@@ -3,29 +3,7 @@ void setup() {
   noSmooth();
   rectMode(CENTER);
 
-  //*******************ИНСТРУКЦИЯ*****************************
-  //sn=new Cannon(1: количество пуль, за которые отвечает эта пушка (не знаешь – ставь 500),
-  //                2-3: координаты пушки (x,y),
-  //                4: задержка между выстрелами,
-  //                5: количество пуль, которые выпускаются за один выстрел,
-  //                6: HP пушки,
-  //                7: случайное перемещение: после скольких выстрелов перемещение; 0,если нет; 
-  //                8: функция движения каждой пули(номер текущей пули, координаты точки из пунктов 2-3):
-  //  1) float x,y,bulletspeedX,bulletSpeedY – переменные, которые ты ��������������������������олжен определить в этом методе
-  //  2) x=... ; y=... ; – координаты точки запуска пули 
-  //  P.S. Используй xL, yL и bulletNum
-  //  3) bulletSpeedX=... ; bulletSpeedY=... ; – скорость по x/y пули(скорость не меняется!!)
-  //  P.S. Используй bulletNum; xL, yL и какую-то другую хрень – не рекомендуется, АРТЁМ
-  //  4) float[] res={...}; ты должен вернуть минимум 5 значений:
-  //  1-4: x,y,bulletSpeedX, bulletSpeedY – см. выше
-  //  5: Множитель скорости пули (не знаешь – ставь 4)
-  //  Необязательные аргументы:
-  //  6: Количество рикошетов пули
-  //  7: Диаметр (размер) пули (не знаешь - ставь 10)
-  //  8: Ускорение ↓ пули
-  //************************************************************
-  //
-  s[0]=new Cannon(width/2, height/2-200, 100, 1000, 80, 100, 0, true, new FirePattern() {
+  s[0]=new Cannon(width/2, height/2-200, 100, 1000, 40, 100, 0, true, new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
     {
       float x = 2000;
@@ -43,7 +21,8 @@ void setup() {
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
       bullet.speed = 14;
-      bullet.numOfRicochets = 1;
+      
+      bullet.ricochetModule.numOfRicochets = 1;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
@@ -51,7 +30,7 @@ void setup() {
     }
   }
   );
-  s[1]=new Cannon(width/2, height/2-200, 100, 1000, 80, 100, 0, true, new FirePattern() {
+  s[1]=new Cannon(width/2, height/2-200, 100, 1000, 40, 100, 0, true, new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
     {
       float x = 2000;
@@ -69,7 +48,7 @@ void setup() {
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
       bullet.speed = 14;
-      bullet.numOfRicochets = 1;
+      bullet.ricochetModule.numOfRicochets = 1;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
@@ -103,8 +82,9 @@ void setup() {
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
       bullet.speed = 5;
-      bullet.numOfRicochets = 1;
       bullet.w = 15;
+      
+      bullet.ricochetModule.numOfRicochets = 1;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
@@ -127,9 +107,10 @@ void setup() {
       bullet.speedY = speedY;
       bullet.speed = 10;
       bullet.w = 15;
-      bullet.numOfRicochets = 2;
-      bullet.ricochetSIDES = true;
-      bullet.ricochetDOWN = true;
+      
+      bullet.ricochetModule.numOfRicochets = 2;
+      bullet.ricochetModule.ricochetWALLS = true;
+      bullet.ricochetModule.ricochetDOWN = true;
     }
     
     public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {

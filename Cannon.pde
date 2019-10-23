@@ -14,7 +14,6 @@ class Cannon {
   int teleportDelay;
   
   boolean isDead;
-  boolean isUnderFire;
   boolean isKillingPlayer;
   
   FirePattern firePattern;
@@ -101,7 +100,6 @@ class Cannon {
       if (hit(bullet)) {
         health--;
         bullet.x = 2000;
-        isUnderFire = true;
       }
     }
     
