@@ -36,6 +36,8 @@ void setup() {
     }
   };
   
+  //---------------------------------------------------
+  
   s[1] = new Cannon(700);
   s[1].setPosition(width / 2, height / 2 - 200);
   s[1].health = 100;

@@ -1,3 +1,5 @@
+// Don't look here! 
+// I'm ashamed of this tab
 class Laser
 {
   float koef;
@@ -83,4 +85,8 @@ class Laser
       x=2000;
     }
   }
+}
+
+interface ForLaser {
+  public float[] fire(float koef, float xL, float yL,float from, float to, float start);
 }

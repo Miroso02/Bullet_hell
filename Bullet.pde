@@ -10,17 +10,18 @@ class Bullet {
   float speedY = 0;
   float accelerationY;
   
-  RicochetModule ricochetModule;
+  RicochetModule ricochetModule; 
   // Inner class
   
   public Bullet() {
+    // DefaultValues
     x = 2000;
     y = 0;
     w = 10;
     
     col = color(255);
     
-    speed = 4;
+    speed = 1;
     accelerationY = 0;
     
     ricochetModule = new RicochetModule();

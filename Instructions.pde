@@ -1,20 +1,41 @@
-  //****************** INSTRUCTIONS ****************************
-  //sn = new Cannon(1-2: cannon X, cannon Y 
-  //                3: cannon HEALTH
-  //                4: how many bullets can control this cannon
-  //                5: delay between shots
-  //                6: how many bullets are shot at once
-  //                7: how many shots the cannon does until it teleports randomly; 0 – no teleport
-  //                8: do the bullets of this cannon kill player
-  //                9: function that is called for each bullet before shot:
-  //  – You have to set values for different fields of bullet
-  //  1) bullet.x, bullet.y – bullet starting position
-  //  2) bullet.speedX, bullet.speedY – bullet speed
-  //  3) bullet.speed – speedX and speedY are multiplying by speed
-  //  4) bullet.w – size of bullet
-  //  5) bullet.numOfRicochets – how many times doed it ricochet from the walls
-  //  6) bullet.ricochetSIDES, bullet.ricochetUP, bullet.ricochetDOWN – 
-  //  true if bullet should ricochet from current direction
-  //  7)
-  //************************************************************
-  //
+  /****************** INSTRUCTIONS ****************************
+  1) Bullet:
+  – bullet.x, bullet.y – position
+  – bullet.speedX, bullet.speedY – velocity vector
+  – bullet.speed – scalar. It's multiplying by speedX and speedY
+  – bullet.accelerationY – clear
+  – bullet.w – size
+  
+  – bullet.col – color
+  
+  2) Bullet.RicochetModule:
+  – bullet.ricochetModule.numOfRicochets – how many times will the bullet bounce
+  – bullet.ricochetModule.ricochetUP – if it ricochets from the top
+  – bullet.ricochetModule.ricochetDOWN – … … … … … … … … … … … bottom
+  – bullet.ricochetModule.ricochetWALLS – … … … … … … … left and right
+   
+  3) Cannon:
+  – Constructor(allBulletsCount) – how many bullets will control the cannon
+  – cannon.setPosition(x, y)
+  – cannon.health – clear
+  – cannon.shotDelay – time between shots
+  – cannon.bulletShotsAtOnce – how many bullets does it shoot in each shot
+  – cannon.isKillingPlayer – will this cannon's billets kill the player
+  – cannon.teleportDelay = n – after n shots the cannon will teleport randomly
+  
+  4) Cannon.firePattern = new FirePattern() {
+    public void fire(...) {
+      In this method you describe each bullet behaviour 
+      depending on it's number in massive
+    }
+  }
+  
+  5) Cannon.bulletColPattern = new BulletColorPattern() {
+    public void setBulletColor(...) {
+      In this method you set bullet color
+      depending on it's number in massive
+    }
+  }
+  
+  *************************************************************/
+  

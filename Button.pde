@@ -1,3 +1,4 @@
+// Old Button. Nevermind
 class Button
 {
   float x;
@@ -35,20 +36,20 @@ class Button
   
   boolean pressed() {
     boolean res = false;
-    if(!mousePressed) {
-      if(press) {
+    if (!mousePressed) {
+      if (press) {
         res = true;
       }
       doing = true;
       press = false;
     }
-    if(mousePressed) {
-      if(mouseX > x - w / 2 
+    if (mousePressed) {
+      if (mouseX > x - w / 2 
       && mouseX < x + w / 2 
       && mouseY > y - h / 2 
       && mouseY < y + h / 2) {
-        if(doing) press = true;
-      } else if(press) {
+        if (doing) press = true;
+      } else if (press) {
         press = false;
         doing = false;
       }

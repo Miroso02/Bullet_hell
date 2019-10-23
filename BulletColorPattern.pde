@@ -2,6 +2,8 @@ abstract class BulletColorPattern extends PreparedBulletColorPatterns {
   abstract public void setBulletColor(Bullet currentBullet, int numOfCurBullet, int allBulletsCount);
 }
 
+//--------------------------------------------------------------------------------------------------------------
+
 class PreparedBulletColorPatterns {
   public void staticBulletColor(Bullet bullet, color col) {
     bullet.col = col;

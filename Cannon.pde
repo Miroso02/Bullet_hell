@@ -41,6 +41,7 @@ class Cannon {
     isKillingPlayer = true;
     isDead = false;
     
+    // Default realisations do nothing
     firePattern = new FirePattern() {
       public void fire(Bullet b, int n, float x, float y) {}
     };

@@ -19,6 +19,7 @@ class Player {
     playerGun.shotDelay = 3;
     playerGun.bulletShotsAtOnce = 5;
     playerGun.isKillingPlayer = false;
+    
     playerGun.firePattern = new FirePattern() {
       public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
         float bulletSpeedX = (bulletNum % 5 - 2) * 1.4;
@@ -27,10 +28,10 @@ class Player {
         bullet.y = player.y - 5;
         bullet.speedX = bulletSpeedX;
         bullet.speedY = -30;
-        bullet.speed = 1;
         bullet.w = 8;
       }
     };
+    
     playerGun.bulletColPattern = new BulletColorPattern() {
       public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
         bullet.col = color(255);
