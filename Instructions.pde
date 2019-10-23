@@ -1,4 +1,4 @@
-//****************** INSTRUCTIONS ****************************
+  //****************** INSTRUCTIONS ****************************
   //sn = new Cannon(1-2: cannon X, cannon Y 
   //                3: cannon HEALTH
   //                4: how many bullets can control this cannon

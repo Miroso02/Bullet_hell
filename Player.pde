@@ -14,9 +14,14 @@ class Player {
     
     isDead = false;
     
-    playerGun = new Cannon(x, y, 1, 100, 3, 3, 0, false, new FirePattern() {
+    playerGun = new Cannon(150);
+    playerGun.setPosition(x, y);
+    playerGun.shotDelay = 3;
+    playerGun.bulletShotsAtOnce = 5;
+    playerGun.isKillingPlayer = false;
+    playerGun.firePattern = new FirePattern() {
       public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
-        float bulletSpeedX = (bulletNum % 3 - 1) * 1.5;
+        float bulletSpeedX = (bulletNum % 5 - 2) * 1.4;
         
         bullet.x = player.x;
         bullet.y = player.y - 5;
@@ -25,11 +30,12 @@ class Player {
         bullet.speed = 1;
         bullet.w = 8;
       }
-      
+    };
+    playerGun.bulletColPattern = new BulletColorPattern() {
       public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
         bullet.col = color(255);
       }
-    });
+    };
   }
   
   //------------------------------------------

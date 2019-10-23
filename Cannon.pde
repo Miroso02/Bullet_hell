@@ -1,6 +1,7 @@
 class Cannon {
   Bullet[] bullets;
   int numOfCurBullet;
+  int bulletsCount;
   
   float x;
   float y;
@@ -17,32 +18,37 @@ class Cannon {
   boolean isKillingPlayer;
   
   FirePattern firePattern;
+  BulletColorPattern bulletColPattern;
   
-  public Cannon(float x, float y, int health,
-                int bulletsCount, int shotDelay,
-                int bulletShotsAtOnce, 
-                int teleportDelay, 
-                boolean isKillingPlayer,
-                FirePattern firePattern) {
+  public Cannon(int bulletsCount) {
     bullets = new Bullet[bulletsCount];
-    this.firePattern = firePattern;
+    this.bulletsCount = bulletsCount;
     
-    this.isKillingPlayer = isKillingPlayer;
+    // Default values
+    x = width / 2;
+    y = height / 2;
     
-    this.x = x;
-    this.y = y;
+    health = 100;
     
-    this.health = health;
-    this.bulletShotsAtOnce = bulletShotsAtOnce;
+    shotDelay = 3;
+    bulletShotsAtOnce = 1;
     
-    this.shotDelay = shotDelay;
-    this.teleportDelay = teleportDelay;
+    teleportDelay = 0;
     
     shotDelayCounter = 0;
     teleportCounter = 0;
+    
+    isKillingPlayer = true;
     isDead = false;
     
-    for (int i = 0; i < bullets.length; i++) {
+    firePattern = new FirePattern() {
+      public void fire(Bullet b, int n, float x, float y) {}
+    };
+    bulletColPattern = new BulletColorPattern() {
+      public void setBulletColor(Bullet b, int n, int c) {}
+    };
+    
+    for (int i = 0; i < bulletsCount; i++) {
       bullets[i] = new Bullet();
     }
   }
@@ -74,7 +80,7 @@ class Cannon {
         int bNum = nextBulNum();
         Bullet bullet = bullets[bNum];
         firePattern.fire(bullet, bNum, x, y);
-        firePattern.setBulletColor(bullet, bNum, bullets.length);
+        bulletColPattern.setBulletColor(bullet, bNum, bulletsCount);
       }
     }
   }
@@ -108,7 +114,7 @@ class Cannon {
   //---------------------------------------------
   
   private int nextBulNum() {
-    if (numOfCurBullet < bullets.length - 1) {
+    if (numOfCurBullet < bulletsCount - 1) {
       return numOfCurBullet++;
     } else {
       return numOfCurBullet = 0;
@@ -139,5 +145,12 @@ class Cannon {
          && bullet.x + bullet.w > x - 20 
          && bullet.x - bullet.w < x + 20 
          && bullet.y + bullet.w > y - 20 + 2);
+  }
+  
+  //------------------------------------------
+  
+  void setPosition(float x, float y) {
+    this.x = x;
+    this.y = y;
   }
 }
