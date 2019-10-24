@@ -1,7 +1,7 @@
 # Bullet Hell Engine
 *description*
 
-#Instructions for use
+# Instructions for use
 
 1) Bullet:
   – bullet.x, bullet.y – position
