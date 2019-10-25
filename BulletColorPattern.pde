@@ -5,10 +5,6 @@ abstract class BulletColorPattern extends PreparedBulletColorPatterns {
 //--------------------------------------------------------------------------------------------------------------
 
 class PreparedBulletColorPatterns {
-  public void staticBulletColor(Bullet bullet, color col) {
-    bullet.col = col;
-  }
-  
   public void changeBulletColorHSB(Bullet bullet, int numOfCurBullet, int allBulletsCount, int cyclesPerEnd) {
     float k = 255 / (float)allBulletsCount;
     float colK;

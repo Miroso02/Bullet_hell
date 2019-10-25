@@ -6,9 +6,9 @@ void setup() {
   s[0] = new Cannon(700);
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
-  s[0].shotDelay = 40;
-  s[0].bulletShotsAtOnce = 100;
-  s[0].firePattern = new FirePattern() {
+  s[0].fireModule.shotDelay = 40;
+  s[0].fireModule.bulletShotsAtOnce = 100;
+  s[0].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
     {
       float x = 2000;
@@ -41,9 +41,9 @@ void setup() {
   s[1] = new Cannon(700);
   s[1].setPosition(width / 2, height / 2 - 200);
   s[1].health = 100;
-  s[1].shotDelay = 40;
-  s[1].bulletShotsAtOnce = 100;
-  s[1].firePattern = new FirePattern() {
+  s[1].fireModule.shotDelay = 40;
+  s[1].fireModule.bulletShotsAtOnce = 100;
+  s[1].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
     {
       float x = 2000;

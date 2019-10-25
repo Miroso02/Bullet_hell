@@ -6,4 +6,5 @@ abstract class FirePattern extends PreparedFirePatterns {
 
 class PreparedFirePatterns {
   // ¯\_(ツ)_/¯
+  // TODO: Add some patterns
 }

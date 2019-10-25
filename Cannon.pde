@@ -7,18 +7,16 @@ class Cannon {
   float y;
   int health;
   
-  private int shotDelayCounter;
-  int shotDelay;
-  int bulletShotsAtOnce;
-  
   private int teleportCounter;
   int teleportDelay;
   
   boolean isDead;
   boolean isKillingPlayer;
+  // TODO: Move this variable to Bullet
   
-  FirePattern firePattern;
   BulletColorPattern bulletColPattern;
+  FireModule fireModule;
+  // TODO: Create move module
   
   public Cannon(int bulletsCount) {
     bullets = new Bullet[bulletsCount];
@@ -30,21 +28,14 @@ class Cannon {
     
     health = 100;
     
-    shotDelay = 3;
-    bulletShotsAtOnce = 1;
-    
     teleportDelay = 0;
     
-    shotDelayCounter = 0;
     teleportCounter = 0;
     
     isKillingPlayer = true;
     isDead = false;
     
     // Default realisations do nothing
-    firePattern = new FirePattern() {
-      public void fire(Bullet b, int n, float x, float y) {}
-    };
     bulletColPattern = new BulletColorPattern() {
       public void setBulletColor(Bullet b, int n, int c) {}
     };
@@ -52,6 +43,8 @@ class Cannon {
     for (int i = 0; i < bulletsCount; i++) {
       bullets[i] = new Bullet();
     }
+    
+    fireModule = new FireModule();
   }
   
   //---------------------------------------------
@@ -74,16 +67,7 @@ class Cannon {
   }
   
   void fire() {
-    if (shotCooldown()) {
-      teleport();
-      
-      for (int i = 0; i < bulletShotsAtOnce; i++) {
-        int bNum = nextBulNum();
-        Bullet bullet = bullets[bNum];
-        firePattern.fire(bullet, bNum, x, y);
-        bulletColPattern.setBulletColor(bullet, bNum, bulletsCount);
-      }
-    }
+    fireModule.fire();
   }
   
   void display() {
@@ -114,23 +98,6 @@ class Cannon {
   
   //---------------------------------------------
   
-  private int nextBulNum() {
-    if (numOfCurBullet < bulletsCount - 1) {
-      return numOfCurBullet++;
-    } else {
-      return numOfCurBullet = 0;
-    }
-  }
-  
-  private boolean shotCooldown() {
-    if (shotDelayCounter > shotDelay) {
-      shotDelayCounter = 0;
-      return true;
-    }
-    shotDelayCounter++;
-    return false;
-  }
-  
   private void teleport() {
     if (teleportDelay != 0) {
       if (teleportCounter % teleportDelay == 0) {
@@ -153,5 +120,56 @@ class Cannon {
   void setPosition(float x, float y) {
     this.x = x;
     this.y = y;
+  }
+  
+  //----------------------------------------------
+  
+  private class FireModule {
+    private int shotDelayCounter;
+    int shotDelay;
+    int bulletShotsAtOnce;
+    
+    FirePattern firePattern;
+    
+    public FireModule() {
+      shotDelayCounter = 0;
+      shotDelay = 3;
+      bulletShotsAtOnce = 1;
+      
+      firePattern = new FirePattern() {
+        public void fire(Bullet b, int n, float x, float y) {}
+      };
+    }
+    
+    void fire() {
+      if (shotCooldown()) {
+        // TODO: Move it to move module
+        teleport();
+      
+        for (int i = 0; i < bulletShotsAtOnce; i++) {
+          int bNum = nextBulNum();
+          Bullet bullet = bullets[bNum];
+          firePattern.fire(bullet, bNum, x, y);
+          bulletColPattern.setBulletColor(bullet, bNum, bulletsCount);
+        }
+      }
+    }
+      
+    private int nextBulNum() {
+      if (numOfCurBullet < bulletsCount - 1) {
+        return numOfCurBullet++;
+      } else {
+        return numOfCurBullet = 0;
+      }
+    }
+  
+    private boolean shotCooldown() {
+      if (shotDelayCounter > shotDelay) {
+        shotDelayCounter = 0;
+        return true;
+      }
+      shotDelayCounter++;
+      return false;
+    }
   }
 }

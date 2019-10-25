@@ -16,11 +16,11 @@ class Player {
     
     playerGun = new Cannon(150);
     playerGun.setPosition(x, y);
-    playerGun.shotDelay = 3;
-    playerGun.bulletShotsAtOnce = 5;
+    playerGun.fireModule.shotDelay = 3;
+    playerGun.fireModule.bulletShotsAtOnce = 5;
     playerGun.isKillingPlayer = false;
     
-    playerGun.firePattern = new FirePattern() {
+    playerGun.fireModule.firePattern = new FirePattern() {
       public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
         float bulletSpeedX = (bulletNum % 5 - 2) * 1.4;
         

@@ -1,6 +1,6 @@
 // Don't look here! 
 // I'm ashamed of this tab
-class Laser
+class Laser // TODO: Review this tab
 {
   float koef;
   float x, y, xt, yt;
