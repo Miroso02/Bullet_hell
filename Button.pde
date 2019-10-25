@@ -1,4 +1,6 @@
 // Old Button. Nevermind
+boolean doing;
+
 class Button // TODO: Create normal button!!!
 {
   float x;

@@ -63,13 +63,9 @@ class Bullet {
   //------- Private inner methods -------------------
   
   private boolean touchingPlayer() {
-    float distToPlayerX = player.x - x;
-    float distToPlayerY = player.y - y;
-    float distToPlayerSq = sq(distToPlayerX) + sq(distToPlayerY);
-    
     float sumOfRadiuses = (w + player.size) / 2;
     
-    return (distToPlayerSq < sq(sumOfRadiuses));
+    return (getDistToPlayerSq() < sq(sumOfRadiuses));
   }
   
   private boolean isOnScreen() {
@@ -120,5 +116,31 @@ class Bullet {
         numOfRicochets--;
       }
     }
+    
+    public void setOptions(int ricNum, boolean sides, boolean up, boolean down) {
+      numOfRicochets = ricNum;
+      ricochetWALLS = sides;
+      ricochetUP = up;
+      ricochetDOWN = down;
+    }
+  }
+  
+  //--------- GETters / SETters ----------------------
+  
+  void setPosition(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  void setVelocity(float speedX, float speedY) {
+    this.speedX = speedX;
+    this.speedY = speedY;
+  }
+  
+  float getDistToPlayerSq() {
+    float distToPlayerX = player.x - x;
+    float distToPlayerY = player.y - y;
+    
+    return sq(distToPlayerX) + sq(distToPlayerY);
   }
 }
