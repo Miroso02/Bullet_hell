@@ -1,5 +1,4 @@
-// Old Button. Nevermind
-class Button // TODO: Create normal button!!!
+class Button 
 {
   float x;
   float y;
