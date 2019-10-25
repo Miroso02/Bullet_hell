@@ -31,10 +31,13 @@ void setup() {
   };
   s[0].moveModule.movePattern = new MovePattern() {
     public PVector move(float x, float y, int time) {
-      x = width / 2 + 200 * (-sin(PI * time / 200));
-      y = (height / 2 - 300) + 200 * cos(PI * time / 200);
+      x = width / 2;
+      y = height / 2 - 300;
+      float radius = 200;
+      int period = 280;
       
-      return new PVector(x, y);
+      return super.rotateAroundLEFT(
+        x, y, time, radius, period, true);
     }
   };
   s[0].bulletColPattern = new BulletColorPattern() {
@@ -73,10 +76,13 @@ void setup() {
   };
   s[1].moveModule.movePattern = new MovePattern() {
     public PVector move(float x, float y, int time) {
-      x = width / 2 + 200 * sin(PI * time / 200);
-      y = (height / 2 - 300) + 200 * cos(PI * time / 200);
+      x = width / 2;
+      y = height / 2 - 300;
+      float radius = 200;
+      int period = 280;
       
-      return new PVector(x, y);
+      return super.rotateAroundRIGHT(
+        x, y, time, radius, period, false);
     }
   };
   s[1].bulletColPattern = new BulletColorPattern() {

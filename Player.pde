@@ -31,12 +31,6 @@ class Player {
         bullet.w = 8;
       }
     };
-    
-    playerGun.bulletColPattern = new BulletColorPattern() {
-      public void setBulletColor(Bullet bullet, int bulletNum, int bulletCount) {
-        bullet.col = color(255);
-      }
-    };
   }
   
   //------------------------------------------

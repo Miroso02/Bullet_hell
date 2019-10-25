@@ -37,7 +37,9 @@ class Cannon {
     
     // Default realisations do nothing
     bulletColPattern = new BulletColorPattern() {
-      public void setBulletColor(Bullet b, int n, int c) {}
+      public void setBulletColor(Bullet b, int n, int c) {
+        b.col = color(255);
+      }
     };
     
     for (int i = 0; i < bulletsCount; i++) {
@@ -131,14 +133,13 @@ class Cannon {
   //----------------------------------------------
   
   private class FireModule {
-    private int shotDelayCounter;
+    private int shotDelayCounter = 0;
     int shotDelay;
     int bulletShotsAtOnce;
     
     FirePattern firePattern;
     
     public FireModule() {
-      shotDelayCounter = 0;
       shotDelay = 3;
       bulletShotsAtOnce = 1;
       
@@ -171,7 +172,7 @@ class Cannon {
   
     private boolean shotCooldown() {
       if (shotDelayCounter > shotDelay) {
-        shotDelayCounter = 0;
+        shotDelayCounter = 2;
         return true;
       }
       shotDelayCounter++;
