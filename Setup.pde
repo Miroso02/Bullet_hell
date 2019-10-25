@@ -6,7 +6,7 @@ void setup() {
   s[0] = new Cannon(700);
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
-  s[0].fireModule.shotDelay = 40;
+  s[0].fireModule.shotDelay = 70;
   s[0].fireModule.bulletShotsAtOnce = 100;
   s[0].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
@@ -25,9 +25,16 @@ void setup() {
       bullet.y = y;
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
-      bullet.speed = 14;
+      bullet.speed = 12;
+      //bullet.ricochetModule.numOfRicochets = 1;
+    }
+  };
+  s[0].moveModule.movePattern = new MovePattern() {
+    public PVector move(float x, float y, int time) {
+      x = width / 2 + 200 * (-sin(PI * time / 200));
+      y = (height / 2 - 300) + 200 * cos(PI * time / 200);
       
-      bullet.ricochetModule.numOfRicochets = 1;
+      return new PVector(x, y);
     }
   };
   s[0].bulletColPattern = new BulletColorPattern() {
@@ -41,7 +48,7 @@ void setup() {
   s[1] = new Cannon(700);
   s[1].setPosition(width / 2, height / 2 - 200);
   s[1].health = 100;
-  s[1].fireModule.shotDelay = 40;
+  s[1].fireModule.shotDelay = 70;
   s[1].fireModule.bulletShotsAtOnce = 100;
   s[1].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
@@ -60,8 +67,16 @@ void setup() {
       bullet.y = y;
       bullet.speedX = bulletSpeedX;
       bullet.speedY = bulletSpeedY;
-      bullet.speed = 14;
-      bullet.ricochetModule.numOfRicochets = 1;
+      bullet.speed = 12;
+      //bullet.ricochetModule.numOfRicochets = 1;
+    }
+  };
+  s[1].moveModule.movePattern = new MovePattern() {
+    public PVector move(float x, float y, int time) {
+      x = width / 2 + 200 * sin(PI * time / 200);
+      y = (height / 2 - 300) + 200 * cos(PI * time / 200);
+      
+      return new PVector(x, y);
     }
   };
   s[1].bulletColPattern = new BulletColorPattern() {

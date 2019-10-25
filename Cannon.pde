@@ -16,7 +16,7 @@ class Cannon {
   
   BulletColorPattern bulletColPattern;
   FireModule fireModule;
-  // TODO: Create move module
+  MoveModule moveModule;
   
   public Cannon(int bulletsCount) {
     bullets = new Bullet[bulletsCount];
@@ -45,6 +45,7 @@ class Cannon {
     }
     
     fireModule = new FireModule();
+    moveModule = new MoveModule();
   }
   
   //---------------------------------------------
@@ -53,6 +54,7 @@ class Cannon {
     if (!isDead) {
       takeDamage();
       fire();
+      move();
       display();
     }
     controlBullets();
@@ -68,6 +70,10 @@ class Cannon {
   
   void fire() {
     fireModule.fire();
+  }
+  
+  void move() {
+    moveModule.move();
   }
   
   void display() {
@@ -170,6 +176,32 @@ class Cannon {
       }
       shotDelayCounter++;
       return false;
+    }
+  }
+  
+  //------------------------------------------------------
+  
+  private class MoveModule {
+    MovePattern movePattern;
+    
+    private int timeCounter = 0;
+    
+    public MoveModule() {
+      movePattern = new MovePattern() {
+        public PVector move(float x, float y, int t) {
+          return new PVector(x, y);
+        }
+      };
+    }
+    
+    void move() {
+      PVector newPosition
+        = movePattern.move(x, y, timeCounter);
+        
+      x = newPosition.x;
+      y = newPosition.y;
+      
+      timeCounter++;
     }
   }
 }
