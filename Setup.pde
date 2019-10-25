@@ -1,13 +1,15 @@
+void settings() {
+  fullScreen();
+}
+
 void setup() {
-  size(displayWidth, displayHeight);
-  noSmooth();
-  rectMode(CENTER);
+  noSmooth();;
   
   //--------------------------------------------------------
+  int bulletsNum = 700;
 
-  s[0] = new Cannon(700);
+  s[0] = new Cannon(bulletsNum);
   s[0].setPosition(width / 2, height / 2 - 200);
-  s[0].health = 100;
   s[0].fireModule.shotDelay = 50;
   s[0].fireModule.bulletShotsAtOnce = 100;
   s[0].fireModule.firePattern = new FirePattern() {
@@ -51,9 +53,8 @@ void setup() {
   
   //---------------------------------------------------
   
-  s[1] = new Cannon(700);
+  s[1] = new Cannon(bulletsNum);
   s[1].setPosition(width / 2, height / 2 - 200);
-  s[1].health = 100;
   s[1].fireModule.shotDelay = 50;
   s[1].fireModule.bulletShotsAtOnce = 100;
   s[1].fireModule.firePattern = new FirePattern() {
@@ -97,6 +98,7 @@ void setup() {
   
   //--------------------------------------------------------
   
-  restartButton = new Button(width / 2 - 150, height / 2 + 50, 400, 100);
+  restartButton = new Button(width / 2 - 150, height / 2 + 50);
+  restartButton.setParameters("Restart");
   player = new Player(width / 2, height - 100, 8);
 }

@@ -31,7 +31,7 @@ class Bullet {
   
   //---------- Multipurpose methods -------------------------
   
-  public void doAll(boolean isKillingPlayer) {
+  public void update(boolean isKillingPlayer) {
     if (isOnScreen()) {
       display();
       move();

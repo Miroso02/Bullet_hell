@@ -1,5 +1,4 @@
 Player player;
-boolean doing;
 Button restartButton;
 Cannon[] s = new Cannon[2];
 Laser l;
@@ -7,13 +6,13 @@ Laser l;
 void draw() {
   background(0); // Black background
   
-  s[0].doAll();  // Fire, control bullets,
-  s[1].doAll();  // take damage, display
+  s[0].update();  // Fire, control bullets,
+  s[1].update();  // take damage, display
 
   if (!player.isDead) {
-    player.doAll(); // Move, fire, display
+    player.update(); 
   } else {
-    restartButton.display("Restart");
+    restartButton.display();
     if (restartButton.pressed()) setup();
   }
   

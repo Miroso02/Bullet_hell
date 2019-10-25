@@ -37,7 +37,7 @@ class Player {
   
   //--------- Multipurpose methods --------------------------
   
-  public void doAll() {
+  public void update() {
     move();
     fire();
     display();
@@ -57,7 +57,7 @@ class Player {
   
   void fire() {
     playerGun.fire();
-    playerGun.controlBullets();
+    playerGun.updateBullets();
   }
   
   void display() {

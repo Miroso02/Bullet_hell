@@ -4,57 +4,58 @@ class Button // TODO: Create normal button!!!
   float x;
   float y;
   
-  int w;
-  int h;
-  boolean press;
+  float w;
+  float h;
+  float paddingWidth;
+  float paddingHeight;
+  String text;
+  color col;
   
-  public Button(float x, float y, int w, int h)
+  public Button(float x, float y)
   {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+    text = "";
+    col = color(180, 255, 0);
+    setPosition(x, y);
+    setPadding(10, 10);
+    setParameters(text);
   }
   
-  void display(String text) {
-    color col = color(180, 255, 0);
-    if(press) {
-      col = color(0, 255, 0);
-    }
+  void display() {
     stroke(col);
-    if(text != "") {
-      h = 50;
-      fill(col);
-      textSize(30);
-      textAlign(CENTER);
-      text(text, x, y);
-      w = int(textWidth(text));
-    }
+    
+    textSize(30);
+    setParameters(text);
+    fill(col);
+    text(text, x + paddingWidth , y + paddingHeight);
+    
     fill(0, 0);
     strokeWeight(0);
     rect(x, y, w, h);
   }
   
   boolean pressed() {
-    boolean res = false;
-    if (!mousePressed) {
-      if (press) {
-        res = true;
-      }
-      doing = true;
-      press = false;
-    }
-    if (mousePressed) {
-      if (mouseX > x - w / 2 
-       && mouseX < x + w / 2 
-       && mouseY > y - h / 2 
-       && mouseY < y + h / 2) {
-        if (doing) press = true;
-      } else if (press) {
-        press = false;
-        doing = false;
-      }
-    }
-    return res;
+    return mousePressed && onButton();
+  }
+  
+  boolean onButton() {  
+    return abs(mouseX - x - w / 2) < w / 2 &&
+           abs(mouseY - y - h / 2) < h / 2;
+  }
+  
+  void setPosition(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  void setPadding(float pw, float ph) {
+    paddingWidth = pw;
+    paddingHeight = ph;
+  }
+  
+  void setParameters(String text) {
+    this.text = text;
+    
+    h = 2 * paddingHeight + textAscent() + textDescent();
+    w = 2 * paddingWidth + textWidth(text);
   }
 }
