@@ -15,6 +15,7 @@ class Button // TODO: Create normal button!!!
     this.w = w;
     this.h = h;
   }
+  
   void display(String text) {
     color col = color(180, 255, 0);
     if(press) {
@@ -45,9 +46,9 @@ class Button // TODO: Create normal button!!!
     }
     if (mousePressed) {
       if (mouseX > x - w / 2 
-      && mouseX < x + w / 2 
-      && mouseY > y - h / 2 
-      && mouseY < y + h / 2) {
+       && mouseX < x + w / 2 
+       && mouseY > y - h / 2 
+       && mouseY < y + h / 2) {
         if (doing) press = true;
       } else if (press) {
         press = false;

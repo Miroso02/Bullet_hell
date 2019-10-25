@@ -2,11 +2,13 @@ void setup() {
   size(displayWidth, displayHeight);
   noSmooth();
   rectMode(CENTER);
+  
+  //--------------------------------------------------------
 
   s[0] = new Cannon(700);
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
-  s[0].fireModule.shotDelay = 70;
+  s[0].fireModule.shotDelay = 50;
   s[0].fireModule.bulletShotsAtOnce = 100;
   s[0].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
@@ -34,10 +36,11 @@ void setup() {
       x = width / 2;
       y = height / 2 - 300;
       float radius = 200;
-      int period = 280;
+      int period = 300;
+      float phase0 = 0;
       
-      return super.rotateAroundLEFT(
-        x, y, time, radius, period, true);
+      return super.rotateAround(
+        x, y, time, radius, period, true, phase0);
     }
   };
   s[0].bulletColPattern = new BulletColorPattern() {
@@ -51,7 +54,7 @@ void setup() {
   s[1] = new Cannon(700);
   s[1].setPosition(width / 2, height / 2 - 200);
   s[1].health = 100;
-  s[1].fireModule.shotDelay = 70;
+  s[1].fireModule.shotDelay = 50;
   s[1].fireModule.bulletShotsAtOnce = 100;
   s[1].fireModule.firePattern = new FirePattern() {
     public void fire(Bullet bullet, int bulletNum, float cannonX, float cannonY)
@@ -79,10 +82,11 @@ void setup() {
       x = width / 2;
       y = height / 2 - 300;
       float radius = 200;
-      int period = 280;
+      int period = 300;
+      float phase0 = 0;
       
-      return super.rotateAroundRIGHT(
-        x, y, time, radius, period, false);
+      return super.rotateAround(
+        x, y, time, radius, period, false, phase0);
     }
   };
   s[1].bulletColPattern = new BulletColorPattern() {
@@ -90,6 +94,8 @@ void setup() {
       super.changeBulletColorHSB(bullet, bulletNum, bulletCount, 2);
     }
   };
+  
+  //--------------------------------------------------------
   
   restartButton = new Button(width / 2 - 150, height / 2 + 50, 400, 100);
   player = new Player(width / 2, height - 100, 8);

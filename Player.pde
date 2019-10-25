@@ -7,6 +7,8 @@ class Player {
   
   Cannon playerGun;
   
+  //----------- Constructor ---------------------------
+  
   public Player(float x, float y, int size) {
     this.x = x;
     this.y = y;
@@ -33,7 +35,7 @@ class Player {
     };
   }
   
-  //------------------------------------------
+  //--------- Multipurpose methods --------------------------
   
   public void doAll() {
     move();
@@ -41,7 +43,7 @@ class Player {
     display();
   }
   
-  //------------------------------------------
+  //--------- Main methods ----------------------
   
   void move() {
     if (!isOnTheScreen()) stayOnTheScreen();
@@ -64,7 +66,7 @@ class Player {
     ellipse(x, y, size, size);
   }
   
-  //--------------------------------------------
+  //------- Private inner methods --------------------
   
   private void stayOnTheScreen() {
     if (x <= 0) x = 1;

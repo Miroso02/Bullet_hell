@@ -1,7 +1,7 @@
 Player player;
 boolean doing;
 Button restartButton;
-Cannon[] s = new Cannon[6];
+Cannon[] s = new Cannon[2];
 Laser l;
 
 void draw() {
@@ -9,7 +9,6 @@ void draw() {
   
   s[0].doAll();  // Fire, control bullets,
   s[1].doAll();  // take damage, display
-  //s[3].doAll();
 
   if (!player.isDead) {
     player.doAll(); // Move, fire, display

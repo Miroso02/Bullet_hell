@@ -7,16 +7,17 @@ class Cannon {
   float y;
   int health;
   
-  private int teleportCounter;
-  int teleportDelay;
-  
   boolean isDead;
   boolean isKillingPlayer;
   // TODO: Move this variable to Bullet
   
   BulletColorPattern bulletColPattern;
+  // TODO: Create module for color
   FireModule fireModule;
   MoveModule moveModule;
+  // TODO: Add connection between modules
+  
+  //----------- Constructor --------------------------------------
   
   public Cannon(int bulletsCount) {
     bullets = new Bullet[bulletsCount];
@@ -27,10 +28,6 @@ class Cannon {
     y = height / 2;
     
     health = 100;
-    
-    teleportDelay = 0;
-    
-    teleportCounter = 0;
     
     isKillingPlayer = true;
     isDead = false;
@@ -50,7 +47,7 @@ class Cannon {
     moveModule = new MoveModule();
   }
   
-  //---------------------------------------------
+  //--------- Multipurpose methods --------------------------
   
   public void doAll() {
     if (!isDead) {
@@ -62,7 +59,7 @@ class Cannon {
     controlBullets();
   }
   
-  //---------------------------------------------
+  //--------- Main methods --------------------------------
   
   private void controlBullets() {
     for (Bullet bullet: bullets) {
@@ -104,17 +101,7 @@ class Cannon {
     }
   }
   
-  //---------------------------------------------
-  
-  private void teleport() {
-    if (teleportDelay != 0) {
-      if (teleportCounter % teleportDelay == 0) {
-        x = random(width);
-        y = random(400);
-      } 
-      teleportCounter++;
-    }
-  }
+  //--------- Private inner methods -------------------------
   
   private boolean hit(Bullet bullet) {
     return (bullet.y - bullet.w < y + 20 - 2 
@@ -123,14 +110,15 @@ class Cannon {
          && bullet.y + bullet.w > y - 20 + 2);
   }
   
-  //------------------------------------------
+  //--------- GETters / SETters ----------------------
   
   void setPosition(float x, float y) {
     this.x = x;
     this.y = y;
   }
   
-  //----------------------------------------------
+  //------------ Modules -------------------------------
+  //----------- Fire module ----------------------------
   
   private class FireModule {
     private int shotDelayCounter = 0;
@@ -150,9 +138,6 @@ class Cannon {
     
     void fire() {
       if (shotCooldown()) {
-        // TODO: Move it to move module
-        teleport();
-      
         for (int i = 0; i < bulletShotsAtOnce; i++) {
           int bNum = nextBulNum();
           Bullet bullet = bullets[bNum];
@@ -180,7 +165,7 @@ class Cannon {
     }
   }
   
-  //------------------------------------------------------
+  //----------- Move module -----------------------------------
   
   private class MoveModule {
     MovePattern movePattern;

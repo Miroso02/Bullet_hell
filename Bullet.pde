@@ -10,8 +10,10 @@ class Bullet {
   float speedY = 0;
   float accelerationY;
   
-  RicochetModule ricochetModule; 
-  // Inner class
+  
+  RicochetModule ricochetModule; // Inner class
+  
+  //--------- Constructor ------------------------------
   
   public Bullet() {
     // DefaultValues
@@ -27,7 +29,7 @@ class Bullet {
     ricochetModule = new RicochetModule();
   }
   
-  //-------------------------------------------
+  //---------- Multipurpose methods -------------------------
   
   public void doAll(boolean isKillingPlayer) {
     if (isOnScreen()) {
@@ -37,7 +39,7 @@ class Bullet {
     }
   }
   
-  //-------------------------------------------
+  //----------- Main methods --------------
   
   void display() {
     noStroke();
@@ -58,7 +60,7 @@ class Bullet {
     }
   }
   
-  //-------------------------------------------
+  //------- Private inner methods -------------------
   
   private boolean touchingPlayer() {
     float distToPlayerX = player.x - x;
@@ -75,7 +77,7 @@ class Bullet {
             y + w > 0 && y - w < height);
   }
   
-  //-------------------------------------------------
+  //--------- Ricochet module -----------+------------------------
   
   private class RicochetModule {
     int numOfRicochets;
@@ -84,7 +86,9 @@ class Bullet {
     boolean ricochetWALLS;
     
     RicochetModule() {
+      // Default values
       numOfRicochets = 0;
+      
       ricochetUP = false;
       ricochetDOWN = false;
       ricochetWALLS = true;
