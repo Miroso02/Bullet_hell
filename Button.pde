@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-// Old Button. Nevermind
-boolean doing;
-
-class Button // TODO: Create normal button!!!
-=======
 class Button 
->>>>>>> 5e041f4c124e9b998cc7b44b71007383d9e21f37
 {
   float x;
   float y;
@@ -14,6 +7,7 @@ class Button
   float h;
   float paddingWidth;
   float paddingHeight;
+  
   String text;
   color col;
   
@@ -23,14 +17,14 @@ class Button
     col = color(180, 255, 0);
     setPosition(x, y);
     setPadding(10, 10);
-    setParameters(text);
+    setOptions(text);
   }
   
   void display() {
     stroke(col);
     
     textSize(30);
-    setParameters(text);
+    setOptions(text);
     fill(col);
     text(text, x + paddingWidth , y + paddingHeight);
     
@@ -58,7 +52,7 @@ class Button
     paddingHeight = ph;
   }
   
-  void setParameters(String text) {
+  void setOptions(String text) {
     this.text = text;
     
     h = 2 * paddingHeight + textAscent() + textDescent();

@@ -1,4 +1,8 @@
 class Cannon {
+  // TODO: Rewrite this class:
+  //         1) Create link to cannon in patterns
+  //         2) Move module content to patterns
+  
   Bullet[] bullets;
   int numOfCurBullet;
   int bulletsCount;
@@ -9,13 +13,10 @@ class Cannon {
   
   boolean isDead;
   boolean isKillingPlayer;
-  // TODO: Move this variable to Bullet
   
   BulletColorPattern bulletColPattern;
-  // TODO: Create module for color
   FireModule fireModule;
   MoveModule moveModule;
-  // TODO: Add connection between modules
   
   //----------- Constructor --------------------------------------
   
@@ -31,7 +32,7 @@ class Cannon {
     isKillingPlayer = true;
     isDead = false;
     
-    // Default color pattern realisations do nothing
+    // Default color pattern realisation do nothing
     bulletColPattern = new BulletColorPattern() {
       public void setBulletColor(Bullet b, int n, int c) {
         b.col = color(255);
@@ -61,8 +62,14 @@ class Cannon {
   //--------- Main methods --------------------------------
   
   private void updateBullets() {
-    for (Bullet bullet: bullets) {
-      bullet.update(isKillingPlayer);
+    if (isKillingPlayer) {
+      for (Bullet bullet: bullets) {
+        bullet.update();
+      }
+    } else {
+      for (Bullet bullet: bullets) {
+        bullet.updatePeacefully();
+      }
     }
   }
   
@@ -118,6 +125,9 @@ class Cannon {
     this.x = x;
     this.y = y;
   }
+  PVector getPosition() {
+    return new PVector(x, y);
+  }
   
   //------------ Modules -------------------------------
   //----------- Fire module ----------------------------
@@ -148,7 +158,7 @@ class Cannon {
         }
       }
     }
-      
+    
     private int nextBulNum() {
       if (numOfCurBullet < bulletsCount - 1) {
         return numOfCurBullet++;

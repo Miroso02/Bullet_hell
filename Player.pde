@@ -18,7 +18,7 @@ class Player {
     
     playerGun = new Cannon(150);
     playerGun.setPosition(x, y);
-    playerGun.fireModule.shotDelay = 3;
+    playerGun.fireModule.shotDelay = 4;
     playerGun.fireModule.bulletShotsAtOnce = 5;
     playerGun.isKillingPlayer = false;
     
@@ -26,10 +26,8 @@ class Player {
       public void fire(Bullet bullet, int bulletNum, float canX, float canY) {
         float bulletSpeedX = (bulletNum % 5 - 2) * 1.4;
         
-        bullet.x = player.x;
-        bullet.y = player.y - 5;
-        bullet.speedX = bulletSpeedX;
-        bullet.speedY = -30;
+        bullet.setPosition(player.x, player.y - 5);
+        bullet.setVelocity(bulletSpeedX, -30);
         bullet.w = 8;
       }
     };

@@ -1,20 +1,16 @@
 Player player;
 Button restartButton;
-Cannon[] s = new Cannon[3];
+Cannon[] s = new Cannon[2];
+Cannon test; 
+// On this cannon I'll test new patterns
 
 void draw() {
   background(0); // Black background
   
-<<<<<<< HEAD
- // s[0].doAll();  // Fire, control bullets,
- // s[1].doAll();  // take damage, display
-  s[2].doAll();
-  
-=======
   s[0].update();  // Fire, control bullets,
   s[1].update();  // take damage, display
+  //test.update();
 
->>>>>>> 5e041f4c124e9b998cc7b44b71007383d9e21f37
   if (!player.isDead) {
     player.update(); 
   } else {

@@ -18,4 +18,10 @@ class PreparedFirePatterns {
     
     return new PVector(speedX, speedY);
   }
+  
+  public void shootToAllSides(Bullet bullet, int bulletNum, int numOfDirections) {
+    float angle = TWO_PI * bulletNum / numOfDirections;
+    bullet.speedX = cos(angle);
+    bullet.speedY = sin(angle);
+  }
 }

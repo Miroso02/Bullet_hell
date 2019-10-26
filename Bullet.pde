@@ -31,11 +31,18 @@ class Bullet {
   
   //---------- Multipurpose methods -------------------------
   
-  public void update(boolean isKillingPlayer) {
+  public void update() {
     if (isOnScreen()) {
       display();
       move();
-      if (isKillingPlayer) killPlayer();
+      killPlayer();
+    }
+  }
+  
+  public void updatePeacefully() {
+    if (isOnScreen()) {
+      display();
+      move();
     }
   }
   
@@ -130,6 +137,10 @@ class Bullet {
   void setPosition(float x, float y) {
     this.x = x;
     this.y = y;
+  }
+  void setPosition(PVector newPosition) {
+    this.x = newPosition.x;
+    this.y = newPosition.y;
   }
   
   void setVelocity(float speedX, float speedY) {
