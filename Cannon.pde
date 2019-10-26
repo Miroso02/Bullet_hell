@@ -24,15 +24,14 @@ class Cannon {
     this.bulletsCount = bulletsCount;
     
     // Default values
-    x = width / 2;
-    y = height / 2;
-    
+    this.setPosition(width / 2, height / 2);
+        
     health = 100;
     
     isKillingPlayer = true;
     isDead = false;
     
-    // Default realisations do nothing
+    // Default color pattern realisations do nothing
     bulletColPattern = new BulletColorPattern() {
       public void setBulletColor(Bullet b, int n, int c) {
         b.col = color(255);
@@ -49,21 +48,21 @@ class Cannon {
   
   //--------- Multipurpose methods --------------------------
   
-  public void doAll() {
+  public void update() {
     if (!isDead) {
       takeDamage();
       fire();
       move();
       display();
     }
-    controlBullets();
+    updateBullets();
   }
   
   //--------- Main methods --------------------------------
   
-  private void controlBullets() {
+  private void updateBullets() {
     for (Bullet bullet: bullets) {
-      bullet.doAll(isKillingPlayer);
+      bullet.update(isKillingPlayer);
     }
   }
   
@@ -79,12 +78,15 @@ class Cannon {
     noFill();
     strokeWeight(1);
     stroke(200, 0, 255);
+    rectMode(CENTER);
     rect(x, y, 40, 40);
+    rectMode(CORNER);
     
     fill(200, 0, 255);
     textSize(20);
     textAlign(CENTER);
     text(health, x, y);
+    textAlign(LEFT, TOP);
   }
   
   void takeDamage()
