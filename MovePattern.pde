@@ -25,6 +25,6 @@ class PreparedMovePatterns extends CannonData {
     if (clockwise) x = x + radius * sin(angle);
     else x = x - radius * sin(angle);
 
-    cannon.setPosition(new PVector(x, y));
+    this.cannon.setPosition(new PVector(x, y));
   }
 }

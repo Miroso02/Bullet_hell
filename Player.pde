@@ -18,19 +18,22 @@ class Player {
 
     playerGun = new Cannon(150);
     playerGun.setPosition(x, y);
-    playerGun.fireModule.shotDelay = 4;
-    playerGun.fireModule.bulletShotsAtOnce = 5;
     playerGun.isKillingPlayer = false;
 
-    playerGun.fireModule.firePattern = new FirePattern(playerGun) {
-      public void fire(Bullet bullet, int bulletNum) {
-        float bulletSpeedX = (bulletNum % 5 - 2) * 1.4;
+    playerGun.firePattern = new FirePattern(playerGun) {
+      public void fire() {
+        int num = this.cannon.numOfCurBullet;
+        Bullet bullet = this.cannon.bullets[num];
+
+        float bulletSpeedX = (num % 5 - 2) * 1.4;
 
         bullet.setPosition(player.x, player.y - 5);
         bullet.setVelocity(bulletSpeedX, -30);
         bullet.w = 8;
       }
     };
+    playerGun.firePattern.shotDelay = 4;
+    playerGun.firePattern.bulletShotsAtOnce = 5;
   }
 
   //--------- Multipurpose methods --------------------------

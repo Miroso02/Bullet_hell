@@ -35,7 +35,7 @@ class Bullet {
     if (isOnScreen()) {
       display();
       move();
-      //killPlayer();
+      //killPlayer(); // Comment this in test mode
     }
   }
 
@@ -146,6 +146,10 @@ class Bullet {
   void setVelocity(float speedX, float speedY) {
     this.speedX = speedX;
     this.speedY = speedY;
+  }
+  void setVelocity(PVector newSpeed) {
+    this.speedX = newSpeed.x;
+    this.speedY = newSpeed.y;
   }
 
   float getDistToPlayerSq() {

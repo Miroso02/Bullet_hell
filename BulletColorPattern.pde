@@ -1,5 +1,8 @@
 abstract class BulletColorPattern extends PreparedBulletColorPatterns {
-  abstract public void setBulletColor(Bullet currentBullet, int numOfCurBullet, int allBulletsCount);
+  BulletColorPattern(Cannon cannon) {
+    this.cannon = cannon;
+  }
+  abstract public void setBulletColor();
 }
 
 //--------------------------------------------------------------------------------------------------------------
@@ -7,11 +10,13 @@ abstract class BulletColorPattern extends PreparedBulletColorPatterns {
 class PreparedBulletColorPatterns extends CannonData {
   // TODO: Add some patterns
 
-  public void changeBulletColorHSB(Bullet bullet, int numOfCurBullet, int allBulletsCount, int cyclesPerEnd) {
-    float k = 255 / (float)allBulletsCount;
-    float colK;
+  public void changeBulletColorHSB(int cyclesPerEnd) {
+    int num = cannon.numOfCurBullet;
+    Bullet bullet = cannon.bullets[num];
+
+    float k = 255 / (float)cannon.bulletsCount;
     colorMode(HSB);
-    colK = numOfCurBullet * k * cyclesPerEnd;
+    float colK = num * k * cyclesPerEnd;
 
     for (int i = cyclesPerEnd; i > 0; i--) {
       if (colK > 255 * i) {
@@ -24,7 +29,7 @@ class PreparedBulletColorPatterns extends CannonData {
     colorMode(RGB);
   }
 
-  public void randomBulletColor(Bullet bullet) {
-    bullet.col = color(random(255), random(255), random(255));
+  public color randomColor() {
+    return color(random(255), random(255), random(255));
   }
 }

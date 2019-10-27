@@ -1,8 +1,4 @@
 class Cannon {
-  // TODO: Rewrite this class:
-  //         1) Create link to cannon in patterns
-  //         2) Move module content to patterns
-
   Bullet[] bullets;
   int numOfCurBullet;
   int bulletsCount;
@@ -14,9 +10,8 @@ class Cannon {
   boolean isDead;
   boolean isKillingPlayer;
 
-  BulletColorPattern bulletColPattern;
   MovePattern movePattern;
-  FireModule fireModule;
+  FirePattern firePattern;
 
   //----------- Constructor --------------------------------------
 
@@ -26,34 +21,30 @@ class Cannon {
 
     // Default values
     this.setPosition(width / 2, height / 2);
-
     health = 100;
-
     isKillingPlayer = true;
-    isDead = false;
 
-    // Default color pattern realisation do nothing
-    bulletColPattern = new BulletColorPattern() {
-      public void setBulletColor(Bullet b, int n, int c) {
-        b.col = color(255);
-      }
-    };
-    movePattern = new MovePattern(null) {
-      public void move(int t) {}
-    };
+    numOfCurBullet = 0;
+    isDead = false;
 
     for (int i = 0; i < bulletsCount; i++) {
       bullets[i] = new Bullet();
     }
 
-    fireModule = new FireModule();
+    // Default move pattern and fire pattern realisations do nothing
+    movePattern = new MovePattern(this) {
+      public void move(int t) {}
+    };
+    firePattern = new FirePattern(this) {
+      public void fire() {}
+    };
   }
 
   //--------- Multipurpose methods --------------------------
 
   public void update() {
     if (!isDead) {
-      //takeDamage();
+      //takeDamage(); // Comment this in test mode
       fire();
       move();
       display();
@@ -76,7 +67,7 @@ class Cannon {
   }
 
   void fire() {
-    fireModule.fire();
+    firePattern.fireAndColorize();
   }
 
   void move() {
@@ -98,8 +89,7 @@ class Cannon {
     textAlign(LEFT, TOP);
   }
 
-  void takeDamage()
-  {
+  void takeDamage() {
     for (Bullet bullet: player.playerGun.bullets) {
       if (hit(bullet)) {
         health--;
@@ -135,51 +125,11 @@ class Cannon {
     return new PVector(x, y);
   }
 
-  //------------ Modules -------------------------------
-  //----------- Fire module ----------------------------
-
-  private class FireModule {
-    private int shotDelayCounter = 0;
-    int shotDelay;
-    int bulletShotsAtOnce;
-
-    FirePattern firePattern;
-
-    public FireModule() {
-      shotDelay = 3;
-      bulletShotsAtOnce = 1;
-
-      firePattern = new FirePattern(null) {
-        public void fire(Bullet b, int n) {}
-      };
-    }
-
-    void fire() {
-      if (shotCooldown()) {
-        for (int i = 0; i < bulletShotsAtOnce; i++) {
-          int bNum = nextBulNum();
-          Bullet bullet = bullets[bNum];
-          firePattern.fire(bullet, bNum);
-          bulletColPattern.setBulletColor(bullet, bNum, bulletsCount);
-        }
-      }
-    }
-
-    private int nextBulNum() {
-      if (numOfCurBullet < bulletsCount - 1) {
-        return numOfCurBullet++;
-      } else {
-        return numOfCurBullet = 0;
-      }
-    }
-
-    private boolean shotCooldown() {
-      if (shotDelayCounter > shotDelay) {
-        shotDelayCounter = 2;
-        return true;
-      }
-      shotDelayCounter++;
-      return false;
+  Bullet getPrevBullet() {
+    if (numOfCurBullet > 0) {
+      return bullets[numOfCurBullet - 1];
+    } else {
+      return bullets[bulletsCount - 1];
     }
   }
 }
