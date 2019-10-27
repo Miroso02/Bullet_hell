@@ -24,7 +24,7 @@ void setup() {
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
-      int bulInShot = this.bulletShotsAtOnce;
+      int bulInShot = this.bulletsInShot;
 
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = 0.01 * (num % bulInShot + 15) * sin(1.06 * num);
@@ -35,7 +35,7 @@ void setup() {
     }
   };
   s[0].firePattern.shotDelay = 50;
-  s[0].firePattern.bulletShotsAtOnce = 100;
+  s[0].firePattern.bulletsInShot = 100;
 
   s[0].movePattern = new MovePattern(s[0]) {
     public void move() {
@@ -69,7 +69,7 @@ void setup() {
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
-      int bulInShot = this.bulletShotsAtOnce;
+      int bulInShot = this.bulletsInShot;
 
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
@@ -77,11 +77,10 @@ void setup() {
       bullet.setPosition(this.cannon.getPosition());
       bullet.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.speed = 12;
-      //bullet.ricochetModule.numOfRicochets = 1;
     }
   };
   s[1].firePattern.shotDelay = 50;
-  s[1].firePattern.bulletShotsAtOnce = 100;
+  s[1].firePattern.bulletsInShot = 100;
 
   s[1].movePattern = new MovePattern(s[1]) {
     public void move() {
@@ -91,7 +90,7 @@ void setup() {
       int period = 300;
       float phase0 = 0;
       int time = this.timeCounter;
-      
+
       super.rotateAround(x, y, radius, time, period, false, phase0);
     }
   };
@@ -105,7 +104,7 @@ void setup() {
   //--------------------------------------------------------
 
   test = new Cannon(600);
-  test.setPosition(width / 2, height / 2);
+  test.setPosition(-100, 100);
   test.health = 600;
 
   test.firePattern = new FirePattern(test) {
@@ -133,23 +132,20 @@ void setup() {
     }
   };
   test.firePattern.shotDelay = 20;
-  test.firePattern.bulletShotsAtOnce = 3;
-
+  test.firePattern.bulletsInShot = 3;
   test.firePattern.bulletColPattern = new BulletColorPattern(test) {
     public void setBulletColor() {
-      // TODO: Make BulletColorPattern for this (set color for each shot)
-      int num = this.cannon.numOfCurBullet;
-      Bullet bullet = this.cannon.bullets[num];
-
-      int bulletShotsAtOnce =
-        this.cannon.firePattern.bulletShotsAtOnce;
-
-      if (num % bulletShotsAtOnce == 0) {
-        bullet.col = super.randomColor();
+      super.setColorOfAllShot(super.randomColor());
+    }
+  };
+  test.movePattern = new MovePattern(test) {
+    public void move() {
+      int time = this.getTime();
+      if (time < 50) {
+        this.cannon.x += 12 - 0.2 * time;
       }
-      else {
-        Bullet prevBullet = this.cannon.getPrevBullet();
-        bullet.col = prevBullet.col;
+      else if(time > 210) {
+        this.cannon.y -= time / 20 - 5;
       }
     }
   };

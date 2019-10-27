@@ -1,14 +1,14 @@
 abstract class FirePattern extends PreparedFirePatterns {
-  int shotDelayCounter = 0;
+  private int shotDelayCounter = -1;
   int shotDelay;
-  int bulletShotsAtOnce;
+  int bulletsInShot;
 
   BulletColorPattern bulletColPattern;
 
   FirePattern(Cannon cannon) {
     this.cannon = cannon;
     shotDelay = 3;
-    bulletShotsAtOnce = 1;
+    bulletsInShot = 1;
 
     // Default color pattern makes all bullets white
     bulletColPattern = new BulletColorPattern(cannon) {
@@ -24,13 +24,21 @@ abstract class FirePattern extends PreparedFirePatterns {
 
   public void fireAndColorize() {
     if (shotCooldown()) {
-      for (int i = 0; i < bulletShotsAtOnce; i++) {
+      for (int i = 0; i < bulletsInShot; i++) {
         fire();
         bulletColPattern.setBulletColor();
         nextBulNum();
       }
     }
   }
+
+  //----------------------------------------------------------------------------
+
+  int getTimeFromDelay() {
+    return shotDelayCounter;
+  }
+
+  //----------------------------------------------------------------------------
 
   private void nextBulNum() {
     if (cannon.numOfCurBullet < cannon.bulletsCount - 1) {
@@ -41,13 +49,12 @@ abstract class FirePattern extends PreparedFirePatterns {
   }
 
   private boolean shotCooldown() {
-    if (shotDelayCounter > shotDelay) {
-      shotDelayCounter = 2;
-      // TODO: Find out why is it asynchronous
-      return true;
+    if (shotDelayCounter < shotDelay - 1) {
+      shotDelayCounter++;
+      return false;
     }
-    shotDelayCounter++;
-    return false;
+    shotDelayCounter = 0;
+    return true;
   }
 }
 

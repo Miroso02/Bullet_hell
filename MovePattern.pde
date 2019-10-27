@@ -7,9 +7,13 @@ abstract class MovePattern extends PreparedMovePatterns {
 
   abstract public void move();
 
-  void _move() {
+  public void _move() {
     move();
     timeCounter++;
+  }
+
+  int getTime() {
+    return timeCounter;
   }
 }
 

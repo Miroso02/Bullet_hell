@@ -33,7 +33,7 @@ class Player {
       }
     };
     playerGun.firePattern.shotDelay = 4;
-    playerGun.firePattern.bulletShotsAtOnce = 5;
+    playerGun.firePattern.bulletsInShot = 5;
   }
 
   //--------- Multipurpose methods --------------------------

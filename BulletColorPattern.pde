@@ -29,6 +29,20 @@ class PreparedBulletColorPatterns extends CannonData {
     colorMode(RGB);
   }
 
+  public void setColorOfAllShot(color col) {
+    int num = cannon.numOfCurBullet;
+    Bullet bullet = cannon.bullets[num];
+    int bulletsInShot = cannon.firePattern.bulletsInShot;
+
+    if (num % bulletsInShot == 0) {
+      bullet.col = col;
+    }
+    else {
+      Bullet prevBullet = cannon.getPrevBullet();
+      bullet.col = prevBullet.col;
+    }
+  }
+
   public color randomColor() {
     return color(random(255), random(255), random(255));
   }
