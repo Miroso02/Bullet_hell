@@ -1,5 +1,5 @@
 abstract class FirePattern extends PreparedFirePatterns {
-  private int shotDelayCounter = 0;
+  int shotDelayCounter = 0;
   int shotDelay;
   int bulletShotsAtOnce;
 

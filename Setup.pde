@@ -38,14 +38,15 @@ void setup() {
   s[0].firePattern.bulletShotsAtOnce = 100;
 
   s[0].movePattern = new MovePattern(s[0]) {
-    public void move(int time) {
+    public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
       float radius = 200;
       int period = 300;
       float phase0 = 0;
+      int time = this.timeCounter;
 
-      super.rotateAround(x, y, time, radius, period, true, phase0);
+      super.rotateAround(x, y, radius, time, period, true, phase0);
     }
   };
   s[0].firePattern.bulletColPattern = new BulletColorPattern(s[0]) {
@@ -83,14 +84,15 @@ void setup() {
   s[1].firePattern.bulletShotsAtOnce = 100;
 
   s[1].movePattern = new MovePattern(s[1]) {
-    public void move(int time) {
+    public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-
-      super.rotateAround(x, y, time, radius, period, false, phase0);
+      int time = this.timeCounter;
+      
+      super.rotateAround(x, y, radius, time, period, false, phase0);
     }
   };
   s[1].firePattern.bulletColPattern = new BulletColorPattern(s[1]) {

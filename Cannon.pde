@@ -33,7 +33,7 @@ class Cannon {
 
     // Default move pattern and fire pattern realisations do nothing
     movePattern = new MovePattern(this) {
-      public void move(int t) {}
+      public void move() {}
     };
     firePattern = new FirePattern(this) {
       public void fire() {}
@@ -71,7 +71,7 @@ class Cannon {
   }
 
   void move() {
-    movePattern.move();
+    movePattern._move();
   }
 
   void display() {
