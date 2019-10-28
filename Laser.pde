@@ -1,14 +1,14 @@
-// Don't look here! 
+// Don't look here!
 // I'm ashamed of this tab
 class Laser // TODO: Review this tab
 {
-  float koef;
+  /*float koef;
   float x, y, xt, yt;
   int hp;
   float from = 90, to = 180, start = 90;
   boolean dead, isUnderFire;
   ForLaser method;
-  
+
   Laser(float xx, float yy, float koef0, int hpp, ForLaser fl)
   {
     dead = false;
@@ -18,7 +18,7 @@ class Laser // TODO: Review this tab
     koef = koef0;
     method = fl;
   }
-  
+
   void doAll()
   {
     float[] data=method.fire(koef,x,y,from, to, start);
@@ -30,7 +30,7 @@ class Laser // TODO: Review this tab
     from=data[5];
     to=data[6];
     start=data[7];
-    
+
     death();
     float a=x-xt,b=y-yt;
     float m,n,k,t;
@@ -40,11 +40,11 @@ class Laser // TODO: Review this tab
        player.x>m && player.x<n && player.y>k && player.y<t)
       player.isDead = true;
       display();
-    
+
     if(koef>627)
       koef=0;
   }
-  
+
   void display()
   {
     if(!dead)
@@ -57,7 +57,7 @@ class Laser // TODO: Review this tab
       textSize(20);
       textAlign(CENTER);
       text(hp,x,y);
-      
+
       if(x!=xt && y!=yt)
       {
         strokeWeight(15);
@@ -65,17 +65,20 @@ class Laser // TODO: Review this tab
       }
     }
   }
-  
+
   void death()
   {
     Bullet[] ar=player.playerGun.bullets;
     for(int i=0;i<ar.length;i++)
     {
       Bullet ar0=ar[i];
-      if(ar0.y-ar0.w<y+20-2 && ar0.x+ar0.w>x-20 && ar0.x-ar0.w<x+20 && ar0.y+ar0.w>y-20+2)
+      if(ar0.position.y-ar0.w<y+20-2
+         && ar0.position.x+ar0.w>x-20
+         && ar0.position.x-ar0.w<x+20
+         && ar0.position.y+ar0.w>y-20+2)
       {
         hp--;
-        player.playerGun.bullets[i].x=2000;
+        player.playerGun.bullets[i].position.x=2000;
         isUnderFire=true;
       }
     }
@@ -84,7 +87,7 @@ class Laser // TODO: Review this tab
       dead=true;
       x=2000;
     }
-  }
+  }*/
 }
 
 interface ForLaser {

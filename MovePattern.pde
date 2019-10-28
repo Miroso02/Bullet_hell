@@ -1,5 +1,5 @@
 abstract class MovePattern extends PreparedMovePatterns {
-  int timeCounter = 0;
+  private int timeCounter = 0;
 
   MovePattern(Cannon cannon) {
     this.cannon = cannon;

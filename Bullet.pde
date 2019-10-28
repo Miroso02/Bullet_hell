@@ -1,13 +1,11 @@
 class Bullet {
-  float x;
-  float y;
+  PVector position;
+  PVector velocity;
 
   int w;
   color col;
 
   float speed;
-  float speedX = 0;
-  float speedY = 0;
   float accelerationY;
 
 
@@ -17,15 +15,13 @@ class Bullet {
 
   public Bullet() {
     // DefaultValues
-    x = 2000;
-    y = 0;
+    position = new PVector(2000, 0);
     w = 10;
-
     col = color(255);
-
     speed = 1;
     accelerationY = 0;
 
+    velocity = new PVector(0, 0);
     ricochetModule = new RicochetModule();
   }
 
@@ -35,7 +31,7 @@ class Bullet {
     if (isOnScreen()) {
       display();
       move();
-      //killPlayer(); // Comment this in test mode
+      killPlayer(); // Comment this in test mode
     }
   }
 
@@ -51,13 +47,15 @@ class Bullet {
   void display() {
     noStroke();
     fill(col);
-    ellipse(x, y, w, w);
+    ellipse(position.x, position.y, w, w);
   }
 
   void move() {
-    x += speed * speedX;
-    y += speed * speedY;
-    speedY += accelerationY;
+    //x += speed * speedX;
+    //y += speed * speedY;
+    PVector finalSpeed = velocity.copy().mult(speed);
+    position.add(finalSpeed);
+    //speedY += accelerationY;
     ricochetModule.ricochet();
   }
 
@@ -71,13 +69,12 @@ class Bullet {
 
   private boolean touchingPlayer() {
     float sumOfRadiuses = (w + player.size) / 2;
-
-    return (getDistToPlayerSq() < sq(sumOfRadiuses));
+    return getDistToPlayer() < sumOfRadiuses;
   }
 
   private boolean isOnScreen() {
-    return (x + w > 0 && x - w < width &&
-            y + w > 0 && y - w < height);
+    return (position.x + w > 0 && position.x - w < width &&
+            position.y + w > 0 && position.y - w < height);
   }
 
   //--------- Ricochet module -----------+------------------------
@@ -97,7 +94,7 @@ class Bullet {
       ricochetWALLS = true;
     }
 
-    private void ricochet() {
+    void ricochet() {
       if (numOfRicochets > 0) {
         if (ricochetWALLS) ricochetFromWalls();
         if (ricochetUP)    ricochetFromTop();
@@ -106,20 +103,21 @@ class Bullet {
     }
 
     private void ricochetFromWalls() {
-      if (x + speedX > width || x - speedX < 0) {
-        speedX = -speedX;
+      if (position.x + velocity.x > width
+      || position.x - velocity.x < 0) {
+        velocity.x = -velocity.x;
         numOfRicochets--;
       }
     }
     private void ricochetFromTop() {
-      if (y - speedY < 0) {
-        speedY = -speedY;
+      if (position.y - velocity.y < 0) {
+        velocity.y = -velocity.y;
         numOfRicochets--;
       }
     }
     private void ricochetFromBottom() {
-      if (y + speedY > height) {
-        speedY = -speedY;
+      if (position.y + velocity.y > height) {
+        velocity.y = -velocity.y;
         numOfRicochets--;
       }
     }
@@ -132,30 +130,29 @@ class Bullet {
     }
   }
 
-  //--------- GETters / SETters ----------------------
+  //--------- GETters / SETters ------------------------------------------------
 
   void setPosition(float x, float y) {
-    this.x = x;
-    this.y = y;
+    this.position.set(x, y);
   }
   void setPosition(PVector newPosition) {
-    this.x = newPosition.x;
-    this.y = newPosition.y;
+    this.position = newPosition.copy();
   }
-
+  PVector getPosition() {
+    return position.copy();
+  }
+//--------------------------
   void setVelocity(float speedX, float speedY) {
-    this.speedX = speedX;
-    this.speedY = speedY;
+    this.velocity.set(speedX, speedY);
   }
   void setVelocity(PVector newSpeed) {
-    this.speedX = newSpeed.x;
-    this.speedY = newSpeed.y;
+    this.velocity = newSpeed.copy();
   }
-
-  float getDistToPlayerSq() {
-    float distToPlayerX = player.x - x;
-    float distToPlayerY = player.y - y;
-
-    return sq(distToPlayerX) + sq(distToPlayerY);
+  PVector getVelocity() {
+    return velocity.copy();
+  }
+//--------------------------
+  float getDistToPlayer() {
+    return player.getDistTo(position);
   }
 }

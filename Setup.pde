@@ -44,7 +44,7 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.timeCounter;
+      int time = this.getTime();
 
       super.rotateAround(x, y, radius, time, period, true, phase0);
     }
@@ -89,7 +89,7 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.timeCounter;
+      int time = this.getTime();
 
       super.rotateAround(x, y, radius, time, period, false, phase0);
     }
@@ -103,50 +103,38 @@ void setup() {
 
   //--------------------------------------------------------
 
-  test = new Cannon(600);
-  test.setPosition(-100, 100);
-  test.health = 600;
+  test = new Cannon(100);
+  test.setPosition(width / 2, 100);
 
   test.firePattern = new FirePattern(test) {
     public void fire() {
       int num = this.cannon.numOfCurBullet;
       Bullet bullet = this.cannon.bullets[num];
 
-      PVector startPosition = this.cannon.getPosition();
-      PVector toPlayerDirection = super.targetPlayerFrom(startPosition);
+      PVector startPos = this.cannon.getPosition();
 
-      switch (num % 3) {
-        case 0:
-          bullet.setVelocity(toPlayerDirection.rotate(QUARTER_PI / 2));
-          break;
-        case 1:
-          bullet.setVelocity(toPlayerDirection);
-          break;
-        case 2:
-          bullet.setVelocity(toPlayerDirection.rotate(-QUARTER_PI / 2));
-          break;
+      if (num % 2 == 0) {
+        bullet.setPosition(startPos);
+        bullet.w = 20;
+        bullet.setVelocity(super.targetPlayerFrom(startPos));
+      }
+      else {
+        PVector lastBulPos = this.cannon.getPrevBullet().getPosition();
+        bullet.setPosition(lastBulPos);
+        bullet.setVelocity(super.targetPlayerFrom(lastBulPos));
+        bullet.w = 10;
       }
 
-      bullet.setPosition(startPosition);
       bullet.speed = 8;
     }
   };
-  test.firePattern.shotDelay = 20;
-  test.firePattern.bulletsInShot = 3;
+  test.firePattern.shotDelay = 80;
   test.firePattern.bulletColPattern = new BulletColorPattern(test) {
     public void setBulletColor() {
-      super.setColorOfAllShot(super.randomColor());
-    }
-  };
-  test.movePattern = new MovePattern(test) {
-    public void move() {
-      int time = this.getTime();
-      if (time < 50) {
-        this.cannon.x += 12 - 0.2 * time;
-      }
-      else if(time > 210) {
-        this.cannon.y -= time / 20 - 5;
-      }
+      int num = this.cannon.numOfCurBullet;
+      Bullet bullet = this.cannon.bullets[num];
+
+      bullet.col = color(255, 0, 0);
     }
   };
 

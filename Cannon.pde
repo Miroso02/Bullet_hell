@@ -3,8 +3,7 @@ class Cannon {
   int numOfCurBullet;
   int bulletsCount;
 
-  float x;
-  float y;
+  PVector position;
   int health;
 
   boolean isDead;
@@ -20,7 +19,7 @@ class Cannon {
     this.bulletsCount = bulletsCount;
 
     // Default values
-    this.setPosition(width / 2, height / 2);
+    this.position = new PVector(width / 2, height / 2);
     health = 100;
     isKillingPlayer = true;
 
@@ -44,7 +43,7 @@ class Cannon {
 
   public void update() {
     if (!isDead) {
-      //takeDamage(); // Comment this in test mode
+      takeDamage(); // Comment this in test mode
       fire();
       move();
       display();
@@ -79,13 +78,13 @@ class Cannon {
     strokeWeight(1);
     stroke(200, 0, 255);
     rectMode(CENTER);
-    rect(x, y, 40, 40);
+    rect(position.x, position.y, 40, 40);
     rectMode(CORNER);
 
     fill(200, 0, 255);
     textSize(20);
     textAlign(CENTER);
-    text(health, x, y);
+    text(health, position.x, position.y);
     textAlign(LEFT, TOP);
   }
 
@@ -93,7 +92,7 @@ class Cannon {
     for (Bullet bullet: player.playerGun.bullets) {
       if (hit(bullet)) {
         health--;
-        bullet.x = 2000;
+        bullet.position.x = 2000;
       }
     }
 
@@ -105,24 +104,19 @@ class Cannon {
   //--------- Private inner methods -------------------------
 
   private boolean hit(Bullet bullet) {
-    return (bullet.y - bullet.w < y + 20 - 2
-         && bullet.x + bullet.w > x - 20
-         && bullet.x - bullet.w < x + 20
-         && bullet.y + bullet.w > y - 20 + 2);
+    return (position.dist(bullet.position) < bullet.w + 20);
   }
 
   //--------- GETters / SETters ----------------------
 
   void setPosition(float x, float y) {
-    this.x = x;
-    this.y = y;
+    this.position.set(x, y);
   }
   void setPosition(PVector newPosition) {
-    this.x = newPosition.x;
-    this.y = newPosition.y;
+    this.position = newPosition.copy();
   }
   PVector getPosition() {
-    return new PVector(x, y);
+    return position.copy();
   }
 
   Bullet getPrevBullet() {

@@ -64,10 +64,9 @@ class PreparedFirePatterns extends CannonData {
   // TODO: Add some patterns
 
   public PVector targetPlayerFrom(PVector startPoint) {
-    float distToPlayerX = player.x - startPoint.x;
-    float distToPlayerY = player.y - startPoint.y;
-    float distToPlayer =
-      sqrt(sq(distToPlayerX) + sq(distToPlayerY));
+    float distToPlayerX = player.position.x - startPoint.x;
+    float distToPlayerY = player.position.y - startPoint.y;
+    float distToPlayer = sqrt(sq(distToPlayerX) + sq(distToPlayerY));
 
     float speedX = distToPlayerX / distToPlayer;
     float speedY = distToPlayerY / distToPlayer;
@@ -81,7 +80,6 @@ class PreparedFirePatterns extends CannonData {
 
     float angle = TWO_PI * num / numOfDirections;
 
-    bullet.speedX = cos(angle);
-    bullet.speedY = sin(angle);
+    bullet.setVelocity(cos(angle), sin(angle));
   }
 }
