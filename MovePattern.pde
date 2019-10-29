@@ -1,7 +1,7 @@
-abstract class MovePattern extends PreparedMovePatterns {
+abstract class MPattern extends PreparedMovePatterns {
   private int timeCounter = 0;
 
-  MovePattern(Cannon cannon) {
+  MPattern(Cannon cannon) {
     this.cannon = cannon;
   }
 

@@ -18,11 +18,10 @@ class Player {
 
     isDead = false;
 
-    playerGun = new Cannon(80);
+    playerGun = new Cannon(80, false);
     playerGun.setPosition(x, y);
-    playerGun.isKillingPlayer = false;
 
-    playerGun.firePattern = new FirePattern(playerGun) {
+    playerGun.fcPattern = new FCPattern(playerGun) {
       public void fire() {
         int num = this.cannon.numOfCurBullet;
         Bullet bullet = this.cannon.bullets[num];
@@ -33,9 +32,11 @@ class Player {
         bullet.setVelocity(bulletSpeedX, -30);
         bullet.w = 8;
       }
+      
+      public void setBulletColor() {};
     };
-    playerGun.firePattern.shotDelay = 4;
-    playerGun.firePattern.bulletsInShot = 5;
+    playerGun.fcPattern.shotDelay = 4;
+    playerGun.fcPattern.bulletsInShot = 5;
   }
 
   //--------- Multipurpose methods --------------------------

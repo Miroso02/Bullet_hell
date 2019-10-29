@@ -31,14 +31,6 @@ class Bullet {
     if (isOnScreen()) {
       display();
       move();
-      killPlayer(); // Comment this in test mode
-    }
-  }
-
-  public void updatePeacefully() {
-    if (isOnScreen()) {
-      display();
-      move();
     }
   }
 
@@ -59,20 +51,9 @@ class Bullet {
     ricochetModule.ricochet();
   }
 
-  void killPlayer() {
-    if (touchingPlayer()) {
-      player.isDead = true;
-    }
-  }
-
   //------- Private inner methods -------------------
 
-  private boolean touchingPlayer() {
-    float sumOfRadiuses = (w + player.size) / 2;
-    return getDistToPlayer() < sumOfRadiuses;
-  }
-
-  private boolean isOnScreen() {
+  protected boolean isOnScreen() {
     return (position.x + w > 0 && position.x - w < width &&
             position.y + w > 0 && position.y - w < height);
   }

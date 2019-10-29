@@ -1,32 +1,22 @@
-abstract class FirePattern extends PreparedFirePatterns {
+abstract class FCPattern extends PreparedFCPatterns {
   private int shotDelayCounter = -1;
   int shotDelay;
   int bulletsInShot;
 
-  BulletColorPattern bulletColPattern;
-
-  FirePattern(Cannon cannon) {
+  FCPattern(Cannon cannon) {
     this.cannon = cannon;
     shotDelay = 3;
     bulletsInShot = 1;
-
-    // Default color pattern makes all bullets white
-    bulletColPattern = new BulletColorPattern(cannon) {
-      public void setBulletColor() {
-        for (Bullet b: this.cannon.bullets) {
-          b.col = color(255);
-        }
-      }
-    };
   }
 
   abstract public void fire();
+  abstract public void setBulletColor();
 
   public void fireAndColorize() {
     if (shotCooldown()) {
       for (int i = 0; i < bulletsInShot; i++) {
         fire();
-        bulletColPattern.setBulletColor();
+        setBulletColor();
         nextBulNum();
       }
     }
@@ -55,31 +45,5 @@ abstract class FirePattern extends PreparedFirePatterns {
     }
     shotDelayCounter = 0;
     return true;
-  }
-}
-
-//---------------------------------------------------------------------------------------------------
-
-class PreparedFirePatterns extends CannonData {
-  // TODO: Add some patterns
-
-  public PVector targetPlayerFrom(PVector startPoint) {
-    float distToPlayerX = player.position.x - startPoint.x;
-    float distToPlayerY = player.position.y - startPoint.y;
-    float distToPlayer = sqrt(sq(distToPlayerX) + sq(distToPlayerY));
-
-    float speedX = distToPlayerX / distToPlayer;
-    float speedY = distToPlayerY / distToPlayer;
-
-    return new PVector(speedX, speedY);
-  }
-
-  public void shootToAllSides(int numOfDirections) {
-    int num = this.cannon.numOfCurBullet;
-    Bullet bullet = this.cannon.bullets[num];
-
-    float angle = TWO_PI * num / numOfDirections;
-
-    bullet.setVelocity(cos(angle), sin(angle));
   }
 }

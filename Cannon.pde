@@ -7,35 +7,40 @@ class Cannon {
   int health;
 
   boolean isDead;
-  boolean isKillingPlayer;
 
-  MovePattern movePattern;
-  FirePattern firePattern;
+  MPattern mPattern;
+  FCPattern fcPattern;
 
   //----------- Constructor --------------------------------------
 
-  public Cannon(int bulletsCount) {
+  public Cannon(int bulletsCount, boolean isKillingPlayer) {
     bullets = new Bullet[bulletsCount];
     this.bulletsCount = bulletsCount;
 
     // Default values
     this.position = new PVector(width / 2, height / 2);
     health = 100;
-    isKillingPlayer = true;
 
     numOfCurBullet = 0;
     isDead = false;
 
-    for (int i = 0; i < bulletsCount; i++) {
-      bullets[i] = new Bullet();
+    if (isKillingPlayer) {
+      for (int i = 0; i < bulletsCount; i++) {
+        bullets[i] = new ABullet();
+      }
+    } else {
+      for (int i = 0; i < bulletsCount; i++) {
+        bullets[i] = new Bullet();
+      }
     }
 
     // Default move pattern and fire pattern realisations do nothing
-    movePattern = new MovePattern(this) {
+    mPattern = new MPattern(this) {
       public void move() {}
     };
-    firePattern = new FirePattern(this) {
+    fcPattern = new FCPattern(this) {
       public void fire() {}
+      public void setBulletColor() {}
     };
   }
 
@@ -54,23 +59,17 @@ class Cannon {
   //--------- Main methods --------------------------------
 
   private void updateBullets() {
-    if (isKillingPlayer) {
-      for (Bullet bullet: bullets) {
-        bullet.update();
-      }
-    } else {
-      for (Bullet bullet: bullets) {
-        bullet.updatePeacefully();
-      }
+    for (Bullet bullet: bullets) {
+      bullet.update();
     }
   }
 
   void fire() {
-    firePattern.fireAndColorize();
+    fcPattern.fireAndColorize();
   }
 
   void move() {
-    movePattern._move();
+    mPattern._move();
   }
 
   void display() {
