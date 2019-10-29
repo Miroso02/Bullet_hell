@@ -12,8 +12,8 @@ void draw() {
   if (!player.isDead) {
     player.update(); 
   } else {
-    restartButton.display();
     if (restartButton.pressed()) setup();
+    restartButton.display();
   }
   
   fill(255); // White text color
