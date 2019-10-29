@@ -4,6 +4,8 @@ Cannon[] s = new Cannon[2];
 Laser l;
 
 void draw() {
+  action = action ? !action : action;
+
   background(0); // Black background
   
   s[0].update();  // Fire, control bullets,

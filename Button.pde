@@ -1,3 +1,5 @@
+boolean action = false;
+
 class Button 
 {
   float x;
@@ -33,7 +35,7 @@ class Button
   }
   
   boolean pressed() {
-    return mousePressed && onButton();
+    return action && onButton();
   }
   
   boolean onButton() {  
@@ -57,4 +59,8 @@ class Button
     h = 2 * paddingHeight + textAscent() + textDescent();
     w = 2 * paddingWidth + textWidth(text);
   }
+}
+
+void mouseRelease(){
+  action = true;
 }
