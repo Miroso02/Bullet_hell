@@ -1,5 +1,7 @@
 class Button
 {
+  private boolean pMousePressed= false;
+
   float x;
   float y;
 
@@ -31,10 +33,12 @@ class Button
     fill(0, 0);
     strokeWeight(0);
     rect(x, y, w, h);
+
+    pMousePressed = mousePressed;
   }
 
-  boolean pressed() {
-    return mousePressed && onButton();
+  boolean pressed() {  // if mouse was pressed and next frame wasn't then it had been released
+    return !mousePressed && pMousePressed && onButton();  //Button had been pressed if mouse was released
   }
 
   boolean onButton() {
