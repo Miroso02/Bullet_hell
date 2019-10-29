@@ -105,52 +105,47 @@ void setup() {
   test.setPosition(width / 2, 100);
   test.health = 500;
 
-  test.addFCPattern(new FCPattern(300, true) {
+  test.addFCPattern(new FCPattern(400, true) {
+    public void fire() {
+      int num = this.numOfCurBullet;
+      if (num < 80) return;
+      Bullet bullet = this.bullets[num];
+
+      int index = num % 4;
+      PVector startPos = this.cannon.fcPatterns.get(1)
+                          .getBullet(-index - 1).getPosition();
+
+      bullet.setPosition(startPos);
+      bullet.setVelocity(super.targetPlayerFrom(startPos));
+      bullet.speed = (float)(int((num % 80) / 4) + 1) / 4 + 2;
+      bullet.w = 10;
+    }
+    public void setBulletColor() {
+      super.changeBulletColorHSB(5);
+    }
+  });
+  test.getFCPattern(0).shotDelay = 80;
+  test.getFCPattern(0).bulletsInShot = 80;
+
+  test.addFCPattern(new FCPattern(30, true) {
     public void fire() {
       int num = this.numOfCurBullet;
       Bullet bullet = this.bullets[num];
 
-      Bullet prevBul = this.cannon.fcPatterns.get(1).getPrevBullet();
+      float speedX = (num % 4) - 1.5;
 
-      super.shootToAllSides(20);
-      bullet.setPosition(prevBul.getPosition());
-      bullet.w = 10;
-      bullet.speed = 10;
-      bullet.ricochetModule.setOptions(1, true, true, false);
-
-      if (num % 20 == 19) {
-        prevBul.setPosition(2000, 0);
-      }
+      bullet.setVelocity(speedX, 0);
+      bullet.setPosition(this.cannon.getPosition());
+      bullet.w = 15;
+      bullet.speed = 3;
     }
 
     public void setBulletColor() {
       super.setBulletColor(color(255, 255, 0));
     }
   });
-  test.getFCPattern(0).shotDelay = 45;
-  test.getFCPattern(0).bulletsInShot = 20;
-
-  test.addFCPattern(new FCPattern(20, true) {
-    public void fire() {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
-      this.shotDelay = 45;
-
-      PVector startPos = this.cannon.getPosition();
-      float speedX = random(-0.8, 0.8);
-      float speedY = 1.5;
-
-      bullet.setVelocity(speedX, speedY);
-      bullet.setPosition(startPos);
-      bullet.w = 20;
-      bullet.speed = 8;
-    }
-
-    public void setBulletColor() {
-      super.setBulletColor(color(255, 0, 0));
-    }
-  });
-  test.getFCPattern(1).shotDelay = 1;
+  test.getFCPattern(1).shotDelay = 80;
+  test.getFCPattern(1).bulletsInShot = 4;
 
   //--------------------------------------------------------
 
