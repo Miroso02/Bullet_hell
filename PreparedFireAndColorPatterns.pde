@@ -1,6 +1,6 @@
-class PreparedFCPatterns extends CannonData {
+class PreparedFireAndColorPatterns extends CannonData {
   // TODO: Add some patterns
-  
+
   //-------------- Fire patterns --------------------------
 
   public PVector targetPlayerFrom(PVector startPoint) {
@@ -15,28 +15,28 @@ class PreparedFCPatterns extends CannonData {
   }
 
   public void shootToAllSides(int numOfDirections) {
-    int num = this.cannon.numOfCurBullet;
-    Bullet bullet = this.cannon.bullets[num];
+    int num = this.numOfCurBullet;
+    Bullet bullet = this.bullets[num];
 
     float angle = TWO_PI * num / numOfDirections;
 
     bullet.setVelocity(cos(angle), sin(angle));
   }
-  
+
   //------------ Color Patterns --------------------------
-  
+
   public void setBulletColor(color col) {
-    int num = cannon.numOfCurBullet;
-    Bullet bullet = cannon.bullets[num];
-    
+    int num = this.numOfCurBullet;
+    Bullet bullet = this.bullets[num];
+
     bullet.col = col;
   }
-  
-  public void changeBulletColorHSB(int cyclesPerEnd) {
-    int num = cannon.numOfCurBullet;
-    Bullet bullet = cannon.bullets[num];
 
-    float k = 255 / (float)cannon.bulletsCount;
+  public void changeBulletColorHSB(int cyclesPerEnd) {
+    int num = this.numOfCurBullet;
+    Bullet bullet = this.bullets[num];
+
+    float k = 255 / (float)this.bulletsCount;
     colorMode(HSB);
     float colK = num * k * cyclesPerEnd;
 
@@ -52,15 +52,15 @@ class PreparedFCPatterns extends CannonData {
   }
 
   public void setColorOfAllShot(color col) {
-    int num = cannon.numOfCurBullet;
-    Bullet bullet = cannon.bullets[num];
-    int bulletsInShot = cannon.fcPattern.bulletsInShot;
+    int num = this.numOfCurBullet;
+    Bullet bullet = this.bullets[num];
+    int bulletsInShot = this.bulletsInShot;
 
     if (num % bulletsInShot == 0) {
       bullet.col = col;
     }
     else {
-      Bullet prevBullet = cannon.getPrevBullet();
+      Bullet prevBullet = this.getPrevBullet();
       bullet.col = prevBullet.col;
     }
   }

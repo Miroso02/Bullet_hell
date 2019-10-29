@@ -3,6 +3,8 @@
 
 ## Instructions for use
 
+## __OUTDATED!!__
+
 ### What shall you set while creating a Cannon:
 1) Bullet:
     - bullet.x, bullet.y OR bullet.setPosition() – position

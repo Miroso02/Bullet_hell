@@ -1,46 +1,24 @@
 class Cannon {
-  Bullet[] bullets;
-  int numOfCurBullet;
-  int bulletsCount;
-
   PVector position;
   int health;
 
   boolean isDead;
 
   MPattern mPattern;
-  FCPattern fcPattern;
+  ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
 
   //----------- Constructor --------------------------------------
 
-  public Cannon(int bulletsCount, boolean isKillingPlayer) {
-    bullets = new Bullet[bulletsCount];
-    this.bulletsCount = bulletsCount;
-
+  public Cannon() {
     // Default values
     this.position = new PVector(width / 2, height / 2);
     health = 100;
 
-    numOfCurBullet = 0;
     isDead = false;
-
-    if (isKillingPlayer) {
-      for (int i = 0; i < bulletsCount; i++) {
-        bullets[i] = new ABullet();
-      }
-    } else {
-      for (int i = 0; i < bulletsCount; i++) {
-        bullets[i] = new Bullet();
-      }
-    }
 
     // Default move pattern and fire pattern realisations do nothing
     mPattern = new MPattern(this) {
       public void move() {}
-    };
-    fcPattern = new FCPattern(this) {
-      public void fire() {}
-      public void setBulletColor() {}
     };
   }
 
@@ -59,13 +37,15 @@ class Cannon {
   //--------- Main methods --------------------------------
 
   private void updateBullets() {
-    for (Bullet bullet: bullets) {
-      bullet.update();
+    for (FCPattern fc: fcPatterns) {
+      fc.updateBullets();
     }
   }
 
   void fire() {
-    fcPattern.fireAndColorize();
+    for (FCPattern fc: fcPatterns) {
+      fc.fireAndColorize();
+    }
   }
 
   void move() {
@@ -88,7 +68,7 @@ class Cannon {
   }
 
   void takeDamage() {
-    for (Bullet bullet: player.playerGun.bullets) {
+    for (Bullet bullet: player.playerGun.getFCPattern(0).bullets) {
       if (hit(bullet)) {
         health--;
         bullet.position.x = 2000;
@@ -118,11 +98,11 @@ class Cannon {
     return position.copy();
   }
 
-  Bullet getPrevBullet() {
-    if (numOfCurBullet > 0) {
-      return bullets[numOfCurBullet - 1];
-    } else {
-      return bullets[bulletsCount - 1];
-    }
+  public void addFCPattern(FCPattern newPattern) {
+    newPattern.cannon = this;
+    fcPatterns.add(newPattern);
+  }
+  FCPattern getFCPattern(int index) {
+    return fcPatterns.get(index);
   }
 }

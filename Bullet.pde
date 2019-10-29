@@ -8,7 +8,6 @@ class Bullet {
   float speed;
   float accelerationY;
 
-
   RicochetModule ricochetModule; // Inner class
 
   //--------- Constructor ------------------------------
