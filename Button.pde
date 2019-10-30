@@ -1,7 +1,7 @@
+PVector pressPos, releasePos;
+
 class Button
 {
-  private boolean pMousePressed= false;
-
   float x;
   float y;
 
@@ -33,17 +33,19 @@ class Button
     fill(0, 0);
     strokeWeight(0);
     rect(x, y, w, h);
-
-    pMousePressed = mousePressed;
   }
 
-  boolean pressed() {  // if mouse was pressed and next frame wasn't then it had been released
-    return !mousePressed && pMousePressed && onButton();  //Button had been pressed if mouse was released
+  boolean pressed() {
+    return onButton(pressPos) && onButton(releasePos);
   }
 
-  boolean onButton() {
-    return abs(mouseX - x - w / 2) < w / 2 &&
-           abs(mouseY - y - h / 2) < h / 2;
+  boolean onButton(PVector v)  {
+    return onButton(v.x, v.y);
+  }
+
+  boolean onButton(float mx, float my) {
+    return abs(mx - x - w / 2) < w / 2 &&
+           abs(my - y - h / 2) < h / 2;
   }
 
   void setPosition(float x, float y) {
@@ -62,4 +64,13 @@ class Button
     h = 2 * paddingHeight + textAscent() + textDescent();
     w = 2 * paddingWidth + textWidth(text);
   }
+}
+
+void mousePressed() {
+  pressPos = new PVector(mouseX, mouseY);
+  releasePos = new PVector(0, 0);
+}
+
+void mouseReleased() {
+  releasePos = new PVector(mouseX, mouseY);
 }
