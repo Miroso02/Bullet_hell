@@ -112,13 +112,15 @@ void setup() {
       Bullet bullet = this.bullets[num];
 
       int index = num % 4;
-      PVector startPos = this.cannon.fcPatterns.get(1)
-                          .getBullet(-index - 1).getPosition();
+      Bullet baseBul = this.cannon.fcPatterns.get(1).getBullet(-index - 1);
+      PVector startPos = baseBul.getPosition();
 
       bullet.setPosition(startPos);
       bullet.setVelocity(super.targetPlayerFrom(startPos));
       bullet.speed = (float)(int((num % 80) / 4) + 1) / 4 + 2;
       bullet.w = 10;
+
+      if (num % 80 > 76) baseBul.setPosition(2000, 0);  
     }
     public void setBulletColor() {
       super.changeBulletColorHSB(5);
