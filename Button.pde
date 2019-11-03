@@ -1,4 +1,5 @@
-PVector pressPos, releasePos;
+PVector pressPos;
+PVector releasePos;
 
 class Button
 {
@@ -20,6 +21,9 @@ class Button
     setPosition(x, y);
     setPadding(10, 10);
     setOptions(text);
+
+    pressPos = new PVector(0, 0);
+    releasePos = new PVector(0, 0);
   }
 
   void display() {

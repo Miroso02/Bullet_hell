@@ -1,6 +1,4 @@
 class Player {
-  float x;
-  float y;
   PVector position;
   int size;
 
@@ -11,8 +9,6 @@ class Player {
   //----------- Constructor ---------------------------
 
   public Player(float x, float y, int size) {
-    this.x = x;
-    this.y = y;
     this.position = new PVector(x, y);
     this.size = size;
 

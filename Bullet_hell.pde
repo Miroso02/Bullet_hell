@@ -1,8 +1,10 @@
 Player player;
 Button restartButton;
 Cannon[] s = new Cannon[2];
-Cannon test;
+
 // On this cannon I'll test new patterns
+Cannon test;
+
 
 void draw() {
   background(0); // Black background

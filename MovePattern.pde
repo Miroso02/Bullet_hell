@@ -19,7 +19,7 @@ abstract class MPattern extends PreparedMovePatterns {
 
 //--------------------------------------------------------------------
 
-class PreparedMovePatterns extends CannonData {
+class PreparedMovePatterns extends FCPatternBase {
   // TODO: Add some patterns
 
   public void rotateAround(float x, float y, float radius, int time, int period, boolean clockwise, float phase0) {

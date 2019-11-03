@@ -11,7 +11,7 @@ class Cannon {
 
   public Cannon() {
     // Default values
-    this.position = new PVector(width / 2, height / 2);
+    position = new PVector(width / 2, height / 2);
     health = 100;
 
     isDead = false;

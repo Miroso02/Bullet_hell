@@ -1,7 +1,7 @@
 abstract class FCPattern extends PreparedFireAndColorPatterns {
-  private int shotDelayCounter = -1;
+  //----------------- Constructor ----------------------------------------------
 
-  FCPattern(int bulletsCount, boolean isKillingPlayer) {
+  public FCPattern(int bulletsCount, boolean isKillingPlayer) {
     bullets = new Bullet[bulletsCount];
     this.bulletsCount = bulletsCount;
 
@@ -19,8 +19,12 @@ abstract class FCPattern extends PreparedFireAndColorPatterns {
     bulletsInShot = 1;
   }
 
+  //------------------- Abstract methods ---------------------------------------
+
   abstract public void fire();
   abstract public void setBulletColor();
+
+  //------------------- Main methods -------------------------------------------
 
   public void fireAndColorize() {
     if (shotCooldown()) {
@@ -30,46 +34,5 @@ abstract class FCPattern extends PreparedFireAndColorPatterns {
         nextBulNum();
       }
     }
-  }
-
-  private void updateBullets() {
-    for (Bullet bullet: bullets) {
-      bullet.update();
-    }
-  }
-
-  public void update() {
-    fireAndColorize();
-    updateBullets();
-  }
-
-  //----------------------------------------------------------------------------
-
-  int getTimeFromDelay() {
-    return shotDelayCounter;
-  }
-
-  //----------------------------------------------------------------------------
-
-  private void nextBulNum() {
-    /*if (cannon.numOfCurBullet < cannon.bulletsCount - 1) {
-      cannon.numOfCurBullet++;
-    } else {
-      cannon.numOfCurBullet = 0;
-    }*/
-    if (numOfCurBullet < bulletsCount - 1) {
-      numOfCurBullet++;
-    } else {
-      numOfCurBullet = 0;
-    }
-  }
-
-  private boolean shotCooldown() {
-    if (shotDelayCounter < shotDelay - 1) {
-      shotDelayCounter++;
-      return false;
-    }
-    shotDelayCounter = 0;
-    return true;
   }
 }

@@ -1,4 +1,4 @@
-class PreparedFireAndColorPatterns extends CannonData {
+class PreparedFireAndColorPatterns extends FCPatternBase {
   // TODO: Add some patterns
 
   //-------------- Fire patterns --------------------------
@@ -14,13 +14,12 @@ class PreparedFireAndColorPatterns extends CannonData {
     return new PVector(speedX, speedY);
   }
 
-  public void shootToAllSides(int numOfDirections) {
+  public PVector shootToAllSides() {
     int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
-
+    int numOfDirections = this.bulletsInShot;
     float angle = TWO_PI * num / numOfDirections;
 
-    bullet.setVelocity(cos(angle), sin(angle));
+    return new PVector(cos(angle), sin(angle));
   }
 
   //------------ Color Patterns --------------------------

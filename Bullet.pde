@@ -6,7 +6,7 @@ class Bullet {
   color col;
 
   float speed;
-  float accelerationY;
+  PVector acceleration;
 
   RicochetModule ricochetModule; // Inner class
 
@@ -18,7 +18,7 @@ class Bullet {
     w = 10;
     col = color(255);
     speed = 1;
-    accelerationY = 0;
+    acceleration = new PVector(0, 0);
 
     velocity = new PVector(0, 0);
     ricochetModule = new RicochetModule();
@@ -42,11 +42,9 @@ class Bullet {
   }
 
   void move() {
-    //x += speed * speedX;
-    //y += speed * speedY;
+    velocity.add(acceleration);
     PVector finalSpeed = velocity.copy().mult(speed);
     position.add(finalSpeed);
-    //speedY += accelerationY;
     ricochetModule.ricochet();
   }
 
@@ -130,6 +128,16 @@ class Bullet {
   }
   PVector getVelocity() {
     return velocity.copy();
+  }
+//--------------------------
+  void setAccel(float accelX, float accelY) {
+    this.acceleration.set(accelX, accelY);
+  }
+  void setAccel(PVector newAccel) {
+    this.acceleration = newAccel.copy();
+  }
+  PVector getAccel() {
+    return acceleration.copy();
   }
 //--------------------------
   float getDistToPlayer() {

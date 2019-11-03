@@ -39,8 +39,7 @@ void setup() {
       super.changeBulletColorHSB(numOfCycles);
     }
   });
-  s[0].getFCPattern(0).shotDelay = 50;
-  s[0].getFCPattern(0).bulletsInShot = 100;
+  s[0].getFCPattern(0).setOptions(50, 100);
 
   s[0].mPattern = new MPattern(s[0]) {
     public void move() {
@@ -83,8 +82,7 @@ void setup() {
       super.changeBulletColorHSB(numOfCycles);
     }
   });
-  s[1].getFCPattern(0).shotDelay = 50;
-  s[1].getFCPattern(0).bulletsInShot = 100;
+  s[1].getFCPattern(0).setOptions(50, 100);
 
   s[1].mPattern = new MPattern(s[1]) {
     public void move() {
@@ -108,50 +106,25 @@ void setup() {
   test.addFCPattern(new FCPattern(400, true) {
     public void fire() {
       int num = this.numOfCurBullet;
-      if (num < 80) return;
-      Bullet bullet = this.bullets[num];
+      Bullet bullet = this.getCurBullet();
 
-      int index = num % 4;
-      Bullet baseBul = this.cannon.fcPatterns.get(1).getBullet(-index - 1);
-      PVector startPos = baseBul.getPosition();
-
-      bullet.setPosition(startPos);
-      bullet.setVelocity(super.targetPlayerFrom(startPos));
-      bullet.speed = (float)(int((num % 80) / 4) + 1) / 4 + 2;
-      bullet.w = 10;
-
-      if (num % 80 > 76) baseBul.setPosition(2000, 0);  
-    }
-    public void setBulletColor() {
-      super.changeBulletColorHSB(5);
-    }
-  });
-  test.getFCPattern(0).shotDelay = 80;
-  test.getFCPattern(0).bulletsInShot = 80;
-
-  test.addFCPattern(new FCPattern(30, true) {
-    public void fire() {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
-
-      float speedX = (num % 4) - 1.5;
-
-      bullet.setVelocity(speedX, 0);
       bullet.setPosition(this.cannon.getPosition());
-      bullet.w = 15;
-      bullet.speed = 3;
+      bullet.setVelocity(super.shootToAllSides());
+      bullet.setAccel(0, 0.02);
+      bullet.w = 13;
+      bullet.speed = 5;
+      bullet.ricochetModule.setOptions(2, true, false, true);
     }
 
     public void setBulletColor() {
-      super.setBulletColor(color(255, 255, 0));
+      super.setColorOfAllShot(super.randomColor());
     }
   });
-  test.getFCPattern(1).shotDelay = 80;
-  test.getFCPattern(1).bulletsInShot = 4;
+  test.getFCPattern(0).setOptions(60, 6);
 
   //--------------------------------------------------------
 
+  player = new Player(width / 2, height - 100, 8);
   restartButton = new Button(width / 2 - 150, height / 2 + 50);
   restartButton.setOptions("Restart");
-  player = new Player(width / 2, height - 100, 8);
 }
