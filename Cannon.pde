@@ -1,7 +1,5 @@
-class Cannon {
-  PVector position;
+class Cannon extends GameObject {
   int health;
-
   boolean isDead;
 
   MPattern mPattern;
@@ -11,7 +9,8 @@ class Cannon {
 
   public Cannon() {
     // Default values
-    position = new PVector(width / 2, height / 2);
+    this.position = new PVector(width / 2, height / 2);
+    this.size = 40;
     health = 100;
 
     isDead = false;
@@ -57,7 +56,7 @@ class Cannon {
     strokeWeight(1);
     stroke(200, 0, 255);
     rectMode(CENTER);
-    rect(position.x, position.y, 40, 40);
+    rect(position.x, position.y, size, size);
     rectMode(CORNER);
 
     fill(200, 0, 255);
@@ -83,22 +82,12 @@ class Cannon {
   //--------- Private inner methods -------------------------
 
   private boolean hit(Bullet bullet) {
-    return (position.dist(bullet.position) < bullet.w + 20);
+    return (position.dist(bullet.position) < bullet.size + size / 2);
   }
 
   //--------- GETters / SETters ----------------------
 
-  void setPosition(float x, float y) {
-    this.position.set(x, y);
-  }
-  void setPosition(PVector newPosition) {
-    this.position = newPosition.copy();
-  }
-  PVector getPosition() {
-    return position.copy();
-  }
-
-  public void addFCPattern(FCPattern newPattern) {
+  void addFCPattern(FCPattern newPattern) {
     newPattern.cannon = this;
     fcPatterns.add(newPattern);
   }

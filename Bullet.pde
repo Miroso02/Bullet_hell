@@ -1,21 +1,18 @@
-class Bullet {
-  PVector position;
+class Bullet extends GameObject {
   PVector velocity;
-
-  int w;
-  color col;
-
+  PVector acceleration; // TODO: Add MPattern to Bullet
   float speed;
-  PVector acceleration;
+
+  color col;
 
   RicochetModule ricochetModule; // Inner class
 
   //--------- Constructor ------------------------------
 
   public Bullet() {
-    // DefaultValues
-    position = new PVector(2000, 0);
-    w = 10;
+    // Default values
+    this.position = new PVector(2000, 0);
+    this.size = 10;
     col = color(255);
     speed = 1;
     acceleration = new PVector(0, 0);
@@ -38,7 +35,7 @@ class Bullet {
   void display() {
     noStroke();
     fill(col);
-    ellipse(position.x, position.y, w, w);
+    ellipse(position.x, position.y, size, size);
   }
 
   void move() {
@@ -49,11 +46,6 @@ class Bullet {
   }
 
   //------- Private inner methods -------------------
-
-  protected boolean isOnScreen() {
-    return (position.x + w > 0 && position.x - w < width &&
-            position.y + w > 0 && position.y - w < height);
-  }
 
   //--------- Ricochet module -----------+------------------------
 
@@ -110,16 +102,6 @@ class Bullet {
 
   //--------- GETters / SETters ------------------------------------------------
 
-  void setPosition(float x, float y) {
-    this.position.set(x, y);
-  }
-  void setPosition(PVector newPosition) {
-    this.position = newPosition.copy();
-  }
-  PVector getPosition() {
-    return position.copy();
-  }
-//--------------------------
   void setVelocity(float speedX, float speedY) {
     this.velocity.set(speedX, speedY);
   }
@@ -129,7 +111,7 @@ class Bullet {
   PVector getVelocity() {
     return velocity.copy();
   }
-//--------------------------
+  //--------------------------
   void setAccel(float accelX, float accelY) {
     this.acceleration.set(accelX, accelY);
   }
@@ -139,7 +121,7 @@ class Bullet {
   PVector getAccel() {
     return acceleration.copy();
   }
-//--------------------------
+  //--------------------------
   float getDistToPlayer() {
     return player.getDistTo(position);
   }

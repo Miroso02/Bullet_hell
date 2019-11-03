@@ -1,9 +1,5 @@
-class Player {
-  PVector position;
-  int size;
-
+class Player extends GameObject {
   boolean isDead;
-
   Cannon playerGun;
 
   //----------- Constructor ---------------------------
@@ -26,7 +22,7 @@ class Player {
 
         bullet.setPosition(player.getPosition().add(0, -5));
         bullet.setVelocity(bulletSpeedX, -30);
-        bullet.w = 8;
+        bullet.size = 8;
       }
 
       public void setBulletColor() {};
@@ -46,12 +42,12 @@ class Player {
   //--------- Main methods ----------------------
 
   void move() {
-    if (!isOnTheScreen()) stayOnTheScreen();
+    if (!isOnScreen()) stayOnTheScreen();
 
     if (mousePressed) {
-      float sensitivity = 1;
-      position.x += sensitivity * (mouseX - pmouseX);
-      position.y += sensitivity * (mouseY - pmouseY);
+      final float SENSITIVITY = 1;
+      position.x += SENSITIVITY * (mouseX - pmouseX);
+      position.y += SENSITIVITY * (mouseY - pmouseY);
     }
   }
 
@@ -75,16 +71,7 @@ class Player {
     else if (position.y >= height) position.y = height - 1;
   }
 
-  private boolean isOnTheScreen() {
-    return (position.x > 0 && position.x < width &&
-            position.y > 0 && position.y < height);
-  }
-
 //---------- GETters and SETters -----------------------------------------------
-
-  PVector getPosition() {
-    return position.copy();
-  }
 
   float getDistTo(PVector to) {
     return position.dist(to);

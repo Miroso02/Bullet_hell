@@ -3,7 +3,7 @@ class ABullet extends Bullet { // Agressive bullet
     super();
   }
 
-  void update() {
+  @Override void update() {
     if (isOnScreen()) {
       display();
       move();
@@ -11,14 +11,14 @@ class ABullet extends Bullet { // Agressive bullet
     }
   }
 
-  void killPlayer() {
+  private void killPlayer() {
     if (touchingPlayer()) {
       player.isDead = true;
     }
   }
 
   private boolean touchingPlayer() {
-    float sumOfRadiuses = (w + player.size) / 2;
+    float sumOfRadiuses = (size + player.size) / 2;
     return getDistToPlayer() < sumOfRadiuses;
   }
 }

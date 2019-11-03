@@ -111,7 +111,7 @@ void setup() {
       bullet.setPosition(this.cannon.getPosition());
       bullet.setVelocity(super.shootToAllSides());
       bullet.setAccel(0, 0.02);
-      bullet.w = 13;
+      bullet.size = 13;
       bullet.speed = 5;
       bullet.ricochetModule.setOptions(2, true, false, true);
     }
