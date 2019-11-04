@@ -13,7 +13,7 @@ class Player extends GameObject {
     playerGun = new Cannon();
     playerGun.setPosition(x, y);
 
-    playerGun.addFCPattern(new FCPattern(80, false) {
+    playerGun.addFCPattern(new FCPattern(80) {
       public void fire() {
         int num = this.numOfCurBullet;
         Bullet bullet = this.bullets[num];
@@ -33,7 +33,7 @@ class Player extends GameObject {
 
   //--------- Multipurpose methods --------------------------
 
-  public void update() {
+  @Override public void update() {
     move();
     fire();
     display();

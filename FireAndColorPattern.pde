@@ -1,18 +1,13 @@
 abstract class FCPattern extends PreparedFireAndColorPatterns {
   //----------------- Constructor ----------------------------------------------
+  protected FCPattern() {}
 
-  public FCPattern(int bulletsCount, boolean isKillingPlayer) {
+  public FCPattern(int bulletsCount) {
     bullets = new Bullet[bulletsCount];
     this.bulletsCount = bulletsCount;
 
-    if (isKillingPlayer) {
-      for (int i = 0; i < bulletsCount; i++) {
-        bullets[i] = new ABullet();
-      }
-    } else {
-      for (int i = 0; i < bulletsCount; i++) {
-        bullets[i] = new Bullet();
-      }
+    for (int i = 0; i < bulletsCount; i++) {
+      bullets[i] = new Bullet();
     }
 
     shotDelay = 3;

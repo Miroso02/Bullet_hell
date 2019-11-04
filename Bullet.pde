@@ -21,15 +21,6 @@ class Bullet extends GameObject {
     ricochetModule = new RicochetModule();
   }
 
-  //---------- Multipurpose methods -------------------------
-
-  public void update() {
-    if (isOnScreen()) {
-      display();
-      move();
-    }
-  }
-
   //----------- Main methods --------------
 
   void display() {

@@ -15,7 +15,7 @@ class Cannon extends GameObject {
 
     isDead = false;
 
-    // Default move pattern and fire pattern realisations do nothing
+    // Default move pattern realisations do nothing
     mPattern = new MPattern(this) {
       public void move() {}
     };
@@ -23,7 +23,7 @@ class Cannon extends GameObject {
 
   //--------- Multipurpose methods --------------------------
 
-  public void update() {
+  @Override public void update() {
     if (!isDead) {
       takeDamage(); // Comment this in test mode
       fire();

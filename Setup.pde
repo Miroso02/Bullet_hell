@@ -16,7 +16,7 @@ void setup() {
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
 
-  s[0].addFCPattern(new FCPattern(700, true) {
+  s[0].addFCPattern(new AFCPattern(700) {
     public void fire()
     {
       int num = this.numOfCurBullet;
@@ -59,7 +59,7 @@ void setup() {
   s[1] = new Cannon();
   s[1].setPosition(width / 2, height / 2 - 200);
 
-  s[1].addFCPattern(new FCPattern(700, true) {
+  s[1].addFCPattern(new AFCPattern(700) {
     public void fire()
     {
       int num = this.numOfCurBullet;
@@ -103,7 +103,7 @@ void setup() {
   test.setPosition(width / 2, 100);
   test.health = 500;
 
-  test.addFCPattern(new FCPattern(400, true) {
+  test.addFCPattern(new AFCPattern(400) {
     public void fire() {
       int num = this.numOfCurBullet;
       Bullet bullet = this.getCurBullet();
