@@ -5,22 +5,15 @@ void settings() {
 }
 
 void setup() {
-  /*
-  * I'd highly recommend to set this:
-  *   int num = this.numOfCurBullet;
-  *   Bullet bullet = this.bullets[num];
-  * in the start of FCPattern realisation
-  */
-
   s[0] = new Cannon();
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
 
-  s[0].addFCPattern(new AFCPattern(700) {
+  s[0].addFCPattern(new FCPattern() {
     public void fire()
     {
       int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
+      Bullet bullet = new ABullet();
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -32,10 +25,11 @@ void setup() {
       bullet.setPosition(this.cannon.getPosition());
       bullet.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.speed = 12;
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      int numOfCycles = 2;
+      int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
@@ -59,11 +53,11 @@ void setup() {
   s[1] = new Cannon();
   s[1].setPosition(width / 2, height / 2 - 200);
 
-  s[1].addFCPattern(new AFCPattern(700) {
+  s[1].addFCPattern(new FCPattern() {
     public void fire()
     {
       int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
+      Bullet bullet = new Bullet();
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -75,10 +69,12 @@ void setup() {
       bullet.setPosition(this.cannon.getPosition());
       bullet.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.speed = 12;
+
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      int numOfCycles = 2;
+      int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
@@ -103,10 +99,8 @@ void setup() {
   test.setPosition(width / 2, 100);
   test.health = 500;
 
-  test.addFCPattern(new AFCPattern(100) {
+  test.addFCPattern(new FCPattern() {
     public void fire() {
-      // int num = this.numOfCurBullet;
-      // Bullet bullet = this.getCurBullet();
       Bullet bullet = new ABullet();
 
       PVector startPos = this.cannon.getPosition();
@@ -116,7 +110,7 @@ void setup() {
       bullet.speed = 5;
       // bullet.ricochetModule.setOptions(1, true, true, true);
 
-      bullets_.add(bullet);
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {

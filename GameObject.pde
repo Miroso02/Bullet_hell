@@ -1,14 +1,12 @@
 abstract class GameObject {
   PVector position;
   int size;
-  
+
   //--------------- Default methods --------------------------------------------
 
   public void update() {
-    if (isOnScreen()) {
-      display();
-      move();
-    }
+    display();
+    move();
   }
 
   //--------------- Abstract methods -------------------------------------------

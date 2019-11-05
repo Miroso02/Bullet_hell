@@ -24,24 +24,16 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
   //------------ Color Patterns --------------------------
 
   public void setBulletColor(color col) {
-    Bullet bullet = this.bullets[numOfCurBullet];
+    Bullet bullet = getCurBullet();
     bullet.col = col;
   }
 
-  public void changeBulletColorHSB(int cyclesPerEnd) {
+  public void changeBulletColorHSB(int bulletsPerCycle) {
     int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
+    Bullet bullet = getCurBullet();
 
-    float k = 255 / (float)this.bulletsCount;
     colorMode(HSB);
-    float colK = num * k * cyclesPerEnd;
-
-    for (int i = cyclesPerEnd; i > 0; i--) {
-      if (colK > 255 * i) {
-        colK -= 255 * i;
-        break;
-      }
-    }
+    float colK = (num * 255 / bulletsPerCycle) % 255;
 
     bullet.col = color(colK, 255, 255);
     colorMode(RGB);
@@ -49,7 +41,7 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
 
   public void setColorOfAllShot(color col) {
     int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
+    Bullet bullet = getCurBullet();
     int bulletsPerShot = this.bulletsPerShot;
 
     if (num % bulletsPerShot == 0) {

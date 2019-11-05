@@ -1,6 +1,6 @@
 class Player extends GameObject {
   boolean isDead;
-  Cannon playerGun;
+  Cannon gun;
 
   //----------- Constructor ---------------------------
 
@@ -10,13 +10,12 @@ class Player extends GameObject {
 
     isDead = false;
 
-    playerGun = new Cannon();
-    playerGun.setPosition(x, y);
+    gun = new Cannon();
+    gun.setPosition(x, y);
 
-    playerGun.addFCPattern(new FCPattern(80) {
+    gun.addFCPattern(new FCPattern() {
       public void fire() {
          int num = this.numOfCurBullet;
-        // Bullet bullet = this.bullets[num];
         Bullet bullet = new Bullet();
 
         float bulletSpeedX = (num % 5 - 2) * 1.4;
@@ -25,13 +24,13 @@ class Player extends GameObject {
         bullet.setVelocity(bulletSpeedX, -30);
         bullet.size = 8;
 
-        bullets_.add(bullet);
+        bullets.add(bullet);
       }
 
-      public void setBulletColor() {};
+      public void setBulletColor() {}
     });
-    playerGun.getFCPattern(0).shotCooldown = 4;
-    playerGun.getFCPattern(0).bulletsPerShot = 5;
+    gun.getFCPattern(0).shotCooldown = 4;
+    gun.getFCPattern(0).bulletsPerShot = 5;
   }
 
   //--------- Multipurpose methods --------------------------
@@ -55,8 +54,8 @@ class Player extends GameObject {
   }
 
   void fire() {
-    playerGun.fire();
-    playerGun.updateBullets();
+    gun.fire();
+    gun.updateBullets();
   }
 
   void display() {
