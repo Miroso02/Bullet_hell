@@ -117,7 +117,7 @@ void setup() {
     }
 
     public void setBulletColor() {
-      super.setColorOfAllShot(super.randomColor());
+      bullets[numOfCurBullet].col = color(0, 255, 0);  
     }
   });
   test.getFCPattern(0).setOptions(10, 1);

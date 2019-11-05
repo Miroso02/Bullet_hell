@@ -71,7 +71,7 @@ class Cannon extends GameObject {
     }
 
     for (Bullet bullet: playerBullets) {
-      if (hit(bullet)) {
+      if (isTouching(bullet)) {
         health--;
         bullet.position.x = 2000;
       }
@@ -83,11 +83,7 @@ class Cannon extends GameObject {
   }
 
   //--------- Private inner methods -------------------------
-
-  private boolean hit(Bullet bullet) {
-    return (position.dist(bullet.position) < bullet.size + size / 2);
-  }
-
+  
   //--------- GETters / SETters ----------------------
 
   void addFCPattern(FCPattern newPattern) {

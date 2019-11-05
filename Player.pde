@@ -71,9 +71,6 @@ class Player extends GameObject {
     else if (position.y >= height) position.y = height - 1;
   }
 
-//---------- GETters and SETters -----------------------------------------------
-
-  float getDistTo(PVector to) {
-    return position.dist(to);
-  }
+  //---------- GETters and SETters ---------------------------------------------
+  
 }

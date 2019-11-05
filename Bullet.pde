@@ -7,7 +7,7 @@ class Bullet extends GameObject {
 
   RicochetModule ricochetModule; // Inner class
 
-  //--------- Constructor ------------------------------
+  //--------- Constructor ------------------------------------------------------
 
   public Bullet() {
     // Default values
@@ -21,7 +21,7 @@ class Bullet extends GameObject {
     ricochetModule = new RicochetModule();
   }
 
-  //----------- Main methods --------------
+  //----------- Main methods ---------------------------------------------------
 
   void display() {
     noStroke();
@@ -36,14 +36,14 @@ class Bullet extends GameObject {
     ricochetModule.ricochet();
   }
 
-  //------- Private inner methods -------------------
+  //------- Private inner methods ----------------------------------------------
 
-  //--------- Ricochet module -----------+------------------------
+  //--------- Ricochet module --------------------------------------------------
 
   private class RicochetModule {
     int numOfRicochets;
     boolean ricochetUP;
-    boolean ricochetDOWN; // TODO: ???????????????? create ricochetTypeIndex 
+    boolean ricochetDOWN; // TODO: ???????????????? create ricochetTypeIndex
     boolean ricochetWALLS;
 
     RicochetModule() {
@@ -110,9 +110,5 @@ class Bullet extends GameObject {
   }
   PVector getAccel() {
     return acceleration.copy();
-  }
-  //--------------------------
-  float getDistToPlayer() {
-    return player.getDistTo(position);
   }
 }

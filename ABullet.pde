@@ -12,13 +12,8 @@ class ABullet extends Bullet { // Agressive bullet
   }
 
   private void killPlayer() {
-    if (touchingPlayer()) {
+    if (isTouching(player)) {
       player.isDead = true;
     }
-  }
-
-  private boolean touchingPlayer() {
-    float sumOfRadiuses = (size + player.size) / 2;
-    return getDistToPlayer() < sumOfRadiuses;
   }
 }
