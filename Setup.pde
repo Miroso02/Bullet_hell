@@ -105,19 +105,23 @@ void setup() {
 
   test.addFCPattern(new AFCPattern(100) {
     public void fire() {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.getCurBullet();
+      // int num = this.numOfCurBullet;
+      // Bullet bullet = this.getCurBullet();
+      Bullet bullet = new ABullet();
 
       PVector startPos = this.cannon.getPosition();
       bullet.setPosition(startPos);
       bullet.setVelocity(super.targetPlayerFrom(startPos));
       bullet.size = 13;
       bullet.speed = 5;
-      bullet.ricochetModule.setOptions(1, true, false, true);
+      // bullet.ricochetModule.setOptions(1, true, true, true);
+
+      bullets_.add(bullet);
     }
 
     public void setBulletColor() {
-      bullets[numOfCurBullet].col = color(0, 255, 0);
+      getCurBullet().setColor(0, 255, 0);
+      //bullets[numOfCurBullet].col = color(0, 255, 0);
     }
   });
   test.getFCPattern(0).setOptions(10, 1);

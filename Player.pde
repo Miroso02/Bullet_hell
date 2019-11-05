@@ -15,14 +15,17 @@ class Player extends GameObject {
 
     playerGun.addFCPattern(new FCPattern(80) {
       public void fire() {
-        int num = this.numOfCurBullet;
-        Bullet bullet = this.bullets[num];
+         int num = this.numOfCurBullet;
+        // Bullet bullet = this.bullets[num];
+        Bullet bullet = new Bullet();
 
         float bulletSpeedX = (num % 5 - 2) * 1.4;
 
         bullet.setPosition(player.getPosition().add(0, -5));
         bullet.setVelocity(bulletSpeedX, -30);
         bullet.size = 8;
+
+        bullets_.add(bullet);
       }
 
       public void setBulletColor() {};
@@ -72,5 +75,5 @@ class Player extends GameObject {
   }
 
   //---------- GETters and SETters ---------------------------------------------
-  
+
 }

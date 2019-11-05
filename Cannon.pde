@@ -65,7 +65,7 @@ class Cannon extends GameObject {
   void takeDamage() {
     ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
     for (FCPattern fcp: player.playerGun.fcPatterns) {
-      for (Bullet b: fcp.bullets) {
+      for (Bullet b: fcp.bullets_) {
         playerBullets.add(b);
       }
     }
@@ -83,7 +83,7 @@ class Cannon extends GameObject {
   }
 
   //--------- Private inner methods -------------------------
-  
+
   //--------- GETters / SETters ----------------------
 
   void addFCPattern(FCPattern newPattern) {

@@ -24,9 +24,7 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
   //------------ Color Patterns --------------------------
 
   public void setBulletColor(color col) {
-    int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
-
+    Bullet bullet = this.bullets[numOfCurBullet];
     bullet.col = col;
   }
 

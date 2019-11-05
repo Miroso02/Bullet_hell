@@ -6,6 +6,8 @@ abstract class FCPattern extends PreparedFireAndColorPatterns {
     bullets = new Bullet[bulletsCount];
     this.bulletsCount = bulletsCount;
 
+    bullets_ = new ArrayList<Bullet>();
+
     for (int i = 0; i < bulletsCount; i++) {
       bullets[i] = new Bullet();
     }

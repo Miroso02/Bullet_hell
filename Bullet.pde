@@ -111,4 +111,11 @@ class Bullet extends GameObject {
   PVector getAccel() {
     return acceleration.copy();
   }
+  //---------------------------
+  void setColor(color col) {
+    this.col = col;
+  }
+  void setColor(float r, float g, float b) {
+    this.col = color(r, g, b);
+  }
 }

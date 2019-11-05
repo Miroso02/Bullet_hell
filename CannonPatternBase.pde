@@ -6,36 +6,64 @@ class CannonPatternBase {
   int bulletsPerShot;
 
   Bullet[] bullets; // TODO: Create as ArrayList (IN NEW BRANCH!!!!!!!!!!!!!!)
-  ArrayList<Bullet> bullets_ = new ArrayList<Bullet>();
+  ArrayList<Bullet> bullets_;
   int numOfCurBullet;
   int bulletsCount;
 
   //--------------- Main methods -----------------------------------------------
 
   protected void updateBullets() {
-    for (Bullet bullet: bullets) {
+    for (Bullet bullet: bullets_) {
       bullet.update();
+    }
+    killUselessBullets();
+  }
+
+  private void killUselessBullets() {
+    ArrayList<Bullet> uselessBullets = new ArrayList<Bullet>();
+
+    for (Bullet bullet: bullets_) {
+      if (!bullet.isOnScreen()) {
+        uselessBullets.add(bullet);
+      }
+    }
+
+    for (Bullet bullet: uselessBullets) {
+      bullets_.remove(bullet);
     }
   }
 
   //-------------- GETters and SETters -----------------------------------------
 
   Bullet getBullet(int relativePosition) {
-    int index = numOfCurBullet + relativePosition;
+    int indexOfLast = bullets_.size() - 1;
 
-    if (index < 0) return bullets[bulletsCount + index];
-    if (index >= bulletsCount) return bullets[index - bulletsCount];
-    return bullets[index];
+    if (relativePosition > indexOfLast) return null;
+    return bullets_.get(indexOfLast - relativePosition);
   }
   Bullet getPrevBullet() {
-    return getBullet(-1);
+    return getBullet(1);
   }
   Bullet getCurBullet() {
-    return bullets[numOfCurBullet];
+    return bullets_.get(bullets_.size() - 1);
   }
+
+  // Bullet getBullet(int relativePosition) {
+  //   int index = numOfCurBullet + relativePosition;
+  //
+  //   if (index < 0) return bullets[bulletsCount + index];
+  //   if (index >= bulletsCount) return bullets[index - bulletsCount];
+  //   return bullets[index];
+  // }
+  // Bullet getPrevBullet() {
+  //   return getBullet(-1);
+  // }
+  // Bullet getCurBullet() {
+  //   return bullets[numOfCurBullet];
+  // }
   //---------------------
   protected void nextBulNum() {
-    numOfCurBullet = ++numOfCurBullet % bulletsCount;
+    numOfCurBullet = ++numOfCurBullet;// % bulletsCount;
   }
   protected boolean shotCooldown() {
     shotCooldownCounter = ++shotCooldownCounter % shotCooldown;
