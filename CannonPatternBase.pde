@@ -6,6 +6,7 @@ class CannonPatternBase {
   int bulletsPerShot;
 
   Bullet[] bullets; // TODO: Create as ArrayList (IN NEW BRANCH!!!!!!!!!!!!!!)
+  ArrayList<Bullet> bullets_ = new ArrayList<Bullet>();
   int numOfCurBullet;
   int bulletsCount;
 
