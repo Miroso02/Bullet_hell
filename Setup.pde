@@ -103,7 +103,7 @@ void setup() {
   test.setPosition(width / 2, 100);
   test.health = 500;
 
-  test.addFCPattern(new AFCPattern(400) {
+  test.addFCPattern(new AFCPattern(100) {
     public void fire() {
       int num = this.numOfCurBullet;
       Bullet bullet = this.getCurBullet();
@@ -117,7 +117,7 @@ void setup() {
     }
 
     public void setBulletColor() {
-      bullets[numOfCurBullet].col = color(0, 255, 0);  
+      bullets[numOfCurBullet].col = color(0, 255, 0);
     }
   });
   test.getFCPattern(0).setOptions(10, 1);

@@ -33,21 +33,14 @@ class CannonPatternBase {
     return bullets[numOfCurBullet];
   }
   //---------------------
-  protected void nextBulNum() { // TODO: Rewrite with %
-    if (numOfCurBullet < bulletsCount - 1) {
-      numOfCurBullet++;
-    } else {
-      numOfCurBullet = 0;
-    }
-    //numOfCurBullet = numOfCurBullet++ % bulletsCount;
+  protected void nextBulNum() {
+    numOfCurBullet = ++numOfCurBullet % bulletsCount;
   }
-  protected boolean shotCooldown() { // TODO: Rewrite with %
-    if (shotCooldownCounter < shotCooldown - 1) {
-      shotCooldownCounter++;
-      return true;
-    }
-    shotCooldownCounter = 0;
-    return false;
+  protected boolean shotCooldown() {
+    shotCooldownCounter = ++shotCooldownCounter % shotCooldown;
+
+    if (shotCooldownCounter == 0) return false;
+    return true;
   }
   //---------------------
   int getTimeFromShot() {
