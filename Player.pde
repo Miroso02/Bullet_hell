@@ -27,8 +27,8 @@ class Player extends GameObject {
 
       public void setBulletColor() {};
     });
-    playerGun.getFCPattern(0).shotDelay = 4;
-    playerGun.getFCPattern(0).bulletsInShot = 5;
+    playerGun.getFCPattern(0).shotCooldown = 4;
+    playerGun.getFCPattern(0).bulletsPerShot = 5;
   }
 
   //--------- Multipurpose methods --------------------------

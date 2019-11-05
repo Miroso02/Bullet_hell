@@ -7,7 +7,7 @@ abstract class AFCPattern extends FCPattern {
       bullets[i] = new ABullet();
     }
 
-    shotDelay = 3;
-    bulletsInShot = 1;
+    shotCooldown = 3;
+    bulletsPerShot = 1;
   }
 }

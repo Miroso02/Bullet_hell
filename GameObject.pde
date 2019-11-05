@@ -1,6 +1,7 @@
 abstract class GameObject {
   PVector position;
   int size;
+  // TODO: Unite all getDist functions
 
   //--------------- Default methods --------------------------------------------
 

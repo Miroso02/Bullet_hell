@@ -3,7 +3,7 @@ class Cannon extends GameObject {
   boolean isDead;
 
   MPattern mPattern;
-  ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
+  private ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
 
   //----------- Constructor --------------------------------------
 
@@ -48,26 +48,29 @@ class Cannon extends GameObject {
   }
 
   void move() {
-    mPattern._move();
+    mPattern.wrappedMove();
   }
 
   void display() {
     noFill();
     strokeWeight(1);
     stroke(200, 0, 255);
-    rectMode(CENTER);
     rect(position.x, position.y, size, size);
-    rectMode(CORNER);
 
     fill(200, 0, 255);
     textSize(20);
-    textAlign(CENTER);
-    text(health, position.x, position.y);
-    textAlign(LEFT, TOP);
+    text(health, position.x, position.y); // TODO: Fix text display
   }
 
   void takeDamage() {
-    for (Bullet bullet: player.playerGun.getFCPattern(0).bullets) {
+    ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
+    for (FCPattern fcp: player.playerGun.fcPatterns) {
+      for (Bullet b: fcp.bullets) {
+        playerBullets.add(b);
+      }
+    }
+
+    for (Bullet bullet: playerBullets) {
       if (hit(bullet)) {
         health--;
         bullet.position.x = 2000;

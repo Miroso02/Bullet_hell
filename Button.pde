@@ -32,7 +32,7 @@ class Button
     textSize(30);
     setOptions(text);
     fill(col);
-    text(text, x + paddingWidth , y + paddingHeight);
+    text(text, x, y + paddingHeight);
 
     fill(0, 0);
     strokeWeight(0);
@@ -48,8 +48,8 @@ class Button
   }
 
   boolean onButton(float mx, float my) {
-    return abs(mx - x - w / 2) < w / 2 &&
-           abs(my - y - h / 2) < h / 2;
+    return abs(mx - x) < w / 2 &&
+           abs(my - y) < h / 2;
   }
 
   void setPosition(float x, float y) {

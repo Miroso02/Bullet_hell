@@ -1,11 +1,11 @@
-class FCPatternBase {
-  Cannon cannon;
+class CannonPatternBase {
+  Cannon cannon;  // Cannon that owns this pattern
 
-  protected int shotDelayCounter = -1;
-  int shotDelay;
-  int bulletsInShot;
+  protected int shotCooldownCounter = -1;
+  int shotCooldown;
+  int bulletsPerShot;
 
-  Bullet[] bullets;
+  Bullet[] bullets; // TODO: Create as ArrayList (IN NEW BRANCH!!!!!!!!!!!!!!)
   int numOfCurBullet;
   int bulletsCount;
 
@@ -33,35 +33,36 @@ class FCPatternBase {
     return bullets[numOfCurBullet];
   }
   //---------------------
-  protected void nextBulNum() {
+  protected void nextBulNum() { // TODO: Rewrite with %
     if (numOfCurBullet < bulletsCount - 1) {
       numOfCurBullet++;
     } else {
       numOfCurBullet = 0;
     }
+    //numOfCurBullet = numOfCurBullet++ % bulletsCount;
   }
-  protected boolean shotCooldown() {
-    if (shotDelayCounter < shotDelay - 1) {
-      shotDelayCounter++;
-      return false;
+  protected boolean shotCooldown() { // TODO: Rewrite with %
+    if (shotCooldownCounter < shotCooldown - 1) {
+      shotCooldownCounter++;
+      return true;
     }
-    shotDelayCounter = 0;
-    return true;
+    shotCooldownCounter = 0;
+    return false;
   }
   //---------------------
   int getTimeFromShot() {
-    return shotDelayCounter;
+    return shotCooldownCounter;
   }
   void setDelayCounter(int value) {
-    shotDelayCounter = value - 1;
+    shotCooldownCounter = value - 1;
   }
   //---------------------
-  void setOptions(int shotDelay, int bulletsInShot) {
-    this.shotDelay = shotDelay;
-    this.bulletsInShot = bulletsInShot;
+  void setOptions(int shotCooldown, int bulletsPerShot) {
+    this.shotCooldown = shotCooldown;
+    this.bulletsPerShot = bulletsPerShot;
   }
-  void setOptions(int shotDelay, int bulletsInShot, int startCounter) {
-    setOptions(shotDelay, bulletsInShot);
+  void setOptions(int shotCooldown, int bulletsPerShot, int startCounter) {
+    setOptions(shotCooldown, bulletsPerShot);
     setDelayCounter(startCounter);
   }
 }

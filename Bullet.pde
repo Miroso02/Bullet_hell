@@ -11,7 +11,7 @@ class Bullet extends GameObject {
 
   public Bullet() {
     // Default values
-    this.position = new PVector(2000, 0);
+    this.position = new PVector(2000, 0); // Offscreen
     this.size = 10;
     col = color(255);
     speed = 1;
@@ -31,8 +31,8 @@ class Bullet extends GameObject {
 
   void move() {
     velocity.add(acceleration);
-    PVector finalSpeed = velocity.copy().mult(speed);
-    position.add(finalSpeed);
+    PVector finalVelocity = PVector.mult(velocity, speed);
+    position.add(finalVelocity);
     ricochetModule.ricochet();
   }
 
@@ -43,13 +43,12 @@ class Bullet extends GameObject {
   private class RicochetModule {
     int numOfRicochets;
     boolean ricochetUP;
-    boolean ricochetDOWN;
+    boolean ricochetDOWN; // TODO: ???????????????? create ricochetTypeIndex 
     boolean ricochetWALLS;
 
     RicochetModule() {
       // Default values
       numOfRicochets = 0;
-
       ricochetUP = false;
       ricochetDOWN = false;
       ricochetWALLS = true;

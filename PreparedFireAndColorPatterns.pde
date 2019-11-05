@@ -1,22 +1,21 @@
-class PreparedFireAndColorPatterns extends FCPatternBase {
+class PreparedFireAndColorPatterns extends CannonPatternBase {
   // TODO: Add some patterns
 
   //-------------- Fire patterns --------------------------
 
   public PVector targetPlayerFrom(PVector startPoint) {
-    float distToPlayerX = player.position.x - startPoint.x;
-    float distToPlayerY = player.position.y - startPoint.y;
-    float distToPlayer = sqrt(sq(distToPlayerX) + sq(distToPlayerY));
+    PVector axisDist = player.getPosition().sub(startPoint);
+    float absDist = axisDist.mag();
 
-    float speedX = distToPlayerX / distToPlayer;
-    float speedY = distToPlayerY / distToPlayer;
+    float speedX = axisDist.x / absDist;
+    float speedY = axisDist.y / absDist;
 
     return new PVector(speedX, speedY);
   }
 
   public PVector shootToAllSides() {
     int num = this.numOfCurBullet;
-    int numOfDirections = this.bulletsInShot;
+    int numOfDirections = this.bulletsPerShot;
     float angle = TWO_PI * num / numOfDirections;
 
     return new PVector(cos(angle), sin(angle));
@@ -53,9 +52,9 @@ class PreparedFireAndColorPatterns extends FCPatternBase {
   public void setColorOfAllShot(color col) {
     int num = this.numOfCurBullet;
     Bullet bullet = this.bullets[num];
-    int bulletsInShot = this.bulletsInShot;
+    int bulletsPerShot = this.bulletsPerShot;
 
-    if (num % bulletsInShot == 0) {
+    if (num % bulletsPerShot == 0) {
       bullet.col = col;
     }
     else {

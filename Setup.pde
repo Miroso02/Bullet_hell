@@ -24,7 +24,7 @@ void setup() {
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
-      int bulInShot = this.bulletsInShot;
+      int bulInShot = this.bulletsPerShot;
 
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = 0.01 * (num % bulInShot + 15) * sin(1.06 * num);
@@ -67,7 +67,7 @@ void setup() {
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
-      int bulInShot = this.bulletsInShot;
+      int bulInShot = this.bulletsPerShot;
 
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
@@ -108,23 +108,26 @@ void setup() {
       int num = this.numOfCurBullet;
       Bullet bullet = this.getCurBullet();
 
-      bullet.setPosition(this.cannon.getPosition());
-      bullet.setVelocity(super.shootToAllSides());
-      bullet.setAccel(0, 0.02);
+      PVector startPos = this.cannon.getPosition();
+      bullet.setPosition(startPos);
+      bullet.setVelocity(super.targetPlayerFrom(startPos));
       bullet.size = 13;
       bullet.speed = 5;
-      bullet.ricochetModule.setOptions(2, true, false, true);
+      bullet.ricochetModule.setOptions(1, true, false, true);
     }
 
     public void setBulletColor() {
       super.setColorOfAllShot(super.randomColor());
     }
   });
-  test.getFCPattern(0).setOptions(60, 6);
+  test.getFCPattern(0).setOptions(10, 1);
 
   //--------------------------------------------------------
 
   player = new Player(width / 2, height - 100, 8);
   restartButton = new Button(width / 2 - 150, height / 2 + 50);
   restartButton.setOptions("Restart");
+
+  rectMode(CENTER);
+  textAlign(CENTER);
 }
