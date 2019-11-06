@@ -1,14 +1,8 @@
 abstract class FCPattern extends PreparedFireAndColorPatterns {
   //----------------- Constructor ----------------------------------------------
-  protected FCPattern() {} // To avoid errors in AFCPattern creating
 
-  public FCPattern(int bulletsCount) {
-    bullets = new Bullet[bulletsCount];
-    this.bulletsCount = bulletsCount;
-
-    for (int i = 0; i < bulletsCount; i++) {
-      bullets[i] = new Bullet();
-    }
+  public FCPattern() {
+    bullets = new ArrayList<Bullet>();
 
     shotCooldown = 3;
     bulletsPerShot = 1;
@@ -26,7 +20,7 @@ abstract class FCPattern extends PreparedFireAndColorPatterns {
       for (int i = 0; i < bulletsPerShot; i++) {
         fire();
         setBulletColor();
-        nextBulNum();
+        bulletsCount++;
       }
     }
   }

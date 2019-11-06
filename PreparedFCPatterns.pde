@@ -14,7 +14,7 @@ class PreparedFireAndColorPatterns extends FCPatternBase {
   }
 
   public PVector shootToAllSides() {
-    int num = this.numOfCurBullet;
+    int num = this.bulletsCount;
     int numOfDirections = this.bulletsPerShot;
     float angle = TWO_PI * num / numOfDirections;
 
@@ -24,34 +24,24 @@ class PreparedFireAndColorPatterns extends FCPatternBase {
   //------------ Color Patterns --------------------------
 
   public void setBulletColor(color col) {
-    int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
-
+    Bullet bullet = getCurBullet();
     bullet.col = col;
   }
 
-  public void changeBulletColorHSB(int cyclesPerEnd) {
-    int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
+  public void changeBulletColorHSB(int bulletsPerCycle) {
+    int num = this.bulletsCount;
+    Bullet bullet = getCurBullet();
 
-    float k = 255 / (float)this.bulletsCount;
     colorMode(HSB);
-    float colK = num * k * cyclesPerEnd;
-
-    for (int i = cyclesPerEnd; i > 0; i--) {
-      if (colK > 255 * i) {
-        colK -= 255 * i;
-        break;
-      }
-    }
+    float colK = (num * 255 / bulletsPerCycle) % 255;
 
     bullet.col = color(colK, 255, 255);
     colorMode(RGB);
   }
 
   public void setColorOfAllShot(color col) {
-    int num = this.numOfCurBullet;
-    Bullet bullet = this.bullets[num];
+    int num = this.bulletsCount;
+    Bullet bullet = getCurBullet();
     int bulletsPerShot = this.bulletsPerShot;
 
     if (num % bulletsPerShot == 0) {

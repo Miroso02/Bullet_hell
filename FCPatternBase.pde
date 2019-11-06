@@ -3,9 +3,8 @@ class FCPatternBase extends PatternBase {
   int shotCooldown;
   int bulletsPerShot;
 
-  Bullet[] bullets; // TODO: Create as ArrayList (IN NEW BRANCH!!!!!!!!!!!!!!)
-  int numOfCurBullet;
-  int bulletsCount;
+  ArrayList<Bullet> bullets;
+  int bulletsCount = 0;
 
   //--------------- Main methods -----------------------------------------------
 
@@ -13,27 +12,39 @@ class FCPatternBase extends PatternBase {
     for (Bullet bullet: bullets) {
       bullet.update();
     }
+    killUselessBullets();
+  }
+
+  private void killUselessBullets() {
+    ArrayList<Bullet> uselessBullets = new ArrayList<Bullet>();
+
+    for (Bullet bullet: bullets) {
+      if (!bullet.isOnScreen()) {
+        uselessBullets.add(bullet);
+      }
+    }
+
+    for (Bullet bullet: uselessBullets) {
+      bullets.remove(bullet);
+    }
   }
 
   //-------------- GETters and SETters -----------------------------------------
 
   Bullet getBullet(int relativePosition) {
-    int index = numOfCurBullet + relativePosition;
+    int bCount = bullets.size();
 
-    if (index < 0) return bullets[bulletsCount + index];
-    if (index >= bulletsCount) return bullets[index - bulletsCount];
-    return bullets[index];
+    if (relativePosition > bCount) return new Bullet();
+    return bullets.get(bCount - relativePosition);
   }
   Bullet getPrevBullet() {
-    return getBullet(-1);
+    // TODO: Fix PrevBullet (Problem in fireAndColorize())
+    return getBullet(2);
   }
   Bullet getCurBullet() {
-    return bullets[numOfCurBullet];
+    return bullets.get(bullets.size() - 1);
   }
-  //---------------------
-  protected void nextBulNum() {
-    numOfCurBullet = ++numOfCurBullet % bulletsCount;
-  }
+
   protected boolean shotCooldown() {
     shotCooldownCounter = ++shotCooldownCounter % shotCooldown;
 

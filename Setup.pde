@@ -5,22 +5,15 @@ void settings() {
 }
 
 void setup() {
-  /*
-  * I'd highly recommend to set this:
-  *   int num = this.numOfCurBullet;
-  *   Bullet bullet = this.bullets[num];
-  * in the start of FCPattern realisation
-  */
-
   s[0] = new Cannon();
   s[0].setPosition(width / 2, height / 2 - 200);
   s[0].health = 100;
 
-  s[0].addFCPattern(new AFCPattern(700) {
+  s[0].addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
+      int num = this.bulletsCount;
+      Bullet bullet = new ABullet();
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -39,11 +32,13 @@ void setup() {
 
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
-      bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
+      //bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
+
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      int numOfCycles = 2;
+      int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
@@ -67,11 +62,11 @@ void setup() {
   s[1] = new Cannon();
   s[1].setPosition(width / 2, height / 2 - 200);
 
-  s[1].addFCPattern(new AFCPattern(700) {
+  s[1].addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.bullets[num];
+      int num = this.bulletsCount;
+      Bullet bullet = new ABullet();
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -83,10 +78,12 @@ void setup() {
       bullet.setPosition(this.gameObject.getPosition());
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
+
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      int numOfCycles = 2;
+      int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
@@ -108,40 +105,51 @@ void setup() {
   //--------------------------------------------------------
 
   test = new Cannon();
-  test.setPosition(width / 2, 200);
+  test.setPosition(width / 2, height / 2 - 200);
   test.health = 500;
 
-  test.addFCPattern(new AFCPattern(100) {
+  test.addFCPattern(new FCPattern() {
     public void fire() {
-      int num = this.numOfCurBullet;
-      Bullet bullet = this.getCurBullet();
+      Bullet bullet = new ABullet();
 
-      PVector startPos = this.gameObject.getPosition();
-      bullet.setPosition(startPos);
+      bullet.size = 20;
+      bullet.mPattern.speed = 5;
+      bullet.setPosition(this.gameObject.getPosition());
+      bullet.mPattern.setVelocity(super.shootToAllSides());
 
-      bullet.setMPattern(new MPattern() {
-        public void move() {
-          float vx = 4;
-          float ax = -0.1;
-
-          float dist = vx + ax * getTime();
-
-          if (abs(dist) > 4) vx += 10;
-          dist = vx + ax * getTime();
-
-          gameObject.position.x += dist;
-          gameObject.position.y += 2;
-        }
-      });
-
-      bullet.size = 13;
+      bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      bullets[numOfCurBullet].col = color(0, 255, 0);
+      super.setColorOfAllShot(color(0, 255, 0));
     }
   });
-  test.getFCPattern(0).setOptions(10, 1);
+  test.getFCPattern(0).setOptions(60, 8);
+
+  test.addFCPattern(new FCPattern() {
+    public void fire() {
+      int num = this.bulletsCount % 48;
+      Bullet bullet = new ABullet();
+
+      Bullet zeroBul = ((Cannon)gameObject).getFCPattern(0).getBullet(num % 8 + 1);
+      PVector zeroBulPos = zeroBul.getPosition();
+
+      bullet.setPosition(zeroBulPos);
+      bullet.mPattern.setVelocity(super.targetPlayerFrom(zeroBulPos));
+      bullet.size = 10;
+      bullet.mPattern.speed = 5 + (num - num % 8) / 8;
+
+      bullets.add(bullet);
+
+      if (num > 39) zeroBul.setPosition(2000, 0);
+    }
+
+    public void setBulletColor() {
+      super.changeBulletColorHSB(48 * 6);
+    }
+  });
+  test.getFCPattern(1).setOptions(60, 48);
+  test.getFCPattern(1).setDelayCounter(-50);
 
   //--------------------------------------------------------
 

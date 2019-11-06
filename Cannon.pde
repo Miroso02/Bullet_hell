@@ -26,8 +26,8 @@ class Cannon extends GameObject {
   @Override public void update() {
     if (!isDead) {
       takeDamage(); // Comment this in test mode
-      fire();
       move();
+      fire();
       display();
     }
     updateBullets();
@@ -64,10 +64,8 @@ class Cannon extends GameObject {
 
   void takeDamage() {
     ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
-    for (FCPattern fcp: player.playerGun.fcPatterns) {
-      for (Bullet b: fcp.bullets) {
-        playerBullets.add(b);
-      }
+    for (FCPattern fcp: player.gun.fcPatterns) {
+      playerBullets.addAll(fcp.bullets);
     }
 
     for (Bullet bullet: playerBullets) {

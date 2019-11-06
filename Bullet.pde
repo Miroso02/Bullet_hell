@@ -37,4 +37,11 @@ class Bullet extends GameObject {
     newPattern.gameObject = this;
     this.mPattern = newPattern;
   }
+  //---------------------------
+  void setColor(color col) {
+    this.col = col;
+  }
+  void setColor(float r, float g, float b) {
+    this.col = color(r, g, b);
+  }
 }
