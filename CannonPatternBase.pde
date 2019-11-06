@@ -6,7 +6,7 @@ class CannonPatternBase {
   int bulletsPerShot;
 
   ArrayList<Bullet> bullets;
-  int numOfCurBullet;
+  int bulletsCount = 0;
 
   //--------------- Main methods -----------------------------------------------
 
@@ -34,21 +34,19 @@ class CannonPatternBase {
   //-------------- GETters and SETters -----------------------------------------
 
   Bullet getBullet(int relativePosition) {
-    int indexOfLast = bullets.size() - 1;
+    int bCount = bullets.size();
 
-    if (relativePosition > indexOfLast) return null;
-    return bullets.get(indexOfLast - relativePosition);
+    if (relativePosition > bCount) return new Bullet();
+    return bullets.get(bCount - relativePosition);
   }
   Bullet getPrevBullet() {
-    return getBullet(1);
+    // TODO: Fix PrevBullet (Problem in fireAndColorize())
+    return getBullet(2);
   }
   Bullet getCurBullet() {
     return bullets.get(bullets.size() - 1);
   }
 
-  protected void nextBulNum() {
-    numOfCurBullet++;
-  }
   protected boolean shotCooldown() {
     shotCooldownCounter = ++shotCooldownCounter % shotCooldown;
 

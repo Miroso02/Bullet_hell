@@ -15,7 +15,7 @@ class Cannon extends GameObject {
 
     isDead = false;
 
-    // Default move pattern realisations do nothing
+    // Default move pattern realisation does nothing
     mPattern = new MPattern(this) {
       public void move() {}
     };

@@ -14,7 +14,7 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
   }
 
   public PVector shootToAllSides() {
-    int num = this.numOfCurBullet;
+    int num = this.bulletsCount;
     int numOfDirections = this.bulletsPerShot;
     float angle = TWO_PI * num / numOfDirections;
 
@@ -29,7 +29,7 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
   }
 
   public void changeBulletColorHSB(int bulletsPerCycle) {
-    int num = this.numOfCurBullet;
+    int num = this.bulletsCount;
     Bullet bullet = getCurBullet();
 
     colorMode(HSB);
@@ -40,7 +40,7 @@ class PreparedFireAndColorPatterns extends CannonPatternBase {
   }
 
   public void setColorOfAllShot(color col) {
-    int num = this.numOfCurBullet;
+    int num = this.bulletsCount;
     Bullet bullet = getCurBullet();
     int bulletsPerShot = this.bulletsPerShot;
 

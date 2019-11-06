@@ -15,7 +15,7 @@ class Player extends GameObject {
 
     gun.addFCPattern(new FCPattern() {
       public void fire() {
-         int num = this.numOfCurBullet;
+         int num = this.bulletsCount;
         Bullet bullet = new Bullet();
 
         float bulletSpeedX = (num % 5 - 2) * 1.4;

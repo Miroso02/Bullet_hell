@@ -12,7 +12,7 @@ void setup() {
   s[0].addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.numOfCurBullet;
+      int num = this.bulletsCount;
       Bullet bullet = new ABullet();
 
       float bulletSpeedX = 0;
@@ -56,7 +56,7 @@ void setup() {
   s[1].addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.numOfCurBullet;
+      int num = this.bulletsCount;
       Bullet bullet = new Bullet();
 
       float bulletSpeedX = 0;
@@ -96,29 +96,52 @@ void setup() {
   //--------------------------------------------------------
 
   test = new Cannon();
-  test.setPosition(width / 2, 100);
+  test.setPosition(width / 2, height / 2 - 200);
   test.health = 500;
 
   test.addFCPattern(new FCPattern() {
     public void fire() {
+      //int num = this.bulletsCount;
       Bullet bullet = new ABullet();
 
-      PVector startPos = this.cannon.getPosition();
-      bullet.setPosition(startPos);
-      bullet.setVelocity(super.targetPlayerFrom(startPos));
-      bullet.size = 13;
+      bullet.size = 20;
       bullet.speed = 5;
-      // bullet.ricochetModule.setOptions(1, true, true, true);
+      bullet.setPosition(this.cannon.getPosition());
+      bullet.setVelocity(super.shootToAllSides());
 
       bullets.add(bullet);
     }
 
     public void setBulletColor() {
-      getCurBullet().setColor(0, 255, 0);
-      //bullets[numOfCurBullet].col = color(0, 255, 0);
+      super.setColorOfAllShot(color(0, 255, 0));
     }
   });
-  test.getFCPattern(0).setOptions(10, 1);
+  test.getFCPattern(0).setOptions(60, 8);
+
+  test.addFCPattern(new FCPattern() {
+    public void fire() {
+      int num = this.bulletsCount % 48;
+      Bullet bullet = new ABullet();
+
+      Bullet zeroBul = this.cannon.getFCPattern(0).getBullet(num % 8 + 1);
+      PVector zeroBulPos = zeroBul.getPosition();
+
+      bullet.setPosition(zeroBulPos);
+      bullet.setVelocity(super.targetPlayerFrom(zeroBulPos));
+      bullet.size = 10;
+      bullet.speed = 5 + (num - num % 8) / 8;
+
+      bullets.add(bullet);
+
+      if (num > 39) zeroBul.setPosition(2000, 0);
+    }
+
+    public void setBulletColor() {
+      super.changeBulletColorHSB(48 * 6);
+    }
+  });
+  test.getFCPattern(1).setOptions(60, 48);
+  test.getFCPattern(1).setDelayCounter(-50);
 
   //--------------------------------------------------------
 

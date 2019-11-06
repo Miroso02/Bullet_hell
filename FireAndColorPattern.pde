@@ -20,7 +20,7 @@ abstract class FCPattern extends PreparedFireAndColorPatterns {
       for (int i = 0; i < bulletsPerShot; i++) {
         fire();
         setBulletColor();
-        nextBulNum();
+        bulletsCount++;
       }
     }
   }
