@@ -87,7 +87,7 @@ class Cannon extends GameObject {
   //--------- GETters / SETters ----------------------
 
   void addFCPattern(FCPattern newPattern) {
-    newPattern.cannon = this;
+    newPattern.gameObject = this;
     fcPatterns.add(newPattern);
   }
   FCPattern getFCPattern(int index) {

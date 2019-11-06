@@ -1,0 +1,3 @@
+class PatternBase {
+  GameObject gameObject;
+}

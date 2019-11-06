@@ -1,8 +1,6 @@
 class Bullet extends GameObject {
-  PVector velocity;
-  PVector acceleration; // TODO: Add MPattern to Bullet
-  float speed;
-
+  MPattern mPattern;
+  
   color col;
 
   RicochetModule ricochetModule; // Inner class
@@ -14,11 +12,15 @@ class Bullet extends GameObject {
     this.position = new PVector(2000, 0); // Offscreen
     this.size = 10;
     col = color(255);
-    speed = 1;
-    acceleration = new PVector(0, 0);
-
-    velocity = new PVector(0, 0);
+    
     ricochetModule = new RicochetModule();
+    
+    mPattern = new MPattern(this) {
+      public void move() {
+        moveWithConstSpeed();
+        ((Bullet)gameObject).ricochetModule.ricochet();
+      }
+    };
   }
 
   //----------- Main methods ---------------------------------------------------
@@ -30,17 +32,19 @@ class Bullet extends GameObject {
   }
 
   void move() {
-    velocity.add(acceleration);
+    /*velocity.add(acceleration);
     PVector finalVelocity = PVector.mult(velocity, speed);
     position.add(finalVelocity);
-    ricochetModule.ricochet();
+    ricochetModule.ricochet();*/
+    mPattern.move();
   }
 
   //------- Private inner methods ----------------------------------------------
 
   //--------- Ricochet module --------------------------------------------------
 
-  private class RicochetModule {
+  private class RicochetModule { 
+    // TODO: Put this class between MPatternBase and Pr.MPatterns
     int numOfRicochets;
     boolean ricochetUP;
     boolean ricochetDOWN; // TODO: ???????????????? create ricochetTypeIndex
@@ -63,21 +67,20 @@ class Bullet extends GameObject {
     }
 
     private void ricochetFromWalls() {
-      if (position.x + velocity.x > width
-      || position.x - velocity.x < 0) {
-        velocity.x = -velocity.x;
+      if (abs(position.x + mPattern.velocity.x - width / 2) > width / 2) {
+        mPattern.velocity.x = -mPattern.velocity.x;
         numOfRicochets--;
       }
     }
     private void ricochetFromTop() {
-      if (position.y - velocity.y < 0) {
-        velocity.y = -velocity.y;
+      if (position.y + mPattern.velocity.y < 0) {
+        mPattern.velocity.y = -mPattern.velocity.y;
         numOfRicochets--;
       }
     }
     private void ricochetFromBottom() {
-      if (position.y + velocity.y > height) {
-        velocity.y = -velocity.y;
+      if (position.y + mPattern.velocity.y > height) {
+        mPattern.velocity.y = -mPattern.velocity.y;
         numOfRicochets--;
       }
     }
@@ -92,23 +95,4 @@ class Bullet extends GameObject {
 
   //--------- GETters / SETters ------------------------------------------------
 
-  void setVelocity(float speedX, float speedY) {
-    this.velocity.set(speedX, speedY);
-  }
-  void setVelocity(PVector newSpeed) {
-    this.velocity = newSpeed.copy();
-  }
-  PVector getVelocity() {
-    return velocity.copy();
-  }
-  //--------------------------
-  void setAccel(float accelX, float accelY) {
-    this.acceleration.set(accelX, accelY);
-  }
-  void setAccel(PVector newAccel) {
-    this.acceleration = newAccel.copy();
-  }
-  PVector getAccel() {
-    return acceleration.copy();
-  }
 }

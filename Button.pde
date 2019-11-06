@@ -13,11 +13,13 @@ class Button
 
   String text;
   color col;
+  color pcol;
 
   public Button(float x, float y)
   {
     text = "";
     col = color(180, 255, 0);
+    pcol = color(255, 100, 0);
     setPosition(x, y);
     setPadding(10, 10);
     setOptions(text);
@@ -27,11 +29,12 @@ class Button
   }
 
   void display() {
-    stroke(col);
+    color fillCol = (onButton(mouseX, mouseY)) ? pcol : col;
+    stroke(fillCol);
 
     textSize(30);
     setOptions(text);
-    fill(col);
+    fill(fillCol);
     text(text, x, y + paddingHeight);
 
     fill(0, 0);

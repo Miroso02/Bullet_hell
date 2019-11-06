@@ -29,9 +29,10 @@ void setup() {
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = 0.01 * (num % bulInShot + 15) * sin(1.06 * num);
 
-      bullet.setPosition(this.cannon.getPosition());
-      bullet.setVelocity(bulletSpeedX, bulletSpeedY);
-      bullet.speed = 12;
+      bullet.setPosition(this.gameObject.getPosition());
+      bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
+      bullet.mPattern.speed = 12;
+      bullet.ricochetModule.setOptions(1, true, true, true);
     }
 
     public void setBulletColor() {
@@ -72,9 +73,9 @@ void setup() {
       bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
       bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
 
-      bullet.setPosition(this.cannon.getPosition());
-      bullet.setVelocity(bulletSpeedX, bulletSpeedY);
-      bullet.speed = 12;
+      bullet.setPosition(this.gameObject.getPosition());
+      bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
+      bullet.mPattern.speed = 12;
     }
 
     public void setBulletColor() {
@@ -108,11 +109,11 @@ void setup() {
       int num = this.numOfCurBullet;
       Bullet bullet = this.getCurBullet();
 
-      PVector startPos = this.cannon.getPosition();
+      PVector startPos = this.gameObject.getPosition();
       bullet.setPosition(startPos);
-      bullet.setVelocity(super.targetPlayerFrom(startPos));
+      bullet.mPattern.setVelocity(super.targetPlayerFrom(startPos));
       bullet.size = 13;
-      bullet.speed = 5;
+      bullet.mPattern.speed = 5;
       bullet.ricochetModule.setOptions(1, true, false, true);
     }
 
@@ -130,4 +131,7 @@ void setup() {
 
   rectMode(CENTER);
   textAlign(CENTER);
+  
+  mouseX = 0;
+  mouseY = 0;
 }

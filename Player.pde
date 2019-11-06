@@ -21,7 +21,7 @@ class Player extends GameObject {
         float bulletSpeedX = (num % 5 - 2) * 1.4;
 
         bullet.setPosition(player.getPosition().add(0, -5));
-        bullet.setVelocity(bulletSpeedX, -30);
+        bullet.mPattern.setVelocity(bulletSpeedX, -30);
         bullet.size = 8;
       }
 

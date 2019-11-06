@@ -1,6 +1,4 @@
-class CannonPatternBase {
-  Cannon cannon;  // Cannon that owns this pattern
-
+class CannonPatternBase extends PatternBase {
   protected int shotCooldownCounter = -1;
   int shotCooldown;
   int bulletsPerShot;
