@@ -16,9 +16,9 @@ class Cannon extends GameObject {
     isDead = false;
 
     // Default move pattern realisations do nothing
-    mPattern = new MPattern(this) {
+    setMPattern(new MPattern() {
       public void move() {}
-    };
+    });
   }
 
   //--------- Multipurpose methods --------------------------
@@ -83,7 +83,7 @@ class Cannon extends GameObject {
   }
 
   //--------- Private inner methods -------------------------
-  
+
   //--------- GETters / SETters ----------------------
 
   void addFCPattern(FCPattern newPattern) {
@@ -92,5 +92,10 @@ class Cannon extends GameObject {
   }
   FCPattern getFCPattern(int index) {
     return fcPatterns.get(index);
+  }
+
+  void setMPattern(MPattern newPattern) {
+    newPattern.gameObject = this;
+    this.mPattern = newPattern;
   }
 }

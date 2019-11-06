@@ -1,4 +1,4 @@
-class PreparedFireAndColorPatterns extends CannonPatternBase {
+class PreparedFireAndColorPatterns extends FCPatternBase {
   // TODO: Add some patterns
 
   //-------------- Fire patterns --------------------------

@@ -1,4 +1,4 @@
-class CannonPatternBase extends PatternBase {
+class FCPatternBase extends PatternBase {
   protected int shotCooldownCounter = -1;
   int shotCooldown;
   int bulletsPerShot;

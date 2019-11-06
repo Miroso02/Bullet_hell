@@ -30,9 +30,16 @@ void setup() {
       bulletSpeedY = 0.01 * (num % bulInShot + 15) * sin(1.06 * num);
 
       bullet.setPosition(this.gameObject.getPosition());
+
+      bullet.setMPattern(new MPattern() {
+        public void move() {
+          super.moveWithConstSpeedAndRicochet();
+        }
+      });
+
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
-      bullet.ricochetModule.setOptions(1, true, true, true);
+      bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
     }
 
     public void setBulletColor() {
@@ -42,7 +49,7 @@ void setup() {
   });
   s[0].getFCPattern(0).setOptions(50, 100);
 
-  s[0].mPattern = new MPattern(s[0]) {
+  s[0].setMPattern(new MPattern() {
     public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
@@ -53,7 +60,7 @@ void setup() {
 
       super.rotateAround(x, y, radius, time, period, true, phase0);
     }
-  };
+  });
 
   //---------------------------------------------------
 
@@ -85,7 +92,7 @@ void setup() {
   });
   s[1].getFCPattern(0).setOptions(50, 100);
 
-  s[1].mPattern = new MPattern(s[1]) {
+  s[1].setMPattern(new MPattern() {
     public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
@@ -96,7 +103,7 @@ void setup() {
 
       super.rotateAround(x, y, radius, time, period, false, phase0);
     }
-  };
+  });
 
   //--------------------------------------------------------
 
@@ -131,7 +138,7 @@ void setup() {
 
   rectMode(CENTER);
   textAlign(CENTER);
-  
+
   mouseX = 0;
   mouseY = 0;
 }
