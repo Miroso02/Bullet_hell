@@ -2,9 +2,6 @@ class Bullet extends GameObject {
   MPattern mPattern;
 
   color col;
-
-  RicochetModule ricochetModule; // Inner class
-
   //--------- Constructor ------------------------------------------------------
 
   public Bullet() {
@@ -12,8 +9,6 @@ class Bullet extends GameObject {
     this.position = new PVector(2000, 0); // Offscreen
     this.size = 10;
     col = color(255);
-
-    ricochetModule = new RicochetModule();
 
     setMPattern(new MPattern() {
       public void move() {
@@ -31,7 +26,7 @@ class Bullet extends GameObject {
   }
 
   void move() {
-    mPattern.move();
+    mPattern.wrappedMove();
   }
 
   //------- Private inner methods ----------------------------------------------

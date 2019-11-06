@@ -108,7 +108,7 @@ void setup() {
   //--------------------------------------------------------
 
   test = new Cannon();
-  test.setPosition(width / 2, 100);
+  test.setPosition(width / 2, 200);
   test.health = 500;
 
   test.addFCPattern(new AFCPattern(100) {
@@ -118,10 +118,23 @@ void setup() {
 
       PVector startPos = this.gameObject.getPosition();
       bullet.setPosition(startPos);
-      bullet.mPattern.setVelocity(super.targetPlayerFrom(startPos));
+
+      bullet.setMPattern(new MPattern() {
+        public void move() {
+          float vx = 4;
+          float ax = -0.1;
+
+          float dist = vx + ax * getTime();
+
+          if (abs(dist) > 4) vx += 10;
+          dist = vx + ax * getTime();
+
+          gameObject.position.x += dist;
+          gameObject.position.y += 2;
+        }
+      });
+
       bullet.size = 13;
-      bullet.mPattern.speed = 5;
-      bullet.ricochetModule.setOptions(1, true, false, true);
     }
 
     public void setBulletColor() {
