@@ -1,6 +1,6 @@
 Player player;
 Button restartButton;
-Cannon[] s = new Cannon[2];
+ArrayList<Cannon> cannons = new ArrayList<Cannon>();
 
 // On this cannon I'll test new patterns
 Cannon test;
@@ -9,11 +9,12 @@ Cannon test;
 void draw() {
   background(0); // Black background
 
-  s[0].update();  // Fire, control bullets,
-  s[1].update();  // take damage, display,
-  test.update();  // move
+  // Fire, move, display, control bullets, take damage
+  cannons.get(0).update();
+  cannons.get(1).update();
+  test.update();
 
-    player.update();
+  player.update();
   if (player.isDead) {
     restartButton.display();
     if (restartButton.pressed()) setup();
@@ -24,5 +25,5 @@ void draw() {
 }
 
 void onBackPressed() {
-  setup();
+  setup();  // Restart the game
 }

@@ -31,17 +31,23 @@ class FCPatternBase extends PatternBase {
   //-------------- GETters and SETters -----------------------------------------
 
   Bullet getBullet(int relativePosition) {
-    int bCount = bullets.size();
+    int indOfLast = bullets.size() - 1;
 
-    if (relativePosition > bCount) return null;
-    return bullets.get(bCount - relativePosition);
+    if (relativePosition > indOfLast) {
+      int badIndex = indOfLast - relativePosition;
+      String message =
+        "\nBullet with index " + badIndex + " does not exist."
+      + "\nPlease, add the bullet in the START of fire() method realisation.";
+
+      throw new ArrayIndexOutOfBoundsException(message);
+    }
+    return bullets.get(indOfLast - relativePosition);
   }
   Bullet getPrevBullet() {
-    // TODO: Fix PrevBullet (Problem in fireAndColorize())
-    return getBullet(2);
+    return getBullet(1);
   }
   Bullet getCurBullet() {
-    return bullets.get(bullets.size() - 1);
+    return getBullet(0);
   }
 
   protected boolean shotCooldown() {

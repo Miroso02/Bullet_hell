@@ -1,6 +1,4 @@
 class Bullet extends GameObject {
-  //--------- Constructor ------------------------------------------------------
-
   public Bullet() {
     // Default values
     position = new PVector(2000, 0); // Offscreen
@@ -14,14 +12,9 @@ class Bullet extends GameObject {
     });
   }
 
-  //----------- Main methods ---------------------------------------------------
-
   void display() {
     noStroke();
     fill(col);
     ellipse(position.x, position.y, size, size);
   }
-
-  //--------- GETters / SETters ------------------------------------------------
-  
 }

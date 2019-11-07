@@ -1,4 +1,4 @@
-class MPatternBase extends Patteclasse {
+class MPatternBase extends PatternBase {
   PVector velocity;
   float speed;
 

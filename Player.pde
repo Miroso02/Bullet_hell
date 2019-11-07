@@ -1,11 +1,10 @@
 class Player extends Cannon {
 
-  //----------- Constructor ---------------------------
+  //----------- Constructor ----------------------------------------------------
 
   public Player() {
-    this.position 
-      = new PVector(width / 2, height / 2 + 200);
-    
+    this.position = new PVector(width / 2, height / 2 + 200);
+
     this.size = 8;
     isDead = false;
 
@@ -22,28 +21,26 @@ class Player extends Cannon {
 
         bullets.add(bullet);
       }
-
-      public void setBulletColor() {}
     });
     getFCPattern(0).shotCooldown = 4;
     getFCPattern(0).bulletsPerShot = 5;
-    
+
     setMPattern(new MPattern() {
       public void move() {
         if (mousePressed) {
           final float SENSITIVITY = 1;
           PVector pos = gameObject.getPosition();
-          
+
           pos.x += SENSITIVITY * (mouseX - pmouseX);
           pos.y += SENSITIVITY * (mouseY - pmouseY);
-         
+
           gameObject.setPosition(pos);
         }
       }
     });
   }
 
-  //--------- Multipurpose methods --------------------------
+  //--------- Multipurpose methods ---------------------------------------------
 
   @Override public void update() {
     if (!isDead) {
@@ -54,7 +51,7 @@ class Player extends Cannon {
     }
   }
 
-  //--------- Main methods ----------------------
+  //--------- Main methods -----------------------------------------------------
 
   void move() {
     if (!isOnScreen()) stayOnTheScreen();
@@ -67,7 +64,7 @@ class Player extends Cannon {
     ellipse(position.x, position.y, size, size);
   }
 
-  //------- Private inner methods --------------------
+  //------- Private inner methods ----------------------------------------------
 
   private void stayOnTheScreen() {
     if (position.x <= 0) position.x = 1;
@@ -75,7 +72,4 @@ class Player extends Cannon {
     if (position.y <= 0) position.y = 1;
     else if (position.y >= height) position.y = height - 1;
   }
-
-  //---------- GETters and SETters ---------------------------------------------
-
 }

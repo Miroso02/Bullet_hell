@@ -5,15 +5,17 @@ void settings() {
 }
 
 void setup() {
-  s[0] = new Cannon();
-  s[0].setPosition(width / 2, height / 2 - 200);
-  s[0].health = 100;
+  Cannon c1 = new Cannon();
+  cannons.add(c1);
+  c1.setPosition(width / 2, height / 2 - 200);
+  c1.health = 100;
 
-  s[0].addFCPattern(new FCPattern() {
+  c1.addFCPattern(new FCPattern() {
     public void fire()
     {
       int num = this.bulletsCount;
       Bullet bullet = new ABullet();
+      bullets.add(bullet);
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -32,18 +34,14 @@ void setup() {
 
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
-      
-      bullets.add(bullet);
-    }
 
-    public void setBulletColor() {
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
-  s[0].getFCPattern(0).setOptions(50, 100);
+  c1.getFCPattern(0).setOptions(50, 100);
 
-  s[0].setMPattern(new MPattern() {
+  c1.setMPattern(new MPattern() {
     public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
@@ -56,16 +54,18 @@ void setup() {
     }
   });
 
-  //---------------------------------------------------
+  //----------------------------------------------------------------------------
 
-  s[1] = new Cannon();
-  s[1].setPosition(width / 2, height / 2 - 200);
+  Cannon c2 = new Cannon();
+  cannons.add(c2);
+  c2.setPosition(width / 2, height / 2 - 200);
 
-  s[1].addFCPattern(new FCPattern() {
+  c2.addFCPattern(new FCPattern() {
     public void fire()
     {
       int num = this.bulletsCount;
       Bullet bullet = new ABullet();
+      bullets.add(bullet);
 
       float bulletSpeedX = 0;
       float bulletSpeedY = 0;
@@ -75,27 +75,17 @@ void setup() {
       bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
 
       bullet.setPosition(this.gameObject.getPosition());
-      
-      /*bullet.setMPattern(new MPattern() {
-        public void move() {
-          super.moveWithConstSpeedAndRicochet();
-        }
-      });*/
+
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
-      //bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
 
-      bullets.add(bullet);
-    }
-
-    public void setBulletColor() {
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
   });
-  s[1].getFCPattern(0).setOptions(50, 100);
+  c2.getFCPattern(0).setOptions(50, 100);
 
-  s[1].setMPattern(new MPattern() {
+  c2.setMPattern(new MPattern() {
     public void move() {
       float x = width / 2;
       float y = height / 2 - 300;
@@ -108,7 +98,7 @@ void setup() {
     }
   });
 
-  //--------------------------------------------------------
+  //----------------------------------------------------------------------------
 
   test = new Cannon();
   test.setPosition(width / 2, height / 2 - 200);
@@ -118,16 +108,13 @@ void setup() {
   test.addFCPattern(new FCPattern() {
     public void fire() {
       Bullet bullet = new ABullet();
+      bullets.add(bullet);
 
       bullet.size = 20;
       bullet.mPattern.speed = 5;
       bullet.setPosition(this.gameObject.getPosition());
       bullet.mPattern.setVelocity(super.shootToAllSides());
 
-      bullets.add(bullet);
-    }
-
-    public void setBulletColor() {
       super.setColorOfAllShot(color(0, 255, 0));
     }
   });
@@ -137,8 +124,9 @@ void setup() {
     public void fire() {
       int num = this.bulletsCount % 48;
       Bullet bullet = new ABullet();
+      bullets.add(bullet);
 
-      Bullet zeroBul = ((Cannon)gameObject).getFCPattern(0).getBullet(num % 8 + 1);
+      Bullet zeroBul = ((Cannon)gameObject).getFCPattern(0).getBullet(num % 8);
       PVector zeroBulPos = zeroBul.getPosition();
 
       bullet.setPosition(zeroBulPos);
@@ -146,19 +134,15 @@ void setup() {
       bullet.size = 10;
       bullet.mPattern.speed = 5 + (num - num % 8) / 8;
 
-      bullets.add(bullet);
+      super.changeBulletColorHSB(48 * 6);
 
       if (num > 39) zeroBul.setPosition(2000, 0);
-    }
-
-    public void setBulletColor() {
-      super.changeBulletColorHSB(48 * 6);
     }
   });
   test.getFCPattern(1).setOptions(60, 48);
   test.getFCPattern(1).setTimeCounter(-50);
 
-  //--------------------------------------------------------
+  //----------------------------------------------------------------------------
 
   player = new Player();
   restartButton = new Button(width / 2 - 150, height / 2 + 50);
