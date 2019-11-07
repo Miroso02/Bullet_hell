@@ -1,6 +1,4 @@
 abstract class MPattern extends PreparedMPatterns {
-  private int timeCounter = 0;
-
   MPattern() {
     this.speed = 1;
     this.velocity = new PVector(0, 0);
@@ -12,10 +10,6 @@ abstract class MPattern extends PreparedMPatterns {
 
   public void wrappedMove() {
     move();
-    timeCounter++;
-  }
-
-  int getTime() {
-    return timeCounter;
+    time++;
   }
 }

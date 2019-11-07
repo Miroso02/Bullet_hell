@@ -1,4 +1,4 @@
-class PreparedFireAndColorPatterns extends FCPatternBase {
+class PreparedFCPatterns extends FCPatternBase {
   // TODO: Add some patterns
 
   //-------------- Fire patterns --------------------------

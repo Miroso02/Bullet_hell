@@ -1,5 +1,4 @@
 class FCPatternBase extends PatternBase {
-  protected int shotCooldownCounter = -1;
   int shotCooldown;
   int bulletsPerShot;
 
@@ -34,7 +33,7 @@ class FCPatternBase extends PatternBase {
   Bullet getBullet(int relativePosition) {
     int bCount = bullets.size();
 
-    if (relativePosition > bCount) return new Bullet();
+    if (relativePosition > bCount) return null;
     return bullets.get(bCount - relativePosition);
   }
   Bullet getPrevBullet() {
@@ -46,17 +45,14 @@ class FCPatternBase extends PatternBase {
   }
 
   protected boolean shotCooldown() {
-    shotCooldownCounter = ++shotCooldownCounter % shotCooldown;
-
-    if (shotCooldownCounter == 0) return false;
-    return true;
+    return !(time++ % shotCooldown == 0);
   }
   //---------------------
   int getTimeFromShot() {
-    return shotCooldownCounter;
+    return time % shotCooldown;
   }
-  void setDelayCounter(int value) {
-    shotCooldownCounter = value - 1;
+  void setTimeCounter(int value) {
+    time = value - 1;
   }
   //---------------------
   void setOptions(int shotCooldown, int bulletsPerShot) {
@@ -65,6 +61,6 @@ class FCPatternBase extends PatternBase {
   }
   void setOptions(int shotCooldown, int bulletsPerShot, int startCounter) {
     setOptions(shotCooldown, bulletsPerShot);
-    setDelayCounter(startCounter);
+    setTimeCounter(startCounter);
   }
 }

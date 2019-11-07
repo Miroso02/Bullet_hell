@@ -1,4 +1,4 @@
-abstract class FCPattern extends PreparedFireAndColorPatterns {
+abstract class FCPattern extends PreparedFCPatterns {
   //----------------- Constructor ----------------------------------------------
 
   public FCPattern() {

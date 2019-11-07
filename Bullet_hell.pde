@@ -10,12 +10,11 @@ void draw() {
   background(0); // Black background
 
   s[0].update();  // Fire, control bullets,
-  s[1].update();  // take damage, display
-  test.update();
+  s[1].update();  // take damage, display,
+  test.update();  // move
 
-  if (!player.isDead) {
     player.update();
-  } else {
+  if (player.isDead) {
     restartButton.display();
     if (restartButton.pressed()) setup();
   }

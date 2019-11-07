@@ -1,13 +1,10 @@
 class Bullet extends GameObject {
-  MPattern mPattern;
-
-  color col;
   //--------- Constructor ------------------------------------------------------
 
   public Bullet() {
     // Default values
-    this.position = new PVector(2000, 0); // Offscreen
-    this.size = 10;
+    position = new PVector(2000, 0); // Offscreen
+    size = 10;
     col = color(255);
 
     setMPattern(new MPattern() {
@@ -25,23 +22,6 @@ class Bullet extends GameObject {
     ellipse(position.x, position.y, size, size);
   }
 
-  void move() {
-    mPattern.wrappedMove();
-  }
-
-  //------- Private inner methods ----------------------------------------------
-
   //--------- GETters / SETters ------------------------------------------------
-
-  void setMPattern(MPattern newPattern) {
-    newPattern.gameObject = this;
-    this.mPattern = newPattern;
-  }
-  //---------------------------
-  void setColor(color col) {
-    this.col = col;
-  }
-  void setColor(float r, float g, float b) {
-    this.col = color(r, g, b);
-  }
+  
 }

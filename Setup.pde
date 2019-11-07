@@ -32,8 +32,7 @@ void setup() {
 
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
-      //bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
-
+      
       bullets.add(bullet);
     }
 
@@ -51,7 +50,7 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.getTime();
+      int time = this.time;
 
       super.rotateAround(x, y, radius, time, period, true, phase0);
     }
@@ -76,8 +75,15 @@ void setup() {
       bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
 
       bullet.setPosition(this.gameObject.getPosition());
+      
+      /*bullet.setMPattern(new MPattern() {
+        public void move() {
+          super.moveWithConstSpeedAndRicochet();
+        }
+      });*/
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
       bullet.mPattern.speed = 12;
+      //bullet.mPattern.ricochetModule.setOptions(1, true, true, true);
 
       bullets.add(bullet);
     }
@@ -96,7 +102,7 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.getTime();
+      int time = this.time;
 
       super.rotateAround(x, y, radius, time, period, false, phase0);
     }
@@ -107,6 +113,7 @@ void setup() {
   test = new Cannon();
   test.setPosition(width / 2, height / 2 - 200);
   test.health = 500;
+  test.setColor(0, 255, 200);
 
   test.addFCPattern(new FCPattern() {
     public void fire() {
@@ -149,11 +156,11 @@ void setup() {
     }
   });
   test.getFCPattern(1).setOptions(60, 48);
-  test.getFCPattern(1).setDelayCounter(-50);
+  test.getFCPattern(1).setTimeCounter(-50);
 
   //--------------------------------------------------------
 
-  player = new Player(width / 2, height - 100, 8);
+  player = new Player();
   restartButton = new Button(width / 2 - 150, height / 2 + 50);
   restartButton.setOptions("Restart");
 

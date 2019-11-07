@@ -1,6 +1,9 @@
 abstract class GameObject {
   PVector position;
   int size;
+  color col;
+  
+  MPattern mPattern;
 
   //--------------- Default methods --------------------------------------------
 
@@ -8,11 +11,14 @@ abstract class GameObject {
     display();
     move();
   }
+  
+  public void move() {
+    mPattern.wrappedMove();
+  }
 
   //--------------- Abstract methods -------------------------------------------
 
   abstract void display();
-  abstract void move();
 
   //--------------- Info methods -----------------------------------------------
 
@@ -43,5 +49,14 @@ abstract class GameObject {
   }
   PVector getPosition() {
     return position.copy();
+  }
+  
+  void setMPattern(MPattern newPattern) {
+    newPattern.gameObject = this;
+    this.mPattern = newPattern;
+  }
+  
+  void setColor(float r, float g, float b) {
+    this.col = color(r, g, b);
   }
 }

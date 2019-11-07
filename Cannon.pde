@@ -1,9 +1,8 @@
 class Cannon extends GameObject {
   int health;
   boolean isDead;
-
-  MPattern mPattern;
-  private ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
+  
+  protected ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
 
   //----------- Constructor --------------------------------------
 
@@ -11,11 +10,12 @@ class Cannon extends GameObject {
     // Default values
     this.position = new PVector(width / 2, height / 2);
     this.size = 40;
+    this.col = color(200, 0, 255);
     health = 100;
 
     isDead = false;
 
-    // Default move pattern realisations do nothing
+    // Default move pattern realisation does nothing
     setMPattern(new MPattern() {
       public void move() {}
     });
@@ -35,7 +35,7 @@ class Cannon extends GameObject {
 
   //--------- Main methods --------------------------------
 
-  private void updateBullets() {
+  protected void updateBullets() {
     for (FCPattern fc: fcPatterns) {
       fc.updateBullets();
     }
@@ -47,24 +47,20 @@ class Cannon extends GameObject {
     }
   }
 
-  void move() {
-    mPattern.wrappedMove();
-  }
-
   void display() {
     noFill();
     strokeWeight(1);
-    stroke(200, 0, 255);
+    stroke(col);
     rect(position.x, position.y, size, size);
 
-    fill(200, 0, 255);
+    fill(col);
     textSize(20);
     text(health, position.x, position.y); // TODO: Fix text display
   }
 
   void takeDamage() {
     ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
-    for (FCPattern fcp: player.gun.fcPatterns) {
+    for (FCPattern fcp: player.fcPatterns) {
       playerBullets.addAll(fcp.bullets);
     }
 
@@ -90,10 +86,5 @@ class Cannon extends GameObject {
   }
   FCPattern getFCPattern(int index) {
     return fcPatterns.get(index);
-  }
-
-  void setMPattern(MPattern newPattern) {
-    newPattern.gameObject = this;
-    this.mPattern = newPattern;
   }
 }

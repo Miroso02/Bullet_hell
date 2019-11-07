@@ -4,9 +4,9 @@ class ABullet extends Bullet { // Agressive bullet
   }
 
   @Override void update() {
-      display();
-      move();
-      killPlayer(); // Comment this in test mode
+    display();
+    move();
+    killPlayer(); // Comment this in test mode
   }
 
   private void killPlayer() {

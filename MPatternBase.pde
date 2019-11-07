@@ -1,8 +1,10 @@
-class MPatternBase extends PatternBase {
+class MPatternBase extends Patteclasse {
   PVector velocity;
   float speed;
 
   RicochetModule ricochetModule;
+
+  //--------- GETters / SETters ------------------------------------------------
 
   void setVelocity(float speedX, float speedY) {
     this.velocity.set(speedX, speedY);
