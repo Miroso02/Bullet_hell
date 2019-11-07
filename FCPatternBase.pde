@@ -14,7 +14,7 @@ class FCPatternBase extends PatternBase {
     killUselessBullets();
   }
 
-  private void killUselessBullets() {
+  private void killUselessBullets() { // Delete from ArrayList
     ArrayList<Bullet> uselessBullets = new ArrayList<Bullet>();
 
     for (Bullet bullet: bullets) {
@@ -50,12 +50,15 @@ class FCPatternBase extends PatternBase {
     return getBullet(0);
   }
 
-  protected boolean shotCooldown() {
+  protected boolean shotCooldown() {  // Cannon shoots when it returns true
     return !(time++ % shotCooldown == 0);
   }
   //---------------------
   int getTimeFromShot() {
     return time % shotCooldown;
+  }
+  int getTimeToShot() {
+    return shotCooldown - getTimeFromShot();
   }
   void setTimeCounter(int value) {
     time = value - 1;

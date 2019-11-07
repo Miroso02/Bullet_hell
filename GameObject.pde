@@ -2,8 +2,8 @@ abstract class GameObject {
   PVector position;
   int size;
   color col;
-  
-  MPattern mPattern;
+
+  protected MPattern mPattern;
 
   //--------------- Default methods --------------------------------------------
 
@@ -11,7 +11,7 @@ abstract class GameObject {
     display();
     move();
   }
-  
+
   public void move() {
     mPattern.wrappedMove();
   }
@@ -34,10 +34,6 @@ abstract class GameObject {
     float dist = getDistTo(obj);
     return dist < (size + obj.size) / 2;
   }
-  /*public static float getDist(GameObject obj1, GameObject obj2) {
-    return PVector.dist(obj1.position, obj2.position);
-  }*/
-  // It has to work, but it doesn't
 
   //------------- GETters and SETters ------------------------------------------
 
@@ -50,12 +46,12 @@ abstract class GameObject {
   PVector getPosition() {
     return position.copy();
   }
-  
+
   void setMPattern(MPattern newPattern) {
     newPattern.gameObject = this;
     this.mPattern = newPattern;
   }
-  
+
   void setColor(float r, float g, float b) {
     this.col = color(r, g, b);
   }

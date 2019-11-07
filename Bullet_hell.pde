@@ -1,6 +1,6 @@
 Player player;
 Button restartButton;
-ArrayList<Cannon> cannons = new ArrayList<Cannon>();
+ArrayList<Cannon> cannons;
 
 // On this cannon I'll test new patterns
 Cannon test;

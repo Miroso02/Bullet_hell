@@ -1,7 +1,7 @@
 class Cannon extends GameObject {
   int health;
   boolean isDead;
-  
+
   protected ArrayList<FCPattern> fcPatterns = new ArrayList<FCPattern>();
 
   //----------- Constructor --------------------------------------
@@ -60,8 +60,8 @@ class Cannon extends GameObject {
 
   void takeDamage() {
     ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
-    for (FCPattern fcp: player.fcPatterns) {
-      playerBullets.addAll(fcp.bullets);
+    for (FCPattern playerFCP: player.fcPatterns) {
+      playerBullets.addAll(playerFCP.bullets);
     }
 
     for (Bullet bullet: playerBullets) {
@@ -75,8 +75,6 @@ class Cannon extends GameObject {
       isDead = true;
     }
   }
-
-  //--------- Private inner methods -------------------------
 
   //--------- GETters / SETters ----------------------
 

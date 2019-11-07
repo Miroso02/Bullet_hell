@@ -17,6 +17,7 @@ class Player extends Cannon {
 
         bullet.setPosition(player.getPosition().add(0, -5));
         bullet.mPattern.setVelocity(bulletSpeedX, -30);
+        bullet.mPattern.speed = 30;
         bullet.size = 8;
 
         bullets.add(bullet);
@@ -66,7 +67,7 @@ class Player extends Cannon {
 
   //------- Private inner methods ----------------------------------------------
 
-  private void stayOnTheScreen() {
+  private void stayOnTheScreen() {  // TODO: Optimize this method
     if (position.x <= 0) position.x = 1;
     else if (position.x >= width) position.x = width - 1;
     if (position.y <= 0) position.y = 1;

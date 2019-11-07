@@ -1,4 +1,5 @@
 class MPatternBase extends PatternBase {
+  // TODO: Add content (more information)
   PVector velocity;
   float speed;
 
@@ -7,10 +8,10 @@ class MPatternBase extends PatternBase {
   //--------- GETters / SETters ------------------------------------------------
 
   void setVelocity(float speedX, float speedY) {
-    this.velocity.set(speedX, speedY);
+    setVelocity(new PVector(speedX, speedY));
   }
   void setVelocity(PVector newSpeed) {
-    this.velocity = newSpeed.copy();
+    this.velocity = newSpeed.copy().normalize();
   }
   PVector getVelocity() {
     return velocity.copy();

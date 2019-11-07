@@ -5,6 +5,8 @@ void settings() {
 }
 
 void setup() {
+  cannons = new ArrayList<Cannon>();
+
   Cannon c1 = new Cannon();
   cannons.add(c1);
   c1.setPosition(width / 2, height / 2 - 200);
@@ -21,8 +23,8 @@ void setup() {
       float bulletSpeedY = 0;
       int bulInShot = this.bulletsPerShot;
 
-      bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
-      bulletSpeedY = 0.01 * (num % bulInShot + 15) * sin(1.06 * num);
+      bulletSpeedX = cos(1.06 * num);
+      bulletSpeedY = sin(1.06 * num);
 
       bullet.setPosition(this.gameObject.getPosition());
 
@@ -33,7 +35,7 @@ void setup() {
       });
 
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
-      bullet.mPattern.speed = 12;
+      bullet.mPattern.speed = 0.12 * (num % bulInShot + 15);
 
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
@@ -48,9 +50,8 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.time;
 
-      super.rotateAround(x, y, radius, time, period, true, phase0);
+      super.rotateAround(x, y, radius, period, true, phase0);
     }
   });
 
@@ -71,13 +72,13 @@ void setup() {
       float bulletSpeedY = 0;
       int bulInShot = this.bulletsPerShot;
 
-      bulletSpeedX = 0.01 * (num % bulInShot + 15) * cos(1.06 * num);
-      bulletSpeedY = -0.01 * (num % bulInShot + 15) * sin(1.06 * num);
+      bulletSpeedX = cos(1.06 * num);
+      bulletSpeedY = -sin(1.06 * num);
 
       bullet.setPosition(this.gameObject.getPosition());
 
       bullet.mPattern.setVelocity(bulletSpeedX, bulletSpeedY);
-      bullet.mPattern.speed = 12;
+      bullet.mPattern.speed = 0.12 * (num % bulInShot + 15);
 
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
@@ -92,9 +93,8 @@ void setup() {
       float radius = 200;
       int period = 300;
       float phase0 = 0;
-      int time = this.time;
 
-      super.rotateAround(x, y, radius, time, period, false, phase0);
+      super.rotateAround(x, y, radius, period, false, phase0);
     }
   });
 
@@ -111,9 +111,9 @@ void setup() {
       bullets.add(bullet);
 
       bullet.size = 20;
-      bullet.mPattern.speed = 5;
       bullet.setPosition(this.gameObject.getPosition());
       bullet.mPattern.setVelocity(super.shootToAllSides());
+      bullet.mPattern.speed = 5;
 
       super.setColorOfAllShot(color(0, 255, 0));
     }
