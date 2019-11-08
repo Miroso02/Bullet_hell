@@ -1,5 +1,6 @@
 PVector pressPos;
 PVector releasePos;
+boolean mouseReleased = false;
 
 class Button
 {
@@ -80,4 +81,5 @@ void mousePressed() {
 
 void mouseReleased() {
   releasePos = new PVector(mouseX, mouseY);
+  mouseReleased = true;
 }

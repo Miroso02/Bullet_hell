@@ -23,6 +23,8 @@ void draw() {
 
   fill(255);
   text(frameRate, 100, 100);
+
+  mouseReleased = false;
 }
 
 void onBackPressed() {
