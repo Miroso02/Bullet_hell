@@ -27,3 +27,13 @@ void draw() {
 void onBackPressed() {
   setup();  // Restart the game
 }
+
+//------------------------------------------------------------------------------
+
+void rect(PVector position, int size) {
+  rect(position.x, position.y, size, size);
+}
+
+void ellipse(PVector position, int size) {
+  ellipse(position.x, position.y, size, size);
+}

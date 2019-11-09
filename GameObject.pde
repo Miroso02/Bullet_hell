@@ -1,5 +1,5 @@
 abstract class GameObject {
-  PVector position;
+  PVector position = new PVector(0, 0);
   int size;
   color col;
 

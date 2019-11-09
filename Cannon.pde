@@ -8,7 +8,7 @@ class Cannon extends GameObject {
 
   public Cannon() {
     // Default values
-    this.position = new PVector(width / 2, height / 2);
+    setPosition(width / 2, height / 2);
     this.size = 40;
     this.col = color(200, 0, 255);
     health = 100;
@@ -36,6 +36,7 @@ class Cannon extends GameObject {
   //--------- Main methods --------------------------------
 
   protected void updateBullets() {
+    noStroke();
     for (FCPattern fc: fcPatterns) {
       fc.updateBullets();
     }
@@ -51,7 +52,7 @@ class Cannon extends GameObject {
     noFill();
     strokeWeight(1);
     stroke(col);
-    rect(position.x, position.y, size, size);
+    rect(position, size);
 
     fill(col);
     textSize(20);
