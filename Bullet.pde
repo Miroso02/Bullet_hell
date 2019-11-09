@@ -1,7 +1,7 @@
 class Bullet extends GameObject {
   public Bullet() {
     // Default values
-    position = new PVector(2000, 0); // Offscreen
+    setPosition(2000, 0); // Offscreen
     size = 10;
     col = color(255);
 
@@ -13,8 +13,7 @@ class Bullet extends GameObject {
   }
 
   void display() {
-    noStroke();
     fill(col);
-    ellipse(position.x, position.y, size, size);
+    ellipse(position, size);
   }
 }

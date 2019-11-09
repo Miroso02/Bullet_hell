@@ -2,28 +2,25 @@ PVector pressPos;
 PVector releasePos;
 boolean mouseReleased = false;
 
-class Button
+class Button extends GameObject
 {
-  float x;
-  float y;
-
-  float w;
-  float h;
-  float paddingWidth;
-  float paddingHeight;
+  PVector sizes = new PVector(0, 0);
+  PVector padding= new PVector(0, 0);
 
   String text;
-  color col;
+
   color pcol;
 
   public Button(float x, float y)
   {
-    text = "";
+    setPosition(x, y);
+
     col = color(180, 255, 0);
     pcol = color(255, 100, 0);
-    setPosition(x, y);
+
+    textSize(30);
     setPadding(10, 10);
-    setOptions(text);
+    setOptions("");
 
     pressPos = new PVector(0, 0);
     releasePos = new PVector(0, 0);
@@ -34,13 +31,11 @@ class Button
     stroke(fillCol);
 
     textSize(30);
-    setOptions(text);
     fill(fillCol);
-    text(text, x, y + paddingHeight);
+    text(text, position.x, position.y + padding.y);
 
     fill(0, 0);
-    strokeWeight(0);
-    rect(x, y, w, h);
+    rect(position.x, position.y, sizes.x, sizes.y);
   }
 
   boolean pressed() {
@@ -52,27 +47,24 @@ class Button
   }
 
   boolean onButton(float mx, float my) {
-    return abs(mx - x) < w / 2 &&
-           abs(my - y) < h / 2;
-  }
-
-  void setPosition(float x, float y) {
-    this.x = x;
-    this.y = y;
+    return abs(mx - position.x) < sizes.x / 2 &&
+           abs(my - position.y) < sizes.y / 2;
   }
 
   void setPadding(float pw, float ph) {
-    paddingWidth = pw;
-    paddingHeight = ph;
+    padding.x = pw;
+    padding.y = ph;
   }
 
   void setOptions(String text) {
     this.text = text;
 
-    h = 2 * paddingHeight + textAscent() + textDescent();
-    w = 2 * paddingWidth + textWidth(text);
+    sizes.x = 2 * padding.x + textWidth(text);
+    sizes.y = 2 * padding.y + textAscent() + textDescent();
   }
 }
+
+//------------------------------------------------------------------------------
 
 void mousePressed() {
   pressPos = new PVector(mouseX, mouseY);
