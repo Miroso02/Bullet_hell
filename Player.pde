@@ -3,7 +3,7 @@ class Player extends Cannon {
   //----------- Constructor ----------------------------------------------------
 
   public Player() {
-    this.position = new PVector(width / 2, height / 2 + 200);
+    setPosition(width / 2, height / 2 + 200);
 
     this.size = 8;
     isDead = false;
@@ -62,7 +62,7 @@ class Player extends Cannon {
   void display() {
     noStroke();
     fill(255);
-    ellipse(position.x, position.y, size, size);
+    ellipse(position, size);
   }
 
   //------- Private inner methods ----------------------------------------------
