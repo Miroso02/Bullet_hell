@@ -1,5 +1,6 @@
 PVector pressPos;
 PVector releasePos;
+boolean mouseReleased = false;
 
 class Button
 {
@@ -43,7 +44,7 @@ class Button
   }
 
   boolean pressed() {
-    return onButton(pressPos) && onButton(releasePos);
+    return mouseReleased && onButton(pressPos) && onButton(releasePos);
   }
 
   boolean onButton(PVector v)  {
@@ -80,4 +81,6 @@ void mousePressed() {
 
 void mouseReleased() {
   releasePos = new PVector(mouseX, mouseY);
+
+  mouseReleased = true;
 }
