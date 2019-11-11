@@ -10,9 +10,9 @@ void draw() {
   background(0); // Black background
 
   // Fire, move, display, control bullets, take damage
-  for (Cannon c: cannons) {
-    c.update();
-  }
+  // for (Cannon c: cannons) {
+  //   c.update();
+  // }
   test.update();
 
   player.update();

@@ -40,6 +40,8 @@ void setup() {
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
+    public void beforeShot(){}
+    public void afterShot(){}
   });
   c1.getFCPattern(0).setOptions(50, 100);
 
@@ -83,6 +85,8 @@ void setup() {
       int numOfCycles = 300;
       super.changeBulletColorHSB(numOfCycles);
     }
+    public void beforeShot(){}
+    public void afterShot(){}
   });
   c2.getFCPattern(0).setOptions(50, 100);
 
@@ -117,6 +121,8 @@ void setup() {
 
       super.setColorOfAllShot(color(0, 255, 0));
     }
+    public void beforeShot(){}
+    public void afterShot(){}
   });
   test.getFCPattern(0).setOptions(60, 8);
 
@@ -135,12 +141,34 @@ void setup() {
       bullet.mPattern.speed = 5 + (num - num % 8) / 8;
 
       super.changeBulletColorHSB(48 * 6);
-
-      if (num > 39) zeroBul.setPosition(2000, 0);
+    }
+    public void beforeShot(){}
+    public void afterShot() {
+      Cannon cannon = ((Cannon)gameObject);
+      cannon.getFCPattern(0).bullets.clear();
+      cannon.getFCPattern(2).data.put("playerPos", player.getPosition());
     }
   });
   test.getFCPattern(1).setOptions(60, 48);
   test.getFCPattern(1).setTimeCounter(-50);
+
+  test.addFCPattern(new FCPattern() {
+    public void fire() {
+      Bullet bullet = new ABullet();
+      bullets.add(bullet);
+
+      bullet.setPosition((PVector)data.getOrDefault("playerPos", new PVector(2000, 0)));
+      bullet.mPattern.setVelocity(super.shootToAllSides());
+      bullet.mPattern.speed = 10;
+      bullet.size = 6;
+
+      super.setColorOfAllShot(color(240, 200, 255));
+    }
+    public void beforeShot(){}
+    public void afterShot(){}
+  });
+  test.getFCPattern(2).setOptions(60, 30);
+  test.getFCPattern(2).setTimeCounter(-100);
 
   //----------------------------------------------------------------------------
 

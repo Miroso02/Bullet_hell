@@ -5,14 +5,18 @@ abstract class FCPattern extends PreparedFCPatterns {
     bulletsPerShot = 1;
   }
 
-  abstract public void fire();
+  abstract protected void beforeShot();
+  abstract protected void fire();
+  abstract protected void afterShot();
 
   public void fireAndColorize() { // Wrapper
     if (shotCooldown()) return;
 
+    beforeShot();
     for (int i = 0; i < bulletsPerShot; i++) {
       fire();
       bulletsCount++;
     }
+    afterShot();
   }
 }

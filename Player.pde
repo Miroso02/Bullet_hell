@@ -22,6 +22,8 @@ class Player extends Cannon {
 
         bullets.add(bullet);
       }
+      public void beforeShot(){}
+      public void afterShot(){}
     });
     getFCPattern(0).shotCooldown = 4;
     getFCPattern(0).bulletsPerShot = 5;
