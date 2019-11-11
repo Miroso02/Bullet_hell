@@ -150,7 +150,4 @@ void setup() {
 
   rectMode(CENTER);
   textAlign(CENTER);
-
-  mouseX = 0;
-  mouseY = 0;
 }
