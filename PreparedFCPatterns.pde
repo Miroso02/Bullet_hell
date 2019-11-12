@@ -17,7 +17,6 @@ class PreparedFCPatterns extends FCPatternBase {
     return shootToAllSides(this.bulletsPerShot);
   }
   public PVector shootToAllSides(int numOfDirections) {
-    int num = this.bulletsCount;
     float angle = TWO_PI * num / numOfDirections;
 
     return new PVector(cos(angle), sin(angle));
@@ -26,7 +25,6 @@ class PreparedFCPatterns extends FCPatternBase {
   //------------ Color Patterns --------------------------
 
   public void changeBulletColorHSB(int bulletsPerCycle) {
-    int num = this.bulletsCount;
     Bullet bullet = getCurBullet();
 
     colorMode(HSB);
@@ -36,7 +34,6 @@ class PreparedFCPatterns extends FCPatternBase {
   }
 
   public void setColorOfAllShot(color col) {
-    int num = this.bulletsCount;
     Bullet bullet = getCurBullet();
     int bulletsPerShot = this.bulletsPerShot;
 

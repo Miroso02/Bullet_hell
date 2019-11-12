@@ -3,8 +3,7 @@ class FCPatternBase extends PatternBase {
   int bulletsPerShot;
 
   ArrayList<Bullet> bullets;
-  int bulletsCount = 0;
-
+  
   //--------------- Main methods -----------------------------------------------
 
   protected void updateBullets() {

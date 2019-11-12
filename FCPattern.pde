@@ -11,11 +11,11 @@ abstract class FCPattern extends PreparedFCPatterns {
 
   public void fireAndColorize() { // Wrapper
     if (shotCooldown()) return;
-
+    
     beforeShot();
     for (int i = 0; i < bulletsPerShot; i++) {
       fire();
-      bulletsCount++;
+      num++;
     }
     afterShot();
   }

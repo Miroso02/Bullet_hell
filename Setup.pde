@@ -15,7 +15,6 @@ void setup() {
   c1.addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.bulletsCount;
       Bullet bullet = new ABullet();
       bullets.add(bullet);
 
@@ -66,7 +65,6 @@ void setup() {
   c2.addFCPattern(new FCPattern() {
     public void fire()
     {
-      int num = this.bulletsCount;
       Bullet bullet = new ABullet();
       bullets.add(bullet);
 
@@ -114,61 +112,53 @@ void setup() {
       Bullet bullet = new ABullet();
       bullets.add(bullet);
 
+      bullet.setPosition(((Cannon)gameObject).getPosition());
       bullet.size = 20;
-      bullet.setPosition(this.gameObject.getPosition());
+      bullet.setColor(255, 0, 0);
+
+      bullet.setMPattern(new MPattern() {
+        public void move() {
+          velocity.y += 0.03;
+          super.moveWithConstSpeedAndRicochet();
+        }
+      });
       bullet.mPattern.setVelocity(super.shootToAllSides());
       bullet.mPattern.speed = 5;
-
-      super.setColorOfAllShot(color(0, 255, 0));
+      bullet.mPattern.ricochetModule.setOptions(2, true, true, true);
     }
     public void beforeShot(){}
     public void afterShot(){}
   });
-  test.getFCPattern(0).setOptions(60, 8);
+  test.getFCPattern(0).setOptions(160, 6);
 
   test.addFCPattern(new FCPattern() {
-    public void fire() {
-      int num = this.bulletsCount % 48;
-      Bullet bullet = new ABullet();
-      bullets.add(bullet);
-
-      Bullet zeroBul = ((Cannon)gameObject).getFCPattern(0).getBullet(num % 8);
-      PVector zeroBulPos = zeroBul.getPosition();
-
-      bullet.setPosition(zeroBulPos);
-      bullet.mPattern.setVelocity(super.targetPlayerFrom(zeroBulPos));
-      bullet.size = 10;
-      bullet.mPattern.speed = 5 + (num - num % 8) / 8;
-
-      super.changeBulletColorHSB(48 * 6);
+    public void beforeShot() {
+      this.bulletsPerShot = ((Cannon)gameObject).getFCPattern(0).bullets.size();
     }
-    public void beforeShot(){}
-    public void afterShot() {
-      Cannon cannon = ((Cannon)gameObject);
-      cannon.getFCPattern(0).bullets.clear();
-      cannon.getFCPattern(2).data.put("playerPos", player.getPosition());
-    }
-  });
-  test.getFCPattern(1).setOptions(60, 48);
-  test.getFCPattern(1).setTimeCounter(-50);
 
-  test.addFCPattern(new FCPattern() {
     public void fire() {
       Bullet bullet = new ABullet();
       bullets.add(bullet);
+      int num = this.num % bulletsPerShot;
 
-      bullet.setPosition((PVector)data.getOrDefault("playerPos", new PVector(2000, 0)));
-      bullet.mPattern.setVelocity(super.shootToAllSides());
-      bullet.mPattern.speed = 10;
-      bullet.size = 6;
+      Bullet prevBul = ((Cannon)gameObject).getFCPattern(0).getBullet(num);
+      bullet.setPosition(prevBul.getPosition());
 
-      super.setColorOfAllShot(color(240, 200, 255));
+      bullet.setMPattern(new MPattern() {
+        public void move() {
+          velocity.y += 0.03;
+          super.moveWithConstSpeed();
+        }
+      });
+      bullet.mPattern.setVelocity(0, -1);
+      bullet.mPattern.speed = 4;
+
+      super.changeBulletColorHSB(150);
     }
-    public void beforeShot(){}
     public void afterShot(){}
   });
-  test.getFCPattern(2).setOptions(60, 30);
-  test.getFCPattern(2).setTimeCounter(-100);
+  test.getFCPattern(1).setOptions(8, 6);
+  test.getFCPattern(1).setTimeCounter(-5);
 
   //----------------------------------------------------------------------------
 

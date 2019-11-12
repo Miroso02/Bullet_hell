@@ -52,6 +52,11 @@ abstract class GameObject {
     this.mPattern = newPattern;
   }
 
+  void setMPattern(MPattern newPattern, FCPattern base) {
+    newPattern.num = base.num;
+    setMPattern(newPattern);
+  }
+
   void setColor(float r, float g, float b) {
     this.col = color(r, g, b);
   }

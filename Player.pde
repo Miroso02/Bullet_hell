@@ -10,7 +10,6 @@ class Player extends Cannon {
 
     addFCPattern(new FCPattern() {
       public void fire() {
-         int num = this.bulletsCount;
         Bullet bullet = new Bullet();
 
         float bulletSpeedX = (num % 5 - 2) * 1.4;
