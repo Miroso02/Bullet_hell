@@ -168,4 +168,9 @@ void setup() {
 
   rectMode(CENTER);
   textAlign(CENTER);
+  
+  mouseX = -1;
+  pmouseX = -1;
+  mouseY = -1;
+  pmouseY = -1;
 }

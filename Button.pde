@@ -4,9 +4,8 @@ boolean mouseReleased = false;
 
 class Button extends GameObject
 {
-  PVector sizes = new PVector(0, 0);
-  PVector padding= new PVector(0, 0);
-
+  PVector dimensions = new PVector(0, 0);
+  
   String text;
 
   color pcol;
@@ -19,8 +18,8 @@ class Button extends GameObject
     pcol = color(255, 100, 0);
 
     textSize(30);
+    setText("");
     setPadding(10, 10);
-    setOptions("");
 
     pressPos = new PVector(0, 0);
     releasePos = new PVector(0, 0);
@@ -31,11 +30,13 @@ class Button extends GameObject
     stroke(fillCol);
 
     textSize(30);
+    textAlign(CENTER, CENTER);
     fill(fillCol);
-    text(text, position.x, position.y + padding.y);
+    text(text, position.x, position.y);
+    textAlign(CENTER);
 
     fill(0, 0);
-    rect(position.x, position.y, sizes.x, sizes.y);
+    rect(position.x, position.y, dimensions.x, dimensions.y);
   }
 
   boolean pressed() {
@@ -47,20 +48,35 @@ class Button extends GameObject
   }
 
   boolean onButton(float mx, float my) {
-    return abs(mx - position.x) < sizes.x / 2 &&
-           abs(my - position.y) < sizes.y / 2;
+    return abs(mx - position.x) < dimensions.x / 2 &&
+           abs(my - position.y) < dimensions.y / 2;
   }
-
-  void setPadding(float pw, float ph) {
-    padding.x = pw;
-    padding.y = ph;
-  }
-
-  void setOptions(String text) {
+  
+  private void setText(String text) {
     this.text = text;
+  }
 
-    sizes.x = 2 * padding.x + textWidth(text);
-    sizes.y = 2 * padding.y + textAscent() + textDescent();
+  private void setPadding(PVector padding) {
+    dimensions.x = 2 * padding.x + textWidth(text);
+    dimensions.y = 2 * padding.y + textAscent() + textDescent();
+  }
+  
+  private void setPadding(float pw, float ph) {
+    setPadding(new PVector(pw, ph));
+  }
+  
+  void setOptions(String text, float pw, float ph) {
+    setText(text);
+    setPadding(pw, ph);
+  }
+  
+  void setOptions(String text, PVector padding) {
+    setText(text);
+    setPadding(padding);
+  }
+  
+  void setOptions(String text) {
+    setOptions(text, 10, 10);
   }
 }
 

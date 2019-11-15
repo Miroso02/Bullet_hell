@@ -32,10 +32,10 @@ class Player extends Cannon {
         if (mousePressed) {
           final float SENSITIVITY = 1;
           PVector pos = gameObject.getPosition();
-
+          
           pos.x += SENSITIVITY * (mouseX - pmouseX);
           pos.y += SENSITIVITY * (mouseY - pmouseY);
-
+          
           gameObject.setPosition(pos);
         }
       }
